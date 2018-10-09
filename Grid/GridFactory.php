@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Havoc\Engine\Grid;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\ControllerFactory\ControllerFactoryException;
 use ReflectionClass;
 
 /**
@@ -21,7 +20,7 @@ abstract class GridFactory
         $reflects = (new ReflectionClass($grid))->implementsInterface(GridInterface::class);
     
         if (false === $reflects) {
-            throw ControllerFactoryException::gridBadClass($grid);
+            throw GridException::gridBadClass($grid);
         }
     
         return new $grid($config_controller);

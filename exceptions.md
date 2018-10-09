@@ -9,3 +9,4 @@ This document details the exceptions in this project.
 * Set 4: GridException
 * Set 5: RenderException
 * Set 6: CoordinatesException
+* Set 7: RendererException
