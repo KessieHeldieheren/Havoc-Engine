@@ -36,6 +36,6 @@ abstract class RendererFactory
             throw RendererException::rendererBadClass($renderer);
         }
         
-        return new $render($config_controller, $grid, $render);
+        return new $renderer($config_controller, $grid, $render);
     }
 }

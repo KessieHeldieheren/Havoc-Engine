@@ -63,27 +63,6 @@ class Engine
     }
     
     /**
-     * Render and return the world grid.
-     *
-     * Optionally increment the world tick.
-     *
-     * @param bool $increment_tick
-     * @return string
-     */
-    public function renderWorld(bool $increment_tick = true): string
-    {
-        $world = $this->getWorldController();
-        
-        $world->composeRender();
-
-        if (true === $increment_tick) {
-            $this->getTickController()->incrementTick();
-        }
-        
-        return $world->getRender()->__toString();
-    }
-    
-    /**
      * Returns config_controller.
      *
      * @return ConfigController
