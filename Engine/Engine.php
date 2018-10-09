@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Engine;
 
 use Havoc\Engine\Config\ConfigController;
-use Havoc\Engine\Factories\ControllerFactory;
+use Havoc\Engine\ControllerFactory\ControllerFactory;
 use Havoc\Engine\Tick\TickController;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldController;

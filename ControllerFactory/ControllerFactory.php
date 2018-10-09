@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Factories;
+namespace Havoc\Engine\ControllerFactory;
 
 use Havoc\Engine\Config\ConfigController;
 use Havoc\Engine\Config\ConfigControllerInterface;
@@ -31,7 +31,7 @@ abstract class ControllerFactory
         $reflects = (new ReflectionClass($controller))->implementsInterface(ConfigControllerInterface::class);
         
         if (false === $reflects) {
-            throw FactoryException::configControllerBadClass($controller);
+            throw ControllerFactoryException::configControllerBadClass($controller);
         }
         
         return new $controller();
@@ -50,7 +50,7 @@ abstract class ControllerFactory
         $reflects = (new ReflectionClass($controller))->implementsInterface(WorldControllerInterface::class);
         
         if (false === $reflects) {
-            throw FactoryException::worldControllerBadClass($controller);
+            throw ControllerFactoryException::worldControllerBadClass($controller);
         }
         
         return new $controller($config_controller);
@@ -68,7 +68,7 @@ abstract class ControllerFactory
         $reflects = (new ReflectionClass($controller))->implementsInterface(TickControllerInterface::class);
         
         if (false === $reflects) {
-            throw FactoryException::tickControllerBadClass($controller);
+            throw ControllerFactoryException::tickControllerBadClass($controller);
         }
         
         return new $controller();

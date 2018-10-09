@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
-use Havoc\Engine\Factories\FactoryException;
+use Havoc\Engine\ControllerFactory\ControllerFactoryException;
 use ReflectionClass;
 
 /**
@@ -28,7 +28,7 @@ abstract class CoordinatesFactory
         $reflects = (new ReflectionClass($coordinates_class))->implementsInterface(CoordinatesInterface::class);
         
         if (false === $reflects) {
-            throw FactoryException::configControllerBadClass($coordinates_class);
+            throw ControllerFactoryException::configControllerBadClass($coordinates_class);
         }
         
         /** @var CoordinatesInterface $coordinates */

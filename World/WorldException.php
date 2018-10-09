@@ -8,8 +8,6 @@ use Havoc\Engine\Exceptions\HavocEngineException;
 /**
  * Havoc Engine world exceptions.
  *
- * Exception set: 1.
- *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0

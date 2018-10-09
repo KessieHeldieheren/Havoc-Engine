@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Render;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Factories\FactoryException;
+use Havoc\Engine\ControllerFactory\ControllerFactoryException;
 use ReflectionClass;
 
 /**
@@ -29,7 +29,7 @@ abstract class RenderFactory
         $reflects = (new ReflectionClass($render))->implementsInterface(RenderInterface::class);
     
         if (false === $reflects) {
-            throw FactoryException::configControllerBadClass($render);
+            throw ControllerFactoryException::configControllerBadClass($render);
         }
         
         return new $render($config_controller);

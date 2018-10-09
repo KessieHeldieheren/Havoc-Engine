@@ -9,8 +9,6 @@ use Havoc\Engine\System\Property;
 /**
  * Havoc Engine configuration exceptions.
  *
- * Exception set: 2.
- *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
