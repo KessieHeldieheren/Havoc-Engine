@@ -155,7 +155,7 @@ class Grid implements Iterator, GridInterface
      */
     public function next(): void
     {
-        $this->grid_index++;
+        ++$this->grid_index;
     }
     
     /**
@@ -192,6 +192,6 @@ class Grid implements Iterator, GridInterface
      */
     public function rewind(): void
     {
-        $this->grid_index--;
+        --$this->grid_index;
     }
 }
