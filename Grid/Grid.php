@@ -69,18 +69,29 @@ class Grid implements Iterator, GridInterface
     }
     
     /**
-     * Splice world point onto grid.
+     * Insert world point into grid using coordinates.
      *
      * @param WorldPointInterface $world_point
      * @param CoordinatesInterface $coordinates
      */
-    public function spliceGrid(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void
+    public function insertWithCoordinates(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void
     {
         $point_x = $coordinates->getX();
         $point_y = $coordinates->getY();
-        $point_index = ($point_x - 1) + ($point_y - 1) * $this->getConfigController()->getXGrid();
+        $index = ($point_x - 1) + ($point_y - 1) * $this->getConfigController()->getXGrid();
         
-        $this->grid_index[$point_index] = $world_point;
+        $this->grid_index[$index] = $world_point;
+    }
+    
+    /**
+     * Insert world point into grid using index.
+     *
+     * @param WorldPointInterface $world_point
+     * @param int $index
+     */
+    public function insertWithIndex(WorldPointInterface $world_point, int $index): void
+    {
+        $this->grid_index[$index] = $world_point;
     }
     
     /**

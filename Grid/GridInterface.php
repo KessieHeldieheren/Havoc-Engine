@@ -41,5 +41,5 @@ interface GridInterface
      * @param WorldPointInterface $world_point
      * @param CoordinatesInterface $coordinates
      */
-    public function spliceGrid(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void;
+    public function insertWithCoordinates(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void;
 }
