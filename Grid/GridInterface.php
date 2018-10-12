@@ -5,7 +5,7 @@ namespace Havoc\Engine\Grid;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\World\WorldPointInterface;
+use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
  * Havoc Engine grid interface.
@@ -42,4 +42,9 @@ interface GridInterface
      * @param CoordinatesInterface $coordinates
      */
     public function insertWithCoordinates(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void;
+    
+    /**
+     * Insert empty points into the grid.
+     */
+    public function insertEmptyPoints(): void;
 }

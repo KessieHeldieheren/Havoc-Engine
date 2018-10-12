@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Havoc\Engine\WorldPoint;
 
 use Havoc\Engine\Config\DefaultConfig;
-use Havoc\Engine\World\WorldPointInterface;
 
 /**
  * Havoc Engine empty world point.
@@ -21,6 +20,16 @@ class EmptyWorldPoint implements WorldPointInterface
      * @var string
      */
     private $icon = DefaultConfig::WORLD_POINT_NORMAL_ICON;
+    
+    /**
+     * EmptyWorldPoint constructor method.
+     *
+     * @param string $icon
+     */
+    public function __construct(string $icon)
+    {
+        $this->setIcon($icon);
+    }
     
     /**
      * Returns display icon.

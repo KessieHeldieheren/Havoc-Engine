@@ -28,7 +28,7 @@ abstract class CoordinatesFactory
         $reflects = (new ReflectionClass($coordinates_class))->implementsInterface(CoordinatesInterface::class);
         
         if (false === $reflects) {
-            throw ControllerFactoryException::configControllerBadClass($coordinates_class);
+            throw CoordinatesException::coordinatesBadClass($coordinates_class);
         }
         
         /** @var CoordinatesInterface $coordinates */

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\ControllerFactory;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
+use Havoc\Engine\Entity\EntityControllerInterface;
 use Havoc\Engine\Exceptions\HavocEngineException;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldControllerInterface;
@@ -47,6 +48,20 @@ class ControllerFactoryException extends HavocEngineException
         return new self (
             sprintf("Cannot instantiate the config controller module using %s, as it must implement %s.", $given_class, $required_class),
             self::WORLD_CONTROLLER_BAD_CLASS
+        );
+    }
+    
+    /**
+     * @param string $given_class
+     * @return ControllerFactoryException
+     */
+    public static function entityControllerBadClass(string $given_class): self
+    {
+        $required_class = EntityControllerInterface::class;
+        
+        return new self (
+            sprintf("Cannot instantiate the entity controller module using %s, as it must implement %s.", $given_class, $required_class),
+            self::ENTITY_CONTROLLER_BAD_CLASS
         );
     }
     

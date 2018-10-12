@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\World;
+namespace Havoc\Engine\WorldPoint;
 
 /**
  * Havoc Engine world point interface.

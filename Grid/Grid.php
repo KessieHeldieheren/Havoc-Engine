@@ -5,7 +5,8 @@ namespace Havoc\Engine\Grid;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\World\WorldPointInterface;
+use Havoc\Engine\WorldPoint\WorldPointFactory;
+use Havoc\Engine\WorldPoint\WorldPointInterface;
 use Iterator;
 
 /**
@@ -25,18 +26,18 @@ class Grid implements Iterator, GridInterface
     private $config_controller;
     
     /**
+     * Grid index.
+     *
+     * @var int
+     */
+    private $index = 0;
+    
+    /**
      * Grid array.
      *
      * @var WorldPointInterface[]
      */
     private $grid = [];
-    
-    /**
-     * Grid index.
-     *
-     * @var int
-     */
-    private $grid_index = 0;
     
     /**
      * Grid constructor method.
@@ -46,6 +47,40 @@ class Grid implements Iterator, GridInterface
     public function __construct(ConfigControllerInterface $config_controller)
     {
         $this->setConfigController($config_controller);
+    }
+    
+    /**
+     * Insert empty points into the grid.
+     */
+    public function insertEmptyPoints(): void
+    {
+        $config = $this->getConfigController();
+        $x_grid = $config->getXGrid();
+        $y_grid = $config->getYGrid();
+        $total = $x_grid * $y_grid;
+        $normal_icon = $config->getWorldPointNormalIcon();
+        $alternate_icon = $config->getWorldPointAlternateIcon();
+        $y_grid_index = 1;
+        
+        for ($i = 0; $i <= $total; $i++) {
+            if (0 === $i % $x_grid) {
+                $y_grid_index++;
+            }
+            
+            if (0 === $y_grid_index % 2) {
+                $this->insertWithIndex(
+                    WorldPointFactory::newEmpty($alternate_icon),
+                    $i
+                );
+                
+                continue;
+            }
+    
+            $this->insertWithIndex(
+                WorldPointFactory::newEmpty($normal_icon),
+                $i
+            );
+        }
     }
     
     /**
@@ -80,7 +115,7 @@ class Grid implements Iterator, GridInterface
         $point_y = $coordinates->getY();
         $index = ($point_x - 1) + ($point_y - 1) * $this->getConfigController()->getXGrid();
         
-        $this->grid_index[$index] = $world_point;
+        $this->grid[$index] = $world_point;
     }
     
     /**
@@ -91,7 +126,7 @@ class Grid implements Iterator, GridInterface
      */
     public function insertWithIndex(WorldPointInterface $world_point, int $index): void
     {
-        $this->grid_index[$index] = $world_point;
+        $this->grid[$index] = $world_point;
     }
     
     /**
@@ -119,23 +154,23 @@ class Grid implements Iterator, GridInterface
      *
      * @return int
      */
-    public function getGridIndex(): int
+    public function getIndex(): int
     {
-        return $this->grid_index;
+        return $this->index;
     }
     
     /**
      * Sets grid_index.
      *
-     * @param int $grid_index
+     * @param int $index
      */
-    public function setGridIndex(int $grid_index): void
+    public function setIndex(int $index): void
     {
-        $this->grid_index = $grid_index;
+        $this->index = $index;
     }
     
     /**
-     * Return the current element
+     * Return the current element.
      *
      * @link http://php.net/manual/en/iterator.current.php
      * @return WorldPointInterface
@@ -143,11 +178,11 @@ class Grid implements Iterator, GridInterface
      */
     public function current(): WorldPointInterface
     {
-        return $this->getGrid()[$this->getGridIndex()];
+        return $this->getGrid()[$this->getIndex()];
     }
     
     /**
-     * Move forward to next element
+     * Move forward to next element.
      *
      * @link http://php.net/manual/en/iterator.next.php
      * @return void Any returned value is ignored.
@@ -155,11 +190,11 @@ class Grid implements Iterator, GridInterface
      */
     public function next(): void
     {
-        ++$this->grid_index;
+        ++$this->index;
     }
     
     /**
-     * Return the key of the current element
+     * Return the key of the current element.
      *
      * @link http://php.net/manual/en/iterator.key.php
      * @return mixed scalar on success, or null on failure.
@@ -167,11 +202,11 @@ class Grid implements Iterator, GridInterface
      */
     public function key()
     {
-        return $this->getGridIndex();
+        return $this->getIndex();
     }
     
     /**
-     * Checks if current position is valid
+     * Checks if current position is valid.
      *
      * @link http://php.net/manual/en/iterator.valid.php
      * @return boolean The return value will be casted to boolean and then evaluated.
@@ -180,11 +215,11 @@ class Grid implements Iterator, GridInterface
      */
     public function valid(): bool
     {
-        return isset($this->getGrid()[$this->getGridIndex()]);
+        return isset($this->getGrid()[$this->getIndex()]);
     }
     
     /**
-     * Rewind the Iterator to the first element
+     * Rewind the Iterator to the first element.
      *
      * @link http://php.net/manual/en/iterator.rewind.php
      * @return void Any returned value is ignored.
@@ -192,6 +227,6 @@ class Grid implements Iterator, GridInterface
      */
     public function rewind(): void
     {
-        --$this->grid_index;
+        --$this->index;
     }
 }

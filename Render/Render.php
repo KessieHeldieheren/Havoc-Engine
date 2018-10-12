@@ -62,7 +62,7 @@ class Render implements RenderInterface
      * @param string $append
      * @param bool $newline
      */
-    public function appendRender(string $append, bool $newline = true): void
+    public function appendRender(string $append = "", bool $newline = true): void
     {
         $this->render .= $append;
         
@@ -99,13 +99,5 @@ class Render implements RenderInterface
     public function setConfigController(ConfigControllerInterface $config_controller): void
     {
         $this->config_controller = $config_controller;
-    }
-    
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render;
     }
 }

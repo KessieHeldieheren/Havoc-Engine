@@ -39,7 +39,7 @@ interface RenderInterface
      * @param string $append
      * @param bool $newline
      */
-    public function appendRender(string $append, bool $newline = true): void;
+    public function appendRender(string $append = "", bool $newline = true): void;
     
     /**
      * Sets render.
@@ -47,9 +47,4 @@ interface RenderInterface
      * @param string $render
      */
     public function setRender(string $render): void;
-    
-    /**
-     * @return string
-     */
-    public function __toString();
 }

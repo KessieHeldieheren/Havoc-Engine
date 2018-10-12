@@ -5,6 +5,9 @@ namespace Havoc\Engine\ControllerFactory;
 
 use Havoc\Engine\Config\ConfigController;
 use Havoc\Engine\Config\ConfigControllerInterface;
+use Havoc\Engine\Entity\EntityController;
+use Havoc\Engine\Entity\EntityControllerInterface;
+use Havoc\Engine\Grid\GridInterface;
 use Havoc\Engine\Tick\TickController;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldController;
@@ -72,5 +75,25 @@ abstract class ControllerFactory
         }
         
         return new $controller();
+    }
+    
+    /**
+     * Create a new tick controller.
+     *
+     * @param ConfigControllerInterface $config_controller
+     * @param GridInterface $grid
+     * @param string $controller
+     * @return EntityControllerInterface
+     * @throws \ReflectionException
+     */
+    public static function newEntityController(ConfigControllerInterface $config_controller, GridInterface $grid, string $controller = EntityController::class): EntityControllerInterface
+    {
+        $reflects = (new ReflectionClass($controller))->implementsInterface(EntityControllerInterface::class);
+        
+        if (false === $reflects) {
+            throw ControllerFactoryException::entityControllerBadClass($controller);
+        }
+        
+        return new $controller($config_controller, $grid);
     }
 }

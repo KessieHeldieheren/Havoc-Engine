@@ -28,7 +28,7 @@ interface RendererInterface
     /**
      * Render the world as a string.
      *
-     * @return string
+     * @return void
      */
-    public function render(): string;
+    public function render(): void;
 }
