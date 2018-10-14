@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
+use Havoc\Engine\Config\DefaultConfig;
+
 /**
  * Havoc Engine world coordinates interface.
  *
@@ -39,4 +41,11 @@ interface CoordinatesInterface
      * @param float $y
      */
     public function setY(float $y): void;
+    
+    /**
+     * Format coordinates as string.
+     *
+     * @return string
+     */
+    public function __toString();
 }

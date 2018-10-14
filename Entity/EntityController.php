@@ -6,7 +6,7 @@ namespace Havoc\Engine\Entity;
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Grid\GridInterface;
-use Iterator;
+use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
  * Havoc Engine entity controller.
@@ -15,7 +15,7 @@ use Iterator;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
-class EntityController implements EntityControllerInterface, Iterator
+class EntityController implements EntityControllerInterface
 {
     /**
      * Grid.
@@ -32,13 +32,6 @@ class EntityController implements EntityControllerInterface, Iterator
     private $config_controller;
     
     /**
-     * Current index.
-     *
-     * @var int
-     */
-    private $index = 0;
-    
-    /**
      * World entities.
      *
      * @var EntityInterface[]
@@ -46,15 +39,23 @@ class EntityController implements EntityControllerInterface, Iterator
     private $entities = [];
     
     /**
+     * Logger.
+     *
+     * @var LogControllerInterface
+     */
+    private $logger;
+    
+    /**
      * EntityController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridInterface $grid
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid)
+    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger)
     {
         $this->setConfigController($config_controller);
         $this->setGrid($grid);
+        $this->setLogger($logger);
     }
     
     /**
@@ -98,26 +99,6 @@ class EntityController implements EntityControllerInterface, Iterator
     }
     
     /**
-     * Returns index.
-     *
-     * @return int
-     */
-    public function getIndex(): int
-    {
-        return $this->index;
-    }
-    
-    /**
-     * Sets index.
-     *
-     * @param int $index
-     */
-    public function setIndex(int $index): void
-    {
-        $this->index = $index;
-    }
-    
-    /**
      * Returns entities.
      *
      * @return EntityInterface[]
@@ -125,6 +106,24 @@ class EntityController implements EntityControllerInterface, Iterator
     public function getEntities(): array
     {
         return $this->entities;
+    }
+    
+    /**
+     * @param string $search_class
+     * @return EntityInterface[]
+     */
+    public function getEntitiesOfClass(string $search_class): array
+    {
+        $entities = $this->getEntities();
+        $result = [];
+        
+        foreach ($entities as $entity) {
+            if ($search_class === \get_class($entity)) {
+                $result[] = $entity;
+            }
+        }
+        
+        return $result;
     }
     
     /**
@@ -140,8 +139,18 @@ class EntityController implements EntityControllerInterface, Iterator
     {
         $id = $this->getNewKey();
         $entity = EntityFactory::new($entity_class, $id, $name, $coordinates, $icon);
-        
         $this->entities[$id] = $entity;
+        
+        $this->getLogger()->addLog(
+            [
+                $entity->getId(),
+                $entity->getName(),
+                $entity->getIcon(),
+                $entity->getCoordinates()->__toString()
+            ],
+            LogMessage::CREATED_ENTITY,
+            self::class
+        );
         
         return $entity;
     }
@@ -149,13 +158,21 @@ class EntityController implements EntityControllerInterface, Iterator
     /**
      * Attempts to silently delete an entity. No errors occur on failure.
      *
-     * @param int $id
+     * @param EntityInterface $entity
+     * @throws \ReflectionException
      */
-    public function deleteEntity(int $id): void
+    public function deleteEntity(EntityInterface $entity): void
     {
-        if (isset($this->entities[$id])) {
-            unset($this->entities[$id]);
-        }
+        unset($this->entities[$entity->getId()]);
+        
+        $this->getLogger()->addLog(
+            [
+                $entity->getId(),
+                $entity->getName()
+            ],
+            LogMessage::DELETED_ENTITY,
+            self::class
+        );
     }
     
     /**
@@ -171,64 +188,23 @@ class EntityController implements EntityControllerInterface, Iterator
     }
     
     /**
-     * Return the current element.
+     * Returns logger.
      *
-     * @link http://php.net/manual/en/iterator.current.php
-     * @return EntityInterface
-     * @since 5.0.0
+     * @return LogControllerInterface
      */
-    public function current(): EntityInterface
+    public function getLogger(): LogControllerInterface
     {
-        return $this->getEntities()[$this->getIndex()];
+        return $this->logger;
     }
     
     /**
-     * Move forward to next element.
+     * Sets logger.
      *
-     * @link http://php.net/manual/en/iterator.next.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
+     * @param LogControllerInterface $logger
      */
-    public function next(): void
+    public function setLogger(LogControllerInterface $logger): void
     {
-        ++$this->index;
-    }
-    
-    /**
-     * Return the key of the current element.
-     *
-     * @link http://php.net/manual/en/iterator.key.php
-     * @return mixed scalar on success, or null on failure.
-     * @since 5.0.0
-     */
-    public function key()
-    {
-        return $this->getIndex();
-    }
-    
-    /**
-     * Checks if current position is valid.
-     *
-     * @link http://php.net/manual/en/iterator.valid.php
-     * @return boolean The return value will be casted to boolean and then evaluated.
-     * Returns true on success or false on failure.
-     * @since 5.0.0
-     */
-    public function valid(): bool
-    {
-        return isset($this->getGrid()[$this->getIndex()]);
-    }
-    
-    /**
-     * Rewind the Iterator to the first element.
-     *
-     * @link http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind(): void
-    {
-        --$this->index;
+        $this->logger = $logger;
     }
     
     /**
@@ -236,7 +212,7 @@ class EntityController implements EntityControllerInterface, Iterator
      *
      * @return int
      */
-    public function getNewKey(): int
+    protected function getNewKey(): int
     {
         end($this->entities);
         

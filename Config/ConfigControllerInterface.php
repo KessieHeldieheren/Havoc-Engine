@@ -12,7 +12,6 @@ namespace Havoc\Engine\Config;
  */
 interface ConfigControllerInterface
 {
-    
     /**
      * Returns x_grid.
      *

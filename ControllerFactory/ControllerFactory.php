@@ -8,6 +8,7 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Entity\EntityController;
 use Havoc\Engine\Entity\EntityControllerInterface;
 use Havoc\Engine\Grid\GridInterface;
+use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\Tick\TickController;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldController;
@@ -82,11 +83,12 @@ abstract class ControllerFactory
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridInterface $grid
+     * @param LogControllerInterface $logger
      * @param string $controller
      * @return EntityControllerInterface
      * @throws \ReflectionException
      */
-    public static function newEntityController(ConfigControllerInterface $config_controller, GridInterface $grid, string $controller = EntityController::class): EntityControllerInterface
+    public static function newEntityController(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger, string $controller = EntityController::class): EntityControllerInterface
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(EntityControllerInterface::class);
         
@@ -94,6 +96,23 @@ abstract class ControllerFactory
             throw ControllerFactoryException::entityControllerBadClass($controller);
         }
         
-        return new $controller($config_controller, $grid);
+        return new $controller($config_controller, $grid, $logger);
+    }
+    
+    /**
+     * Create a new log controller.
+     *
+     * @param string $controller
+     * @return LogControllerInterface
+     */
+    public static function newLogController(string $controller): LogControllerInterface
+    {
+        $reflects = (new ReflectionClass($controller))->implementsInterface(LogControllerInterface::class);
+    
+        if (false === $reflects) {
+            throw ControllerFactoryException::logControllerBadClass($controller);
+        }
+    
+        return new $controller();
     }
 }

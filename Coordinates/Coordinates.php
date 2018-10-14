@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
+use Havoc\Engine\Config\DefaultConfig;
+
 /**
  * Havoc Engine world coordinates.
  *
@@ -64,5 +66,15 @@ class Coordinates implements CoordinatesInterface
     public function setY(float $y): void
     {
         $this->y = $y;
+    }
+    
+    /**
+     * Format coordinates as string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf(DefaultConfig::COORDINATES_FORMAT, $this->getX(), $this->getY());
     }
 }

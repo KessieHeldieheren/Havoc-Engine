@@ -6,6 +6,7 @@ namespace Havoc\Engine\ControllerFactory;
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Entity\EntityControllerInterface;
 use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldControllerInterface;
 
@@ -22,6 +23,7 @@ class ControllerFactoryException extends HavocEngineException
     public const WORLD_CONTROLLER_BAD_CLASS = 0x3001;
     public const ENTITY_CONTROLLER_BAD_CLASS = 0x3002;
     public const TICK_CONTROLLER_BAD_CLASS = 0x3003;
+    public const LOG_CONTROLLER_BAD_CLASS = 0x3004;
     
     /**
      * @param string $given_class
@@ -76,6 +78,20 @@ class ControllerFactoryException extends HavocEngineException
         return new self (
             sprintf("Cannot instantiate the tick controller module using %s, as it must implement %s.", $given_class, $required_class),
             self::TICK_CONTROLLER_BAD_CLASS
+        );
+    }
+    
+    /**
+     * @param string $given_class
+     * @return ControllerFactoryException
+     */
+    public static function logControllerBadClass(string $given_class): self
+    {
+        $required_class = LogControllerInterface::class;
+        
+        return new self (
+            sprintf("Cannot instantiate the log controller module using %s, as it must implement %s.", $given_class, $required_class),
+            self::LOG_CONTROLLER_BAD_CLASS
         );
     }
 }

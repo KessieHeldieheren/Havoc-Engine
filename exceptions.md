@@ -11,3 +11,4 @@ This document details the exceptions in this project.
 * Set 6: CoordinatesException
 * Set 7: RendererException
 * Set 8: EntityException
+* Set 9: LogException

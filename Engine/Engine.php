@@ -7,6 +7,8 @@ use Havoc\Engine\Config\ConfigController;
 use Havoc\Engine\ControllerFactory\ControllerFactory;
 use Havoc\Engine\Entity\EntityController;
 use Havoc\Engine\Entity\EntityControllerInterface;
+use Havoc\Engine\Logger\LogController;
+use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Tick\TickController;
 use Havoc\Engine\Tick\TickControllerInterface;
@@ -50,40 +52,54 @@ class Engine
     private $entity_controller;
     
     /**
-     * Engine constructor method.
+     * Log controller.
      *
-     * @param string $config_controller
-     * @param string $world_controller
-     * @param string $tick_controller
-     * @param string $entity_controller
+     * @var LogControllerInterface
+     */
+    private $log_controller;
+    
+    /**
+     * Engine constructor method.
+     */
+    public function __construct()
+    {
+        $this->bootstrapEngine();
+    }
+    
+    /**
+     * Bootstrap the game engine's controllers.
+     *
      * @throws \ReflectionException
      */
-    public function __construct(string $config_controller = ConfigController::class, string $world_controller = WorldController::class, string $tick_controller = TickController::class, $entity_controller = EntityController::class)
+    public function bootstrapEngine(): void
     {
         $this->setConfigController(
-            ControllerFactory::newConfigController($config_controller)
+            ControllerFactory::newConfigController(ConfigController::class)
+        );
+        
+        $this->setLogController(
+            ControllerFactory::newLogController(LogController::class)
         );
         
         $this->setWorldController(
-            ControllerFactory::newWorldController($this->getConfigController(), $world_controller)
+            ControllerFactory::newWorldController(
+                $this->getConfigController(),
+                WorldController::class
+            )
         );
         
         $this->setTickController(
-            ControllerFactory::newTickController($tick_controller)
+            ControllerFactory::newTickController(TickController::class)
         );
         
         $this->setEntityController(
             ControllerFactory::newEntityController(
                 $this->getConfigController(),
                 $this->getWorldController()->getGrid(),
-                $entity_controller
+                $this->getLogController(),
+                EntityController::class
             )
         );
-    }
-    
-    public function bootstrapEngine(): void
-    {
-    
     }
     
     /**
@@ -186,5 +202,25 @@ class Engine
     public function setEntityController(EntityControllerInterface $entity_controller): void
     {
         $this->entity_controller = $entity_controller;
+    }
+    
+    /**
+     * Returns log_controller.
+     *
+     * @return LogControllerInterface
+     */
+    public function getLogController(): LogControllerInterface
+    {
+        return $this->log_controller;
+    }
+    
+    /**
+     * Sets log_controller.
+     *
+     * @param LogControllerInterface $log_controller
+     */
+    public function setLogController(LogControllerInterface $log_controller): void
+    {
+        $this->log_controller = $log_controller;
     }
 }

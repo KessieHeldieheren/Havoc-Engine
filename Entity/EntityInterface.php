@@ -14,7 +14,6 @@ use Havoc\Engine\Coordinates\CoordinatesInterface;
  */
 interface EntityInterface
 {
-    
     /**
      * EntityBase constructor method.
      *

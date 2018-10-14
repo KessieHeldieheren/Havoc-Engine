@@ -6,6 +6,7 @@ namespace Havoc\Engine\Entity;
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Grid\GridInterface;
+use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
  * Havoc Engine entity controller interface.
@@ -16,14 +17,14 @@ use Havoc\Engine\Grid\GridInterface;
  */
 interface EntityControllerInterface
 {
-    
     /**
      * EntityController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridInterface $grid
+     * @param LogControllerInterface $logger
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid);
+    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger);
     
     /**
      * Returns entities.
@@ -31,13 +32,6 @@ interface EntityControllerInterface
      * @return EntityInterface[]
      */
     public function getEntities(): array;
-    
-    /**
-     * Returns the last key plus 1.
-     *
-     * @return int
-     */
-    public function getNewKey(): int;
     
     /**
      * Create a new entity.
@@ -53,12 +47,19 @@ interface EntityControllerInterface
     /**
      * Attempts to silently delete an entity. No errors occur on failure.
      *
-     * @param int $id
+     * @param EntityInterface $entity
+     * @throws \ReflectionException
      */
-    public function deleteEntity(int $id): void;
+    public function deleteEntity(EntityInterface $entity): void;
     
     /**
      * Maps all entities onto the grid.
      */
     public function mapEntitiesToGrid(): void;
+    
+    /**
+     * @param string $search_class
+     * @return EntityInterface[]
+     */
+    public function getEntitiesOfClass(string $search_class): array;
 }
