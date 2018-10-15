@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\Type\TypeCollectionInterface;
 
 /**
  * Havoc Engine entity interface.
@@ -79,4 +80,18 @@ interface EntityInterface
      * @param string $icon
      */
     public function setIcon(string $icon): void;
+    
+    /**
+     * Returns type_collection.
+     *
+     * @return TypeCollectionInterface
+     */
+    public function getTypeCollection(): TypeCollectionInterface;
+    
+    /**
+     * Sets type_collection.
+     *
+     * @param TypeCollectionInterface $type_collection
+     */
+    public function setTypeCollection(TypeCollectionInterface $type_collection): void;
 }

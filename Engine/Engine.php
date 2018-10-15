@@ -4,15 +4,20 @@ declare(strict_types=1);
 namespace Havoc\Engine\Engine;
 
 use Havoc\Engine\Config\ConfigController;
+use Havoc\Engine\Config\ConfigControllerFactory;
 use Havoc\Engine\ControllerFactory\ControllerFactory;
 use Havoc\Engine\Entity\EntityController;
+use Havoc\Engine\Entity\EntityControllerFactory;
 use Havoc\Engine\Entity\EntityControllerInterface;
 use Havoc\Engine\Logger\LogController;
+use Havoc\Engine\Logger\LogControllerFactory;
 use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Tick\TickController;
+use Havoc\Engine\Tick\TickControllerFactory;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldController;
+use Havoc\Engine\World\WorldControllerFactory;
 
 /**
  * Havoc Engine API class.
@@ -74,26 +79,26 @@ class Engine
     public function bootstrapEngine(): void
     {
         $this->setConfigController(
-            ControllerFactory::newConfigController(ConfigController::class)
+            ConfigControllerFactory::newConfigController(ConfigController::class)
         );
         
         $this->setLogController(
-            ControllerFactory::newLogController(LogController::class)
+            LogControllerFactory::newLogController(LogController::class)
         );
         
         $this->setWorldController(
-            ControllerFactory::newWorldController(
+            WorldControllerFactory::newWorldController(
                 $this->getConfigController(),
                 WorldController::class
             )
         );
         
         $this->setTickController(
-            ControllerFactory::newTickController(TickController::class)
+            TickControllerFactory::newTickController(TickController::class)
         );
         
         $this->setEntityController(
-            ControllerFactory::newEntityController(
+            EntityControllerFactory::newEntityController(
                 $this->getConfigController(),
                 $this->getWorldController()->getGrid(),
                 $this->getLogController(),

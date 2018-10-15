@@ -14,8 +14,23 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  */
 class LogException extends HavocEngineException
 {
-    public const LOG_BAD_CLASS = 0x9000;
-    public const LOG_DOES_NOT_EXIST = 0x9001;
+    public const LOG_CONTROLLER_BAD_CLASS = 0x1;
+    public const LOG_BAD_CLASS = 0x2;
+    public const LOG_DOES_NOT_EXIST = 0x3;
+    
+    /**
+     * @param string $given_class
+     * @return LogException
+     */
+    public static function logControllerBadClass(string $given_class): self
+    {
+        $required_class = LogControllerInterface::class;
+        
+        return new self (
+            sprintf("Cannot instantiate the log controller module using %s, as it must implement %s.", $given_class, $required_class),
+            self::LOG_CONTROLLER_BAD_CLASS
+        );
+    }
     
     /**
      * @param string $given_class

@@ -29,7 +29,7 @@ abstract class RenderFactory
         $reflects = (new ReflectionClass($render))->implementsInterface(RenderInterface::class);
     
         if (false === $reflects) {
-            throw ControllerFactoryException::configControllerBadClass($render);
+            throw RenderException::renderBadClass($render);
         }
         
         return new $render($config_controller);

@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\Type\TypeController;
+use Havoc\Engine\Entity\Type\TypeControllerFactory;
+use Havoc\Engine\Entity\Type\TypeControllerInterface;
 use Havoc\Engine\Grid\GridInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
@@ -32,30 +34,42 @@ class EntityController implements EntityControllerInterface
     private $config_controller;
     
     /**
-     * World entities.
+     * Entity collection.
      *
-     * @var EntityInterface[]
+     * @var EntityCollectionInterface
      */
-    private $entities = [];
+    private $entity_collection;
     
     /**
-     * Logger.
+     * Log controller.
      *
      * @var LogControllerInterface
      */
-    private $logger;
+    private $log_controller;
+    
+    /**
+     * Entity type controller.
+     *
+     * @var TypeControllerInterface
+     */
+    private $type_controller;
     
     /**
      * EntityController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridInterface $grid
+     * @param LogControllerInterface $logger
+     * @param string $type_controller
+     * @param string $entity_collection
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger)
+    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger, string $type_controller = TypeController::class, string $entity_collection = EntityCollection::class)
     {
         $this->setConfigController($config_controller);
         $this->setGrid($grid);
-        $this->setLogger($logger);
+        $this->setLogcontroller($logger);
+        $this->setEntityCollection(EntityFactory::newEntityCollection($this->getLogcontroller(), $entity_collection));
+        $this->setTypeController(TypeControllerFactory::new($type_controller, $this->getEntityCollection()));
     }
     
     /**
@@ -99,92 +113,35 @@ class EntityController implements EntityControllerInterface
     }
     
     /**
-     * Returns entities.
-     *
-     * @return EntityInterface[]
-     */
-    public function getEntities(): array
-    {
-        return $this->entities;
-    }
-    
-    /**
-     * @param string $search_class
-     * @return EntityInterface[]
-     */
-    public function getEntitiesOfClass(string $search_class): array
-    {
-        $entities = $this->getEntities();
-        $result = [];
-        
-        foreach ($entities as $entity) {
-            if ($search_class === \get_class($entity)) {
-                $result[] = $entity;
-            }
-        }
-        
-        return $result;
-    }
-    
-    /**
-     * Create a new entity.
-     *
-     * @param string $entity_class
-     * @param string $name
-     * @param CoordinatesInterface $coordinates
-     * @param string $icon
-     * @return EntityInterface
-     */
-    public function createEntity(string $entity_class = EntityBase::class, string $name, CoordinatesInterface $coordinates, string $icon): EntityInterface
-    {
-        $id = $this->getNewKey();
-        $entity = EntityFactory::new($entity_class, $id, $name, $coordinates, $icon);
-        $this->entities[$id] = $entity;
-        
-        $this->getLogger()->addLog(
-            [
-                $entity->getId(),
-                $entity->getName(),
-                $entity->getIcon(),
-                $entity->getCoordinates()->__toString()
-            ],
-            LogMessage::CREATED_ENTITY,
-            self::class
-        );
-        
-        return $entity;
-    }
-    
-    /**
-     * Attempts to silently delete an entity. No errors occur on failure.
-     *
-     * @param EntityInterface $entity
-     * @throws \ReflectionException
-     */
-    public function deleteEntity(EntityInterface $entity): void
-    {
-        unset($this->entities[$entity->getId()]);
-        
-        $this->getLogger()->addLog(
-            [
-                $entity->getId(),
-                $entity->getName()
-            ],
-            LogMessage::DELETED_ENTITY,
-            self::class
-        );
-    }
-    
-    /**
      * Maps all entities onto the grid.
      */
     public function mapEntitiesToGrid(): void
     {
         $grid = $this->getGrid();
         
-        foreach ($this->getEntities() as $entity) {
+        foreach ($this->getEntityCollection()->getEntities() as $entity) {
             $grid->insertWithCoordinates($entity, $entity->getCoordinates());
         }
+    }
+    
+    /**
+     * Returns entity_collection.
+     *
+     * @return EntityCollectionInterface
+     */
+    public function getEntityCollection(): EntityCollectionInterface
+    {
+        return $this->entity_collection;
+    }
+    
+    /**
+     * Sets entity_collection.
+     *
+     * @param EntityCollectionInterface $entity_collection
+     */
+    public function setEntityCollection(EntityCollectionInterface $entity_collection): void
+    {
+        $this->entity_collection = $entity_collection;
     }
     
     /**
@@ -192,34 +149,38 @@ class EntityController implements EntityControllerInterface
      *
      * @return LogControllerInterface
      */
-    public function getLogger(): LogControllerInterface
+    public function getLogcontroller(): LogControllerInterface
     {
-        return $this->logger;
+        return $this->log_controller;
     }
     
     /**
      * Sets logger.
      *
-     * @param LogControllerInterface $logger
+     * @param LogControllerInterface $log_controller
      */
-    public function setLogger(LogControllerInterface $logger): void
+    public function setLogcontroller(LogControllerInterface $log_controller): void
     {
-        $this->logger = $logger;
+        $this->log_controller = $log_controller;
     }
     
     /**
-     * Returns the last key plus 1.
+     * Returns type_controller.
      *
-     * @return int
+     * @return TypeControllerInterface
      */
-    protected function getNewKey(): int
+    public function getTypeController(): TypeControllerInterface
     {
-        end($this->entities);
-        
-        $key = (int) key($this->entities) + 1;
-        
-        reset($this->entities);
-        
-        return $key;
+        return $this->type_controller;
+    }
+    
+    /**
+     * Sets type_controller.
+     *
+     * @param TypeControllerInterface $type_controller
+     */
+    public function setTypeController(TypeControllerInterface $type_controller): void
+    {
+        $this->type_controller = $type_controller;
     }
 }

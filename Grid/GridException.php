@@ -14,7 +14,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  */
 class GridException extends HavocEngineException
 {
-    public const GRID_BAD_CLASS = 0x4000;
+    public const GRID_BAD_CLASS = 0x1;
     
     /**
      * @param string $given_class

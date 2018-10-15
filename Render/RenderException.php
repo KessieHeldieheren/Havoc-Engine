@@ -14,7 +14,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  */
 class RenderException extends HavocEngineException
 {
-    public const RENDER_BAD_CLASS = 0x5000;
+    public const RENDER_BAD_CLASS = 0x1;
     
     /**
      * @param string $given_class

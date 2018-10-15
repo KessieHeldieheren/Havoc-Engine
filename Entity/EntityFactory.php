@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 use ReflectionClass;
 
@@ -25,7 +26,7 @@ abstract class EntityFactory
      * @return EntityInterface
      * @throws \ReflectionException
      */
-    public static function new(string $entity_class = EntityBase::class, int $id, string $name, CoordinatesInterface $coordinates, string $icon): EntityInterface
+    public static function newEntity(string $entity_class = Entity::class, int $id, string $name, CoordinatesInterface $coordinates, string $icon): EntityInterface
     {
         $reflection_interfaces = (new ReflectionClass($entity_class))->getInterfaceNames();
         
@@ -38,5 +39,23 @@ abstract class EntityFactory
         }
         
         return new $entity_class($id, $name, $coordinates, $icon);
+    }
+    
+    /**
+     * @param LogControllerInterface $log_controller
+     * @param string $entity_collection_class
+     * @return EntityCollectionInterface
+     * @throws \ReflectionException
+     */
+    public static function newEntityCollection(LogControllerInterface $log_controller, string $entity_collection_class = EntityCollection::class): EntityCollectionInterface
+    {
+        $reflects = (new ReflectionClass($entity_collection_class))
+            ->implementsInterface(EntityCollectionInterface::class);
+        
+        if (false === $reflects) {
+            throw EntityException::entityCollectionBadClass($entity_collection_class);
+        }
+        
+        return new $entity_collection_class($log_controller);
     }
 }

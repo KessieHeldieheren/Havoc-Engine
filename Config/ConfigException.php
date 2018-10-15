@@ -15,10 +15,25 @@ use Havoc\Engine\System\Property;
  */
 class ConfigException extends HavocEngineException
 {
-    public const CONFIG_X_GRID_OVER_MAX = 0x2000;
-    public const CONFIG_X_GRID_UNDER_MIN = 0x2001;
-    public const CONFIG_Y_GRID_OVER_MAX = 0x2002;
-    public const CONFIG_Y_GRID_UNDER_MIN = 0x2003;
+    public const CONFIG_CONTROLLER_BAD_CLASS = 0x1;
+    public const CONFIG_X_GRID_OVER_MAX = 0x2;
+    public const CONFIG_X_GRID_UNDER_MIN = 0x3;
+    public const CONFIG_Y_GRID_OVER_MAX = 0x4;
+    public const CONFIG_Y_GRID_UNDER_MIN = 0x5;
+    
+    /**
+     * @param string $given_class
+     * @return ConfigException
+     */
+    public static function configControllerBadClass(string $given_class): self
+    {
+        $required_class = ConfigControllerInterface::class;
+        
+        return new self (
+            sprintf("Cannot instantiate the config controller module using %s, as it must implement %s.", $given_class, $required_class),
+            self::CONFIG_CONTROLLER_BAD_CLASS
+        );
+    }
     
     /**
      * @param int $value
