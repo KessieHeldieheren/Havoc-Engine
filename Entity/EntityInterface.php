@@ -54,20 +54,6 @@ interface EntityInterface
     public function setName(string $name): void;
     
     /**
-     * Returns coordinates.
-     *
-     * @return CoordinatesInterface
-     */
-    public function getCoordinates(): CoordinatesInterface;
-    
-    /**
-     * Sets coordinates.
-     *
-     * @param CoordinatesInterface $coordinates
-     */
-    public function setCoordinates(CoordinatesInterface $coordinates): void;
-    
-    /**
      * Returns display icon.
      *
      * @return string

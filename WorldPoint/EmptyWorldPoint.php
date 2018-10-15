@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\WorldPoint;
 
 use Havoc\Engine\Config\DefaultConfig;
+use Havoc\Engine\Coordinates\CoordinatesInterface;
 
 /**
  * Havoc Engine empty world point.
@@ -20,6 +21,13 @@ class EmptyWorldPoint implements WorldPointInterface
      * @var string
      */
     private $icon = DefaultConfig::WORLD_POINT_NORMAL_ICON;
+    
+    /**
+     * Entity coordinates.
+     *
+     * @var CoordinatesInterface
+     */
+    private $coordinates;
     
     /**
      * EmptyWorldPoint constructor method.
@@ -49,5 +57,25 @@ class EmptyWorldPoint implements WorldPointInterface
     public function setIcon(string $icon): void
     {
         $this->icon = $icon;
+    }
+    
+    /**
+     * Returns coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getCoordinates(): CoordinatesInterface
+    {
+        return $this->coordinates;
+    }
+    
+    /**
+     * Sets coordinates.
+     *
+     * @param CoordinatesInterface $coordinates
+     */
+    public function setCoordinates(CoordinatesInterface $coordinates): void
+    {
+        $this->coordinates = $coordinates;
     }
 }

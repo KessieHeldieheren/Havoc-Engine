@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\WorldPoint;
 
+use Havoc\Engine\Coordinates\CoordinatesInterface;
+
 /**
  * Havoc Engine world point interface.
  *
@@ -27,4 +29,18 @@ interface WorldPointInterface
      * @param string $display
      */
     public function setIcon(string $display): void;
+    
+    /**
+     * Returns coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getCoordinates(): CoordinatesInterface;
+    
+    /**
+     * Sets coordinates.
+     *
+     * @param CoordinatesInterface $coordinates
+     */
+    public function setCoordinates(CoordinatesInterface $coordinates): void;
 }
