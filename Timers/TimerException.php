@@ -6,6 +6,7 @@ namespace Havoc\Engine\Timers;
 use Havoc\Engine\Exceptions\HavocEngineException;
 use Havoc\Engine\Timers\Countdown\CountdownInterface;
 use Havoc\Engine\Timers\Counter\CounterInterface;
+use Havoc\Engine\Timers\Repeater\RepeaterInterface;
 
 /**
  * Havoc Engine timer exceptions.
@@ -18,6 +19,7 @@ class TimerException extends HavocEngineException
 {
     public const COUNTDOWN_BAD_CLASS = 0x1;
     public const COUNTER_BAD_CLASS = 0x2;
+    public const REPEATER_BAD_CLASS = 0x3;
     
     /**
      * @param string $given_class
@@ -43,7 +45,21 @@ class TimerException extends HavocEngineException
         
         return new self (
             sprintf("Cannot create a counter timer using %s, as it must implement %s.", $given_class, $required_class),
-            self::COUNTDOWN_BAD_CLASS
+            self::COUNTER_BAD_CLASS
+        );
+    }
+    
+    /**
+     * @param string $given_class
+     * @return TimerException
+     */
+    public static function repeaterBadClass(string $given_class): self
+    {
+        $required_class = RepeaterInterface::class;
+        
+        return new self (
+            sprintf("Cannot create a repeater timer using %s, as it must implement %s.", $given_class, $required_class),
+            self::REPEATER_BAD_CLASS
         );
     }
 }

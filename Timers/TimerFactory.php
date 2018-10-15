@@ -8,6 +8,7 @@ use Havoc\Engine\Timers\Countdown\Countdown;
 use Havoc\Engine\Timers\Countdown\CountdownInterface;
 use Havoc\Engine\Timers\Counter\Counter;
 use Havoc\Engine\Timers\Counter\CounterInterface;
+use Havoc\Engine\Timers\Repeater\RepeaterInterface;
 
 /**
  * Havoc Engine timer factory.
@@ -55,6 +56,25 @@ abstract class TimerFactory
             throw TimerException::countdownBadClass($timer_class);
         }
         
-        return new $tick_controller();
+        return new $timer_class($tick_controller);
+    }
+    
+    /**
+     * Create a new counter timer.
+     *
+     * @param TickControllerInterface $tick_controller
+     * @param string $timer_class
+     * @return RepeaterInterface
+     * @throws \ReflectionException
+     */
+    public static function newRepeater(TickControllerInterface $tick_controller, $timer_class = Counter::class): RepeaterInterface
+    {
+        $reflects = (new \ReflectionClass($timer_class))->implementsInterface(RepeaterInterface::class);
+        
+        if (false === $reflects) {
+            throw TimerException::repeaterBadClass($timer_class);
+        }
+        
+        return new $timer_class($tick_controller);
     }
 }
