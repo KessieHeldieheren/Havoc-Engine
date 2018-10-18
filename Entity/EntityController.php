@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Entity\Type\TypeController;
+use Havoc\Engine\Entity\Translation\TranslationControllerFactory;
+use Havoc\Engine\Entity\Translation\TranslationControllerInterface;
 use Havoc\Engine\Entity\Type\TypeControllerFactory;
 use Havoc\Engine\Entity\Type\TypeControllerInterface;
 use Havoc\Engine\Grid\GridInterface;
@@ -55,21 +56,49 @@ class EntityController implements EntityControllerInterface
     private $type_controller;
     
     /**
+     * Translation controller.
+     *
+     * @var TranslationControllerInterface
+     */
+    private $translation_controller;
+    
+    /**
      * EntityController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridInterface $grid
      * @param LogControllerInterface $logger
-     * @param string $type_controller
-     * @param string $entity_collection
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger, string $type_controller = TypeController::class, string $entity_collection = EntityCollection::class)
+    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger)
     {
         $this->setConfigController($config_controller);
         $this->setGrid($grid);
         $this->setLogcontroller($logger);
-        $this->setEntityCollection(EntityFactory::newEntityCollection($this->getLogcontroller(), $entity_collection));
-        $this->setTypeController(TypeControllerFactory::new($type_controller, $this->getEntityCollection()));
+        $this->bootstrap();
+    }
+    
+    /**
+     * Bootstrap default dependencies.
+     *
+     * @throws \ReflectionException
+     */
+    protected function bootstrap(): void
+    {
+        $this->setEntityCollection(
+            EntityFactory::newEntityCollection($this->getLogcontroller())
+        );
+    
+        $this->setTypeController(
+            TypeControllerFactory::new($this->getEntityCollection())
+        );
+        
+        $this->setTranslationController(
+            TranslationControllerFactory::new(
+                $this->getEntityCollection(),
+                $this->getLogcontroller(),
+                $this->getGrid()
+            )
+        );
     }
     
     /**
@@ -145,6 +174,22 @@ class EntityController implements EntityControllerInterface
     }
     
     /**
+     * Assign a new entity controller.
+     *
+     * @param string $controller
+     * @throws \ReflectionException
+     */
+    public function assignNewEntityCollection(string $controller): void
+    {
+        $this->setEntityCollection(
+            EntityFactory::newEntityCollection(
+                $this->getLogcontroller(),
+                $controller
+            )
+        );
+    }
+    
+    /**
      * Returns logger.
      *
      * @return LogControllerInterface
@@ -175,6 +220,22 @@ class EntityController implements EntityControllerInterface
     }
     
     /**
+     * Assign a new type controller.
+     *
+     * @param string $controller
+     * @throws \ReflectionException
+     */
+    public function assignNewTypeController(string $controller): void
+    {
+        $this->setTypeController(
+            TypeControllerFactory::new(
+                $this->getEntityCollection(),
+                $controller
+            )
+        );
+    }
+    
+    /**
      * Sets type_controller.
      *
      * @param TypeControllerInterface $type_controller
@@ -182,5 +243,42 @@ class EntityController implements EntityControllerInterface
     public function setTypeController(TypeControllerInterface $type_controller): void
     {
         $this->type_controller = $type_controller;
+    }
+    
+    /**
+     * Returns translation_controller.
+     *
+     * @return TranslationControllerInterface
+     */
+    public function getTranslationController(): TranslationControllerInterface
+    {
+        return $this->translation_controller;
+    }
+    
+    /**
+     * Sets translation_controller.
+     *
+     * @param TranslationControllerInterface $translation_controller
+     */
+    public function setTranslationController(TranslationControllerInterface $translation_controller): void
+    {
+        $this->translation_controller = $translation_controller;
+    }
+    
+    /**
+     * Assign a new translation controller.
+     *
+     * @param string $controller
+     */
+    public function assignNewTranslationController(string $controller): void
+    {
+        $this->setTranslationController(
+            TranslationControllerFactory::new(
+                $this->getEntityCollection(),
+                $this->getLogcontroller(),
+                $this->getGrid(),
+                $controller
+            )
+        );
     }
 }

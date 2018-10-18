@@ -40,6 +40,20 @@ class Entity implements EntityInterface, WorldPointInterface
     private $coordinates;
     
     /**
+     * Entity initial spawn coordinates.
+     *
+     * @var CoordinatesInterface
+     */
+    private $initial_coordinates;
+    
+    /**
+     * Entity last coordinates.
+     *
+     * @var CoordinatesInterface
+     */
+    private $last_coordinates;
+    
+    /**
      * World point display icon.
      *
      * @var string
@@ -65,7 +79,7 @@ class Entity implements EntityInterface, WorldPointInterface
     {
         $this->setId($id);
         $this->setName($name);
-        $this->setCoordinates($coordinates);
+        $this->setInitialCoordinates($coordinates);
         $this->setIcon($icon);
         $this->setTypeCollection(TypeFactory::newTypeCollection());
     }
@@ -131,7 +145,50 @@ class Entity implements EntityInterface, WorldPointInterface
      */
     public function setCoordinates(CoordinatesInterface $coordinates): void
     {
+        $this->setLastCoordinates($this->getCoordinates());
         $this->coordinates = $coordinates;
+    }
+    
+    /**
+     * Returns initial_coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getInitialCoordinates(): CoordinatesInterface
+    {
+        return $this->initial_coordinates;
+    }
+    
+    /**
+     * Sets initial_coordinates.
+     *
+     * @param CoordinatesInterface $coordinates
+     */
+    protected function setInitialCoordinates(CoordinatesInterface $coordinates): void
+    {
+        $this->initial_coordinates = $coordinates->clone();
+        $this->last_coordinates = $coordinates->clone();
+        $this->coordinates = $coordinates;
+    }
+    
+    /**
+     * Returns last_coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getLastCoordinates(): CoordinatesInterface
+    {
+        return $this->last_coordinates;
+    }
+    
+    /**
+     * Sets last_coordinates.
+     *
+     * @param CoordinatesInterface $coordinates
+     */
+    protected function setLastCoordinates(CoordinatesInterface $coordinates): void
+    {
+        $this->last_coordinates = $coordinates->clone();
     }
     
     /**

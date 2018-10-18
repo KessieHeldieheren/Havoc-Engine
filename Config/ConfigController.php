@@ -151,7 +151,7 @@ class ConfigController implements ConfigControllerInterface
      *
      * @return bool
      */
-    public function isCoordinatesGuidevisible(): bool
+    public function isCoordinatesGuideVisible(): bool
     {
         return $this->coordinates_guide_visible;
     }
@@ -161,7 +161,7 @@ class ConfigController implements ConfigControllerInterface
      *
      * @param bool $coordinates_guide_visible
      */
-    public function setCoordinatesGuidevisible(bool $coordinates_guide_visible): void
+    public function setCoordinatesGuideVisible(bool $coordinates_guide_visible): void
     {
         $this->coordinates_guide_visible = $coordinates_guide_visible;
     }

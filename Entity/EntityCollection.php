@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\Type\TypeInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
@@ -44,7 +45,7 @@ class EntityCollection implements EntityCollectionInterface
      * @param string $search_class
      * @return EntityInterface[]
      */
-    public function getEntitiesOfClass(string $search_class): array
+    public function getByClass(string $search_class): array
     {
         $entities = $this->getEntities();
         $result = [];
@@ -61,26 +62,32 @@ class EntityCollection implements EntityCollectionInterface
     /**
      * Create a new entity.
      *
-     * @param string $entity_class
      * @param string $name
      * @param CoordinatesInterface $coordinates
      * @param string $icon
+     * @param array $types
+     * @param string $entity_class
      * @return EntityInterface
+     * @throws \ReflectionException
      */
-    public function createEntity(string $entity_class = Entity::class, string $name, CoordinatesInterface $coordinates, string $icon): EntityInterface
+    public function create(string $name, CoordinatesInterface $coordinates, string $icon, array $types = [], string $entity_class = Entity::class): EntityInterface
     {
         $id = $this->getNewKey();
         $entity = EntityFactory::newEntity($entity_class, $id, $name, $coordinates, $icon);
         $this->entities[$id] = $entity;
         
+        if (null !== $types) {
+            $entity->getTypeCollection()->addTypes($types);
+        }
+        
         $this->getLogcontroller()->addLog(
             [
-                $entity->getId(),
                 $entity->getName(),
+                $entity->getId(),
                 $entity->getIcon(),
-                $entity->getCoordinates()->__toString()
+                $entity->getCoordinates()->string()
             ],
-            EntityLogMessage::CREATED_ENTITY,
+            LogMessage::CREATED_ENTITY,
             self::class
         );
         
@@ -92,16 +99,17 @@ class EntityCollection implements EntityCollectionInterface
      *
      * @param EntityInterface $entity
      */
-    public function deleteEntity(EntityInterface $entity): void
+    public function delete(EntityInterface $entity): void
     {
         unset($this->entities[$entity->getId()]);
         
         $this->getLogcontroller()->addLog(
             [
+                $entity->getName(),
                 $entity->getId(),
-                $entity->getName()
+                $entity->getIcon()
             ],
-            EntityLogMessage::DELETED_ENTITY,
+            LogMessage::DELETED_ENTITY,
             self::class
         );
     }

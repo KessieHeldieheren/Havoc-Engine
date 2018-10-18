@@ -40,4 +40,11 @@ interface TypeCollectionInterface
      * @param TypeInterface $type
      */
     public function deleteType(TypeInterface $type): void;
+    
+    /**
+     * Adds multiple types to the collection.
+     *
+     * @param array $types
+     */
+    public function addTypes(array $types): void;
 }

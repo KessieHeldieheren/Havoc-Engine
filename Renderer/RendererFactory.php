@@ -7,6 +7,7 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 
 use Havoc\Engine\Grid\GridInterface;
 use Havoc\Engine\Render\RenderInterface;
+use Havoc\Engine\RendererCli\RendererCli;
 use ReflectionClass;
 
 /**
@@ -28,7 +29,7 @@ abstract class RendererFactory
      * @return RendererInterface
      * @throws \ReflectionException
      */
-    public static function new(ConfigControllerInterface $config_controller, GridInterface $grid, RenderInterface $render, string $renderer): RendererInterface
+    public static function new(ConfigControllerInterface $config_controller, GridInterface $grid, RenderInterface $render, string $renderer = RendererCli::class): RendererInterface
     {
         $reflects = (new ReflectionClass($renderer))->implementsInterface(RendererInterface::class);
         

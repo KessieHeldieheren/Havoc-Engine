@@ -55,25 +55,32 @@ class WorldController implements WorldControllerInterface
      * WorldController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param string $grid
-     * @param string $render
-     * @param string $renderer
-     * @throws \ReflectionException
      */
-    public function __construct(ConfigControllerInterface $config_controller, string $grid = Grid::class, string $render = Render::class, string $renderer = RendererCli::class)
+    public function __construct(ConfigControllerInterface $config_controller)
     {
         $this->setConfigController($config_controller);
-        
+        $this->bootstrap();
+    }
+    
+    /**
+     * Bootstrap default dependencies.
+     */
+    protected function bootstrap(): void
+    {
         $this->setGrid(
-            GridFactory::new($this->getConfigController(), $grid)
+            GridFactory::new($this->getConfigController())
         );
-        
+    
         $this->setRender(
-            RenderFactory::new($this->getConfigController(), $render)
+            RenderFactory::new($this->getConfigController())
         );
-        
+    
         $this->setRenderer(
-            RendererFactory::new($this->getConfigController(), $this->getGrid(), $this->getRender(), $renderer)
+            RendererFactory::new(
+                $this->getConfigController(),
+                $this->getGrid(),
+                $this->getRender()
+            )
         );
     }
     
@@ -118,6 +125,21 @@ class WorldController implements WorldControllerInterface
     }
     
     /**
+     * Assign a new grid.
+     *
+     * @param string $dependency
+     */
+    public function assignNewGrid(string $dependency): void
+    {
+        $this->setGrid(
+            GridFactory::new(
+                $this->getConfigController(),
+                $dependency
+            )
+        );
+    }
+    
+    /**
      * Returns render.
      *
      * @return RenderInterface
@@ -138,6 +160,22 @@ class WorldController implements WorldControllerInterface
     }
     
     /**
+     * Assign a new render.
+     *
+     * @param string $dependency
+     * @throws \ReflectionException
+     */
+    public function assignNewRender(string $dependency): void
+    {
+        $this->setRender(
+            RenderFactory::new(
+                $this->getConfigController(),
+                $dependency
+            )
+        );
+    }
+    
+    /**
      * Returns renderer.
      *
      * @return RendererInterface
@@ -155,5 +193,22 @@ class WorldController implements WorldControllerInterface
     public function setRenderer(RendererInterface $renderer): void
     {
         $this->renderer = $renderer;
+    }
+    
+    /**
+     * Assign a new renderer.
+     *
+     * @param string $dependency
+     */
+    public function assignNewRenderer(string $dependency): void
+    {
+        $this->setRenderer(
+            RendererFactory::new(
+                $this->getConfigController(),
+                $this->getGrid(),
+                $this->getRender(),
+                $dependency
+            )
+        );
     }
 }

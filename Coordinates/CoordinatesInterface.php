@@ -43,9 +43,30 @@ interface CoordinatesInterface
     public function setY(float $y): void;
     
     /**
+     * Clone coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function clone(): CoordinatesInterface;
+    
+    /**
+     * Return rounded coordinates that fit on the grid precisely.
+     *
+     * @return CoordinatesInterface
+     */
+    public function rounded(): CoordinatesInterface;
+    
+    /**
+     * Format coordinates as array.
+     *
+     * @return array
+     */
+    public function array(): array;
+    
+    /**
      * Format coordinates as string.
      *
      * @return string
      */
-    public function __toString();
+    public function string(): string;
 }

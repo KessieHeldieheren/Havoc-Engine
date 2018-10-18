@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
+use Havoc\Engine\Entity\Translation\TranslationControllerInterface;
 use Havoc\Engine\Entity\Type\TypeControllerInterface;
 use Havoc\Engine\Grid\GridInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
@@ -44,4 +45,34 @@ interface EntityControllerInterface
      * @return TypeControllerInterface
      */
     public function getTypeController(): TypeControllerInterface;
+    
+    /**
+     * Assign a new entity controller.
+     *
+     * @param string $controller
+     * @throws \ReflectionException
+     */
+    public function assignNewEntityCollection(string $controller): void;
+    
+    /**
+     * Assign a new type controller.
+     *
+     * @param string $controller
+     * @throws \ReflectionException
+     */
+    public function assignNewTypeController(string $controller): void;
+    
+    /**
+     * Assign a new translation controller.
+     *
+     * @param string $controller
+     */
+    public function assignNewTranslationController(string $controller): void;
+    
+    /**
+     * Returns translation_controller.
+     *
+     * @return TranslationControllerInterface
+     */
+    public function getTranslationController(): TranslationControllerInterface;
 }

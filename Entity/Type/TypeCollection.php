@@ -41,6 +41,18 @@ class TypeCollection implements TypeCollectionInterface
     }
     
     /**
+     * Adds multiple types to the collection.
+     *
+     * @param array $types
+     */
+    public function addTypes(array $types): void
+    {
+        foreach ($types as $type) {
+            $this->addType($type);
+        }
+    }
+    
+    /**
      * Adds a type to the collection.
      *
      * @param TypeInterface $type

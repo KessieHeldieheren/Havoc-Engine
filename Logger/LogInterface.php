@@ -19,8 +19,9 @@ interface LogInterface
      * @param array $data
      * @param string $message
      * @param string $from
+     * @param int $tick
      */
-    public function __construct(int $id, array $data, string $message, string $from);
+    public function __construct(int $id, array $data, string $message, string $from, int $tick);
     
     /**
      * Returns id.
@@ -56,4 +57,11 @@ interface LogInterface
      * @return string
      */
     public function __toString(): string;
+    
+    /**
+     * Returns tick.
+     *
+     * @return int
+     */
+    public function getTick(): int;
 }

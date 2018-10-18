@@ -13,6 +13,11 @@ namespace Havoc\Engine\Logger;
 class Log implements LogInterface
 {
     /**
+     * Overall format of a stringified log.
+     */
+    public const LOG_FORMAT = "T:%s - %s";
+    
+    /**
      * Log ID.
      *
      * @var int
@@ -41,19 +46,28 @@ class Log implements LogInterface
     private $from;
     
     /**
+     * The tick at which point the log was added.
+     *
+     * @var int
+     */
+    private $tick;
+    
+    /**
      * Log constructor method.
      *
      * @param int $id
      * @param array $data
      * @param string $message
      * @param string $from
+     * @param int $tick
      */
-    public function __construct(int $id, array $data, string $message, string $from)
+    public function __construct(int $id, array $data, string $message, string $from, int $tick)
     {
         $this->setId($id);
         $this->setData($data);
         $this->setMessage($message);
         $this->setFrom($from);
+        $this->setTick($tick);
     }
     
     /**
@@ -137,12 +151,36 @@ class Log implements LogInterface
     }
     
     /**
+     * Returns tick.
+     *
+     * @return int
+     */
+    public function getTick(): int
+    {
+        return $this->tick;
+    }
+    
+    /**
+     * Sets tick.
+     *
+     * @param int $tick
+     */
+    protected function setTick(int $tick): void
+    {
+        $this->tick = $tick;
+    }
+    
+    /**
      * Format log as a string.
      *
      * @return string
      */
     public function __toString(): string
     {
-        return vsprintf($this->getMessage(), $this->getData());
+        return sprintf(
+            self::LOG_FORMAT,
+            $this->getTick(),
+            vsprintf($this->getMessage(), $this->getData())
+        );
     }
 }

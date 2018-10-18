@@ -68,6 +68,20 @@ interface EntityInterface
     public function setIcon(string $icon): void;
     
     /**
+     * Returns coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getCoordinates(): CoordinatesInterface;
+    
+    /**
+     * Sets coordinates.
+     *
+     * @param CoordinatesInterface $coordinates
+     */
+    public function setCoordinates(CoordinatesInterface $coordinates): void;
+    
+    /**
      * Returns type_collection.
      *
      * @return TypeCollectionInterface
@@ -80,4 +94,18 @@ interface EntityInterface
      * @param TypeCollectionInterface $type_collection
      */
     public function setTypeCollection(TypeCollectionInterface $type_collection): void;
+    
+    /**
+     * Returns initial_coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getInitialCoordinates(): CoordinatesInterface;
+    
+    /**
+     * Returns last_coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function getLastCoordinates(): CoordinatesInterface;
 }

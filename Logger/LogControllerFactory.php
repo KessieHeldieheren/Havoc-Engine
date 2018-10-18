@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Logger;
 
+use Havoc\Engine\Tick\TickControllerInterface;
 use ReflectionClass;
 
 /**
@@ -17,10 +18,12 @@ abstract class LogControllerFactory
     /**
      * Create a new log controller.
      *
+     * @param TickControllerInterface $tick_controller
      * @param string $controller
      * @return LogControllerInterface
+     * @throws \ReflectionException
      */
-    public static function newLogController(string $controller): LogControllerInterface
+    public static function newLogController(TickControllerInterface $tick_controller, string $controller): LogControllerInterface
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(LogControllerInterface::class);
         
@@ -28,6 +31,6 @@ abstract class LogControllerFactory
             throw LogException::logControllerBadClass($controller);
         }
         
-        return new $controller();
+        return new $controller($tick_controller);
     }
 }

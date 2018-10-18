@@ -5,14 +5,12 @@ namespace Havoc\Engine\Engine;
 
 use Havoc\Engine\Config\ConfigController;
 use Havoc\Engine\Config\ConfigControllerFactory;
-use Havoc\Engine\ControllerFactory\ControllerFactory;
 use Havoc\Engine\Entity\EntityController;
 use Havoc\Engine\Entity\EntityControllerFactory;
 use Havoc\Engine\Entity\EntityControllerInterface;
 use Havoc\Engine\Logger\LogController;
 use Havoc\Engine\Logger\LogControllerFactory;
 use Havoc\Engine\Logger\LogControllerInterface;
-use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Tick\TickController;
 use Havoc\Engine\Tick\TickControllerFactory;
 use Havoc\Engine\Tick\TickControllerInterface;
@@ -20,13 +18,13 @@ use Havoc\Engine\World\WorldController;
 use Havoc\Engine\World\WorldControllerFactory;
 
 /**
- * Havoc Engine API class.
+ * Havoc Engine class.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
-class Engine
+class Engine implements EngineInterface
 {
     /**
      * Configuration controller.
@@ -76,25 +74,25 @@ class Engine
      *
      * @throws \ReflectionException
      */
-    public function bootstrapEngine(): void
+    protected function bootstrapEngine(): void
     {
+        $this->setTickController(
+            TickControllerFactory::newTickController(TickController::class)
+        );
+        
         $this->setConfigController(
             ConfigControllerFactory::newConfigController(ConfigController::class)
         );
-        
+    
         $this->setLogController(
-            LogControllerFactory::newLogController(LogController::class)
+            LogControllerFactory::newLogController($this->getTickController(), LogController::class)
         );
-        
+    
         $this->setWorldController(
             WorldControllerFactory::newWorldController(
                 $this->getConfigController(),
                 WorldController::class
             )
-        );
-        
-        $this->setTickController(
-            TickControllerFactory::newTickController(TickController::class)
         );
         
         $this->setEntityController(
@@ -105,28 +103,8 @@ class Engine
                 EntityController::class
             )
         );
-    }
-    
-    /**
-     * Render world and return result.
-     *
-     * @param bool $increment_tick
-     * @return RenderInterface
-     */
-    public function render(bool $increment_tick = true): RenderInterface
-    {
-        $world_controller = $this->getWorldController();
-        $entity_controller = $this->getEntityController();
         
-        if (true === $increment_tick) {
-            $this->getTickController()->incrementTick();
-        }
-        
-        $world_controller->getGrid()->insertEmptyPoints();
-        $entity_controller->mapEntitiesToGrid();
-        $world_controller->getRenderer()->render();
-        
-        return $world_controller->getRender();
+        $this->getTickController()->incrementTick();
     }
     
     /**

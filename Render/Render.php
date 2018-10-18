@@ -41,7 +41,7 @@ class Render implements RenderInterface
     /**
      * Clear the render.
      */
-    public function clearRender(): void
+    public function clear(): void
     {
         $this->render = "";
     }
@@ -51,7 +51,7 @@ class Render implements RenderInterface
      *
      * @return string
      */
-    public function getRender(): string
+    public function string(): string
     {
         return $this->render;
     }
@@ -62,7 +62,7 @@ class Render implements RenderInterface
      * @param string $append
      * @param bool $newline
      */
-    public function appendRender(string $append = "", bool $newline = true): void
+    public function append(string $append = "", bool $newline = true): void
     {
         $this->render .= $append;
         
@@ -76,7 +76,7 @@ class Render implements RenderInterface
      *
      * @param string $render
      */
-    public function setRender(string $render): void
+    public function set(string $render): void
     {
         $this->render = $render;
     }

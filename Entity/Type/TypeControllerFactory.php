@@ -18,12 +18,12 @@ class TypeControllerFactory
     /**
      * Create a new entity type controller.
      *
-     * @param string $controller
      * @param EntityCollectionInterface $entity_collection
+     * @param string $controller
      * @return TypeControllerInterface
      * @throws \ReflectionException
      */
-    public static function new(string $controller, EntityCollectionInterface $entity_collection): TypeControllerInterface
+    public static function new(EntityCollectionInterface $entity_collection, string $controller = TypeController::class): TypeControllerInterface
     {
         $reflects = (new ReflectionClass($controller))
             ->implementsInterface(TypeControllerInterface::class);

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Logger;
 
+use Havoc\Engine\Tick\TickControllerInterface;
+
 /**
  * Havoc Engine log controller interface.
  *
@@ -12,6 +14,13 @@ namespace Havoc\Engine\Logger;
  */
 interface LogControllerInterface
 {
+    /**
+     * LogController constructor method.
+     *
+     * @param TickControllerInterface $tick_controller
+     */
+    public function __construct(TickControllerInterface $tick_controller);
+    
     /**
      * Returns logs.
      *

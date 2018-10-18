@@ -46,7 +46,7 @@ abstract class CoordinatesFactory
      * @param string $coordinates_class
      * @return CoordinatesInterface
      */
-    public static function newAtOrigin(string $coordinates_class = Coordinates::class): CoordinatesInterface
+    public static function newZero(string $coordinates_class = Coordinates::class): CoordinatesInterface
     {
         return self::new(1, 1, $coordinates_class);
     }

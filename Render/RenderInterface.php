@@ -24,14 +24,14 @@ interface RenderInterface
     /**
      * Clear the render.
      */
-    public function clearRender(): void;
+    public function clear(): void;
     
     /**
      * Returns render.
      *
      * @return string
      */
-    public function getRender(): string;
+    public function string(): string;
     
     /**
      * Append string to render.
@@ -39,12 +39,12 @@ interface RenderInterface
      * @param string $append
      * @param bool $newline
      */
-    public function appendRender(string $append = "", bool $newline = true): void;
+    public function append(string $append = "", bool $newline = true): void;
     
     /**
      * Sets render.
      *
      * @param string $render
      */
-    public function setRender(string $render): void;
+    public function set(string $render): void;
 }

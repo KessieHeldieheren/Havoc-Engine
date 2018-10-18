@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Logger;
 
+use Havoc\Engine\Tick\TickControllerInterface;
+
 /**
  * Havoc Engine log controller.
  *
@@ -18,6 +20,23 @@ class LogController implements LogControllerInterface
      * @var LogInterface[]
      */
     private $logs = [];
+    
+    /**
+     * Tick controller.
+     *
+     * @var TickControllerInterface
+     */
+    private $tick_controller;
+    
+    /**
+     * LogController constructor method.
+     *
+     * @param TickControllerInterface $tick_controller
+     */
+    public function __construct(TickControllerInterface $tick_controller)
+    {
+        $this->setTickController($tick_controller);
+    }
     
     /**
      * Returns logs.
@@ -86,9 +105,30 @@ class LogController implements LogControllerInterface
     public function addLog(array $data, string $message, string $from, string $log_class = Log::class): void
     {
         $id = $this->getNewKey();
-        $log = LogFactory::new($id, $data, $message, $from, $log_class);
+        $tick = $this->getTickController()->getTick();
+        $log = LogFactory::new($id, $data, $message, $from, $tick, $log_class);
         
         $this->logs[$id] = $log;
+    }
+    
+    /**
+     * Returns tick_controller.
+     *
+     * @return TickControllerInterface
+     */
+    public function getTickController(): TickControllerInterface
+    {
+        return $this->tick_controller;
+    }
+    
+    /**
+     * Sets tick_controller.
+     *
+     * @param TickControllerInterface $tick_controller
+     */
+    public function setTickController(TickControllerInterface $tick_controller): void
+    {
+        $this->tick_controller = $tick_controller;
     }
     
     /**

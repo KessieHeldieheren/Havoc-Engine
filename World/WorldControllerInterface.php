@@ -5,9 +5,12 @@ namespace Havoc\Engine\World;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Grid\Grid;
+use Havoc\Engine\Grid\GridFactory;
 use Havoc\Engine\Grid\GridInterface;
 use Havoc\Engine\Render\Render;
+use Havoc\Engine\Render\RenderFactory;
 use Havoc\Engine\Render\RenderInterface;
+use Havoc\Engine\Renderer\RendererFactory;
 
 /**
  * Havoc Engine world controller interface.
@@ -22,10 +25,8 @@ interface WorldControllerInterface
      * WorldController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param string $grid
-     * @param string $render
      */
-    public function __construct(ConfigControllerInterface $config_controller, string $grid = Grid::class, string $render = Render::class);
+    public function __construct(ConfigControllerInterface $config_controller);
     
     /**
      * Returns grid.
@@ -54,4 +55,26 @@ interface WorldControllerInterface
      * @param RenderInterface $render
      */
     public function setRender(RenderInterface $render): void;
+    
+    /**
+     * Assign a new grid.
+     *
+     * @param string $dependency
+     */
+    public function assignNewGrid(string $dependency): void;
+    
+    /**
+     * Assign a new render.
+     *
+     * @param string $dependency
+     * @throws \ReflectionException
+     */
+    public function assignNewRender(string $dependency): void;
+    
+    /**
+     * Assign a new renderer.
+     *
+     * @param string $dependency
+     */
+    public function assignNewRenderer(string $dependency): void;
 }

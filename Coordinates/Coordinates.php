@@ -69,11 +69,46 @@ class Coordinates implements CoordinatesInterface
     }
     
     /**
+     * Clone coordinates.
+     *
+     * @return CoordinatesInterface
+     */
+    public function clone(): CoordinatesInterface
+    {
+        return clone $this;
+    }
+    
+    /**
+     * Return rounded coordinates that fit on the grid precisely.
+     *
+     * @return CoordinatesInterface
+     */
+    public function rounded(): CoordinatesInterface
+    {
+        $coordinates = clone $this;
+        
+        $coordinates->setX(round($coordinates->getX(), 0));
+        $coordinates->setY(round($coordinates->getY(), 0));
+        
+        return $coordinates;
+    }
+    
+    /**
+     * Format coordinates as array.
+     *
+     * @return array
+     */
+    public function array(): array
+    {
+        return [$this->getX(), $this->getY()];
+    }
+    
+    /**
      * Format coordinates as string.
      *
      * @return string
      */
-    public function __toString()
+    public function string(): string
     {
         return sprintf(DefaultConfig::COORDINATES_FORMAT, $this->getX(), $this->getY());
     }

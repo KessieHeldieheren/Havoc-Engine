@@ -86,7 +86,7 @@ class RendererCli implements RendererInterface
         $composition = "";
         foreach ($grid->getGrid() as $point) {
             if ($i % $x_grid === 0 && $i !== 0) {
-                if (false === $config->isCoordinatesGuidevisible()) {
+                if (false === $config->isCoordinatesGuideVisible()) {
                     $composition .= PHP_EOL;
                 }
                 
@@ -100,7 +100,7 @@ class RendererCli implements RendererInterface
         }
         
         $this->renderYCoordinates();
-        $render->appendRender($this->getGridLinesAsString(), false);
+        $render->append($this->getGridLinesAsString(), false);
     }
     
     /**
@@ -112,7 +112,7 @@ class RendererCli implements RendererInterface
     {
         $config = $this->getConfigController();
     
-        if (false === $config->isCoordinatesGuidevisible()) {
+        if (false === $config->isCoordinatesGuideVisible()) {
             return;
         }
         
@@ -159,7 +159,7 @@ class RendererCli implements RendererInterface
     {
         $config = $this->getConfigController();
         
-        if (false === $config->isCoordinatesGuidevisible()) {
+        if (false === $config->isCoordinatesGuideVisible()) {
             return;
         }
         
@@ -177,7 +177,7 @@ class RendererCli implements RendererInterface
         }
         
         $this->renderPadding();
-        $this->getRender()->appendRender($composition);
+        $this->getRender()->append($composition);
     }
     
     /**
@@ -191,7 +191,7 @@ class RendererCli implements RendererInterface
         $composition = str_repeat($horizontal_bar_character, $x_grid * 3);
         
         $this->renderPadding();
-        $this->getRender()->appendRender($composition);
+        $this->getRender()->append($composition);
     }
     
     /**
@@ -201,11 +201,11 @@ class RendererCli implements RendererInterface
     {
         $append = "   ";
         
-        if (false === $this->getConfigController()->isCoordinatesGuidevisible()) {
+        if (false === $this->getConfigController()->isCoordinatesGuideVisible()) {
             $append = "";
         }
         
-        $this->getRender()->appendRender($append, false);
+        $this->getRender()->append($append, false);
     }
     
     /**

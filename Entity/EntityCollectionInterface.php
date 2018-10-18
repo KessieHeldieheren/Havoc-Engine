@@ -25,13 +25,14 @@ interface EntityCollectionInterface
     /**
      * Create a new entity.
      *
-     * @param string $entity_class
      * @param string $name
      * @param CoordinatesInterface $coordinates
      * @param string $icon
+     * @param array $types
+     * @param string $entity_class
      * @return EntityInterface
      */
-    public function createEntity(string $entity_class = Entity::class, string $name, CoordinatesInterface $coordinates, string $icon): EntityInterface;
+    public function create(string $name, CoordinatesInterface $coordinates, string $icon, array $types = [], string $entity_class = Entity::class): EntityInterface;
     
     /**
      * Attempts to silently delete an entity. No errors occur on failure.
@@ -39,11 +40,11 @@ interface EntityCollectionInterface
      * @param EntityInterface $entity
      * @throws \ReflectionException
      */
-    public function deleteEntity(EntityInterface $entity): void;
+    public function delete(EntityInterface $entity): void;
     
     /**
      * @param string $search_class
      * @return EntityInterface[]
      */
-    public function getEntitiesOfClass(string $search_class): array;
+    public function getByClass(string $search_class): array;
 }

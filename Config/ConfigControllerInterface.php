@@ -59,14 +59,14 @@ interface ConfigControllerInterface
      *
      * @return bool
      */
-    public function isCoordinatesGuidevisible(): bool;
+    public function isCoordinatesGuideVisible(): bool;
     
     /**
      * Sets display_coordinates.
      *
      * @param bool $display_coordinates
      */
-    public function setCoordinatesGuidevisible(bool $display_coordinates): void;
+    public function setCoordinatesGuideVisible(bool $display_coordinates): void;
     
     /**
      * Returns world_point_normal_icon.
