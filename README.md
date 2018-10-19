@@ -1,5 +1,3 @@
-*THIS DOCUMENT IS A WORK IN PROGRESS.*
-
 # Havoc Engine
 Havoc Engine is a PHP-based game engine designed to run 2D games in the command-line.
 
@@ -24,10 +22,14 @@ Should you begin to experience a tingling sensation  around the front of your he
 The game engine core can be instantiated via the [API](#Api).  The API contains various helper functions for accessing engine modules, as well as a method for rendering output ([`Api::render`](#Api_render)).
 
 **Important**
-The game core will not be usable immediately. The core must then be bootstrapped using [`Api::bootstrap`](#Api_bootstrap). This will then load all controllers (how to extend the engine's controllers and modules is explained in [Extending the Engine](#S2)).
+The game core will not be usable immediately. The core must be bootstrapped using [`Api::bootstrap`](#Api_bootstrap). This will then load all controllers (how to extend the engine's controllers and modules is explained in [Extending the Engine](#S2)).
 
 ## <a name="S2">Extending the Engine</a>
+Havoc Engine allows all of its controllers to be readily swapped out for extensions that implement the respective interfaces of the original controllers. This would allow a developer to write a renderer that renders to the browser, or to change how logs are handled, such as adding them to a database. This section explains how to extend these modules.
 
+First of all, it is important to know that when the engine is instantiated, **it is waiting for the bootstrapper to be run in order to load components**. The bootstrapper uses  [`ControllersInterface`](#ControllersInterface) to determine what classes the factories should return when instantiating all of the controllers. So after having instantiated the engine, you may call on the Controllers module to set what classes the engine will use.
+
+Via the API, this may be done using the [`Api::controllers`](#Api_controllers) method, and then using the appropriate set method and providing the **fully qualified class name** of the new controller. Validation for the class names provided is done in their respective controller factories. Naturally, all controllers MUST implement their respective interfaces.
 
 ## Class Reference
 
