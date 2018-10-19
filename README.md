@@ -15,16 +15,16 @@ This documentation uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) to defi
 Should you begin to experience a tingling sensation  around the front of your head, and you have an overwhelming urge to use `strlen` to hash functions, think that variables ought to be prefixed with `$`, or that [YODA](https://en.wikipedia.org/wiki/Yoda_conditions) conditionals look attractive in ways one wouldn't talk about in public, please make an appointment with your general practitioner.
 
 ## Table of Contents
-* §1 - [Instantiating the Engine](#S1)
-* §2 - [Extending the Engine](#S2)
+* §1 - [Instantiating the Engine](#instantiating-the-engine)
+* §2 - [Extending the Engine](#extending-the-engine)
 
-## <a name="S1">Instantiating the Engine</a>
+## <a name="instantiating-the-engine">Instantiating the Engine</a>
 The game engine core can be instantiated via the [API](#Api).  The API contains various helper functions for accessing engine modules, as well as a method for rendering output ([`Api::render`](#Api_render)).
 
 **Important**
 The game core will not be usable immediately. The core must be bootstrapped using [`Api::bootstrap`](#Api_bootstrap). This will then load all controllers (how to extend the engine's controllers and modules is explained in [Extending the Engine](#S2)).
 
-## <a name="S2">Extending the Engine</a>
+## <a name="extending-the-engine">Extending the Engine</a>
 Havoc Engine allows all of its controllers to be readily swapped out for extensions that implement the respective interfaces of the original controllers. This would allow a developer to write a renderer that renders to the browser, or to change how logs are handled, such as adding them to a database. This section explains how to extend these modules.
 
 First of all, it is important to know that when the engine is instantiated, **it is waiting for the bootstrapper to be run in order to load components**. The bootstrapper uses  [`ControllersInterface`](#ControllersInterface) to determine what classes the factories should return when instantiating all of the controllers. So after having instantiated the engine, you may call on the Controllers module to set what classes the engine will use.
