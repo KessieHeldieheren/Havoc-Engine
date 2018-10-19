@@ -1,7 +1,7 @@
 # Havoc Engine  
 Havoc Engine is a PHP-based game engine designed to run 2D games in the command-line.  
   
-  ![Havoc Engine Logo](https://i.imgur.com/Qbstg6s.png =141x125)
+  ![Havoc Engine Logo](https://i.imgur.com/Qbstg6s.png)
   ## Information
 This project exists purely as a demonstration of building unorthodox applications using PHP. The project is built using [PHP 7.2](http://php.net/releases/7_2_0.php). Some may find the existence of this library offensive. It's all right, I find it offensive as well.  
   
