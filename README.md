@@ -56,15 +56,17 @@ $engine->controllers()->setLogController(MyLogController::class);
 ## <a name="the-api">The API</a>
 The API stores all of the common and necessary modules the engine uses in simple functions. All of the methods provided can be found [here](#Api). The API is essentially a wrapper for the engine core.
 
+Although I would usually avoid these short, slightly more vague, method names, in the case of the API the method names have been made to be as short and concise as possible.
+
 *Example of getting the entity supervisor, the module which allows one to create and manipulate entities in the world:*
 ```php
-// Returns Havoc\Engine\Entity\EntitySupervisor.
+// Returns the instance of Havoc\Engine\Entity\EntitySupervisorInterface.
 $engine->entities();
 ```
 
 *Example of getting the configuration controller, which allows one to alter engine settings:*
 ```php
-// Returns the configuration controller.
+// Returns the instance of Havoc\Engine\Config\ConfigControllerInterface.
 $engine->config();
 ```
 
