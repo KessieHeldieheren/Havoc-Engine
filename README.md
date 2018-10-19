@@ -91,13 +91,13 @@ Running the render method will also increment the engine's game tick by default 
 ## Class Reference  
 ### <a name="ApiInterface">`Havoc\Engine\ApiInterface`</a>
 The Api class provides an easy to use programming interface through which to use the Havoc Engine.
-> #### <a name="Api_render">`ApiInterface::render`</a>  
+> #### <a name="ApiInterface_render">`ApiInterface::render`</a>  
 > * **bool** `$increment_tick` `true`:  if true, the current tick will be incremented.
 > * **returns** [`RenderInterface`](#RenderInterface).
 >   
 > This method renders the world and returnsa render interface by which to output the game world. It also optionally increments the current game tick.
   ------------------------
-> #### <a name="Api_bootstrap">`ApiInterface::bootstrap`</a>
+> #### <a name="ApiInterface_bootstrap">`ApiInterface::bootstrap`</a>
 > * **void**
 >   
 > Bootstraps the engine core.  
