@@ -18,19 +18,24 @@ Should you begin to experience a tingling sensation  around the front of your he
   
 ## Table of Contents  
 * §1 - [Instantiating the Engine](#instantiating-the-engine)  
-* §2 - [Extending the Engine](#extending-the-engine)  
+* §2 - [Extending the Engine](#extending-the-engine)
+* §3 - [The Api](#the-api)
   
 ## <a name="instantiating-the-engine">Instantiating the Engine</a>  
 The game engine core can be instantiated via the [API](#Api).  The API contains various helper functions for accessing engine modules, as well as a method for rendering output ([`Api::render`](#Api_render)).  
-  
-**Important**  
+
 The game core will not be usable immediately. The core must be bootstrapped using [`Api::bootstrap`](#Api_bootstrap). This will then load all controllers (how to extend the engine's controllers and modules is explained in [Extending the Engine](#S2)).
 
 *Instantiate the engine by doing the following:*
 ```php
-$engine = new Havoc\Engine\Api();
+$engine = Havoc\Engine\Api\ApiFactory::new();
 ```
-  
+
+*Then run the engine bootstrapper:*
+```php
+$engine->bootstrap();
+```  
+
 ## <a name="extending-the-engine">Extending the Engine</a>  
 Havoc Engine allows all of its controllers to be readily swapped out for extensions that implement the respective interfaces of the original controllers. This would allow a developer to write a renderer that renders to the browser, or to change how logs are handled, such as adding them to a database. This section explains how to extend these modules.  
   
@@ -48,6 +53,21 @@ class MyLogController implements Havoc\Engine\Logger\LogControllerInterface {}
 $engine->controllers()->setLogController(MyLogController::class);
 ```
   
+## <a name="the-api">The API</a>
+The API stores all of the common and necessary modules the engine uses in simple functions. All of the methods provided can be found [here](#Api). The API is essentially a wrapper for the engine core.
+
+*Example of getting the entity supervisor, the module which allows one to create and manipulate entities in the world:*
+```php
+// Returns Havoc\Engine\Entity\EntitySupervisor.
+$engine->entities();
+```
+
+*Example of getting the configuration controller, which allows one to alter engine settings:*
+```php
+// Returns the configuration controller.
+$engine->config();
+```
+
 ## Class Reference  
 ### Havoc\Engine\\<a name="Api">Api</a>
 The Api class provides an easy to use programming interface through which to use the Havoc Engine.
@@ -85,9 +105,9 @@ The Api class provides an easy to use programming interface through which to use
 > Returns the tick controller. 
 ------------------------
 > ### <a name="Api_entities">`Api::entities`</a>  
-> * **returns** [`EntityControllerInterface`  ](#EntityControllerInterface)
+> * **returns** [`EntitySupervisorInterface`  ](#EntitySupervisorInterface)
 >   
-> Returns the entity controller. 
+> Returns the entity supervisor. 
 ------------------------
 > ### <a name="Api_logger">`Api::logger`</a>  
 > * **returns** [`LogControllerInterface`  ](#LogControllerInterface)
@@ -103,4 +123,9 @@ The Api class provides an easy to use programming interface through which to use
 > * **returns** [`TranslationSupervisorInterface`  ](#TranslationSupervisorInterface)
 >   
 > Returns the entity translation supervisor. 
+------------------------
+> ### <a name="Api_getCore">`Api::getCore`</a>  
+> * **returns** [`CoreInterface`  ](#CoreInterface)
+>   
+> Returns the engine core. 
 ------------------------
