@@ -20,11 +20,11 @@ This documentation uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) to defi
 Should you begin to experience a tingling sensation  around the front of your head, and you have an overwhelming urge to use `strlen` to hash functions, think that variables ought to be prefixed with `$`, or that [YODA](https://en.wikipedia.org/wiki/Yoda_conditions) conditionals look attractive in ways one wouldn't talk about in public, please make an appointment with your general practitioner.
 
 ## Table of Contents
-§1 - [Instantiating the Engine](#S1)
-§2 - [Extending the Engine](#S2)
+* §1 - [Instantiating the Engine](#S1)
+* §2 - [Extending the Engine](#S2)
 
 ## <a name="S1">Instantiating the Engine</a>
-The game engine core can be instantiated via the [API](#Api).  The API contains various helper functions for accessing engine modules, as well as a method for rendering output ([`Api::render`](
+The game engine core can be instantiated via the [API](#Api).  The API contains various helper functions for accessing engine modules, as well as a method for rendering output ([`Api::render`](#Api_render)).
 
 **Important**
 The game core will not be usable immediately. The core must then be bootstrapped using [`Api::bootstrap`](#Api_bootstrap). This will then load all controllers (how to extend the engine's controllers and modules is explained in [Extending the Engine](#S2)).
@@ -36,11 +36,15 @@ The game core will not be usable immediately. The core must then be bootstrapped
 
 ### Havoc\Engine\\<a name="Api">Api</a>
 > <a name="Api_render">`Api::render`</a>
+> 
 > `$increment_tick` `bool` If true, current engine tick will be incremented.
+> 
 > This method renders the world and returns [`RenderInterface`](#RenderInterface).
 
 > <a name="Api_bootstrap">`Api::bootstrap`</a>
+> 
 > Bootstraps the engine core.
+> 
 > This method is used to load all engine components, such as controllers, supervisors, and other utility classes. This method must be run before the engine may be utilised.
 
 ------
