@@ -5,14 +5,11 @@ Havoc Engine is a PHP-based game engine designed to run 2D games in the command-
 
 This project exists purely as a demonstration of building unorthodox applications using PHP. The project is built using [PHP 7.2](http://php.net/releases/7_2_0.php). Some may find the existence of this library offensive. It's all right, I find it offensive as well.
 
-Version
-: 0.0.0-alpha
+**Version**: 0.0.0-alpha
 
-Author
-: Kessie Heldieheren
+**Author**: Kessie Heldieheren
 
-Email
-: kessie@sdstudios.uk
+**Email**: kessie@sdstudios.uk
 
 ## Pre-word
 This documentation uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) to define the terms MUST, MUST NOT, SHOULD, and SHOULD NOT. Such as one SHOULD NOT build a game engine using PHP. But not to say one cannot.
