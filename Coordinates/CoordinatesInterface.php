@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
-use Havoc\Engine\Config\DefaultConfig;
-
 /**
- * Havoc Engine world coordinates interface.
+ * Havoc Core world coordinates interface.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

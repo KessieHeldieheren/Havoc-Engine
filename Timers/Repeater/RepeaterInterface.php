@@ -6,9 +6,9 @@ namespace Havoc\Engine\Timers\Repeater;
 use Havoc\Engine\Tick\TickControllerInterface;
 
 /**
- * Havoc Engine repeater timer.
+ * Havoc Core repeater timer.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

@@ -6,9 +6,9 @@ namespace Havoc\Engine\Render;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Engine render exceptions.
+ * Havoc Core render exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

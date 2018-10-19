@@ -7,9 +7,9 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use ReflectionClass;
 
 /**
- * Havoc Engine world controller factory.
+ * Havoc Core world controller factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

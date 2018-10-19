@@ -6,9 +6,9 @@ namespace Havoc\Engine\Entity\Type;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Engine type exceptions.
+ * Havoc Core type exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -52,7 +52,7 @@ class TypeException extends HavocEngineException
      */
     public static function typeControllerBadClass(string $given_class): self
     {
-        $required_class = TypeControllerInterface::class;
+        $required_class = TypeSupervisorInterface::class;
     
         return new self (
             sprintf("Cannot create the type controller using %s, as it must implement %s.", $given_class, $required_class),

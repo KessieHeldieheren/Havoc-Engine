@@ -4,18 +4,13 @@ declare(strict_types=1);
 namespace Havoc\Engine\World;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\Grid;
-use Havoc\Engine\Grid\GridFactory;
-use Havoc\Engine\Grid\GridInterface;
-use Havoc\Engine\Render\Render;
-use Havoc\Engine\Render\RenderFactory;
+use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
-use Havoc\Engine\Renderer\RendererFactory;
 
 /**
- * Havoc Engine world controller interface.
+ * Havoc Core world controller interface.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -31,16 +26,16 @@ interface WorldControllerInterface
     /**
      * Returns grid.
      *
-     * @return GridInterface
+     * @return GridSupervisorInterface
      */
-    public function getGrid(): GridInterface;
+    public function getGridSupervisor(): GridSupervisorInterface;
     
     /**
      * Sets grid.
      *
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      */
-    public function setGrid(GridInterface $grid): void;
+    public function setGridSupervisor(GridSupervisorInterface $grid): void;
     
     /**
      * Returns render.

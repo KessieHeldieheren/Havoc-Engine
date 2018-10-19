@@ -6,9 +6,9 @@ namespace Havoc\Engine\Config;
 use Havoc\Engine\System\Property;
 
 /**
- * Havoc Engine configuration controller.
+ * Havoc Core configuration controller.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

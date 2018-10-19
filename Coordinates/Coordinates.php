@@ -6,9 +6,9 @@ namespace Havoc\Engine\Coordinates;
 use Havoc\Engine\Config\DefaultConfig;
 
 /**
- * Havoc Engine world coordinates.
+ * Havoc Core world coordinates.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

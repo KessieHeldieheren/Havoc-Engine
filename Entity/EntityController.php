@@ -4,17 +4,19 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Entity\Translation\TranslationControllerFactory;
-use Havoc\Engine\Entity\Translation\TranslationControllerInterface;
-use Havoc\Engine\Entity\Type\TypeControllerFactory;
-use Havoc\Engine\Entity\Type\TypeControllerInterface;
-use Havoc\Engine\Grid\GridInterface;
+use Havoc\Engine\Entity\Boundary\BoundarySupervisorFactory;
+use Havoc\Engine\Entity\Boundary\BoundarySupervisorInterface;
+use Havoc\Engine\Entity\Translation\TranslationSupervisorFactory;
+use Havoc\Engine\Entity\Translation\TranslationSupervisorInterface;
+use Havoc\Engine\Entity\Type\TypeSupervisorFactory;
+use Havoc\Engine\Entity\Type\TypeSupervisorInterface;
+use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
- * Havoc Engine entity controller.
+ * Havoc Core entity controller.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -23,7 +25,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Grid.
      *
-     * @var GridInterface
+     * @var GridSupervisorInterface
      */
     private $grid;
     
@@ -35,11 +37,11 @@ class EntityController implements EntityControllerInterface
     private $config_controller;
     
     /**
-     * Entity collection.
+     * Entity supervisor.
      *
-     * @var EntityCollectionInterface
+     * @var EntitySupervisorInterface
      */
-    private $entity_collection;
+    private $entity_supervisor;
     
     /**
      * Log controller.
@@ -49,27 +51,35 @@ class EntityController implements EntityControllerInterface
     private $log_controller;
     
     /**
-     * Entity type controller.
+     * Entity type supervisor.
      *
-     * @var TypeControllerInterface
+     * @var TypeSupervisorInterface
      */
-    private $type_controller;
+    private $type_supervisor;
     
     /**
-     * Translation controller.
+     * Translation supervisor.
      *
-     * @var TranslationControllerInterface
+     * @var TranslationSupervisorInterface
      */
-    private $translation_controller;
+    private $translation_supervisor;
+    
+    /**
+     * Boundary supervisor.
+     *
+     * @var BoundarySupervisorInterface
+     */
+    private $boundary_supervisor;
     
     /**
      * EntityController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      * @param LogControllerInterface $logger
+     * @throws \ReflectionException
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger)
+    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, LogControllerInterface $logger)
     {
         $this->setConfigController($config_controller);
         $this->setGrid($grid);
@@ -84,19 +94,31 @@ class EntityController implements EntityControllerInterface
      */
     protected function bootstrap(): void
     {
-        $this->setEntityCollection(
-            EntityFactory::newEntityCollection($this->getLogcontroller())
+        $this->setEntitySupervisor(
+            EntityFactory::newEntitySupervisor(
+                $this->getLogcontroller()
+            )
         );
     
-        $this->setTypeController(
-            TypeControllerFactory::new($this->getEntityCollection())
+        $this->setTypeSupervisor(
+            TypeSupervisorFactory::new(
+                $this->getEntitySupervisor()
+            )
         );
         
-        $this->setTranslationController(
-            TranslationControllerFactory::new(
-                $this->getEntityCollection(),
+        $this->setTranslationSupervisor(
+            TranslationSupervisorFactory::new(
+                $this->getEntitySupervisor(),
                 $this->getLogcontroller(),
                 $this->getGrid()
+            )
+        );
+        
+        $this->setBoundarySupervisor(
+            BoundarySupervisorFactory::new(
+                $this->getEntitySupervisor(),
+                $this->getLogcontroller(),
+                $this->getGrid()->getBoundary()
             )
         );
     }
@@ -104,9 +126,9 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns grid.
      *
-     * @return GridInterface
+     * @return GridSupervisorInterface
      */
-    public function getGrid(): GridInterface
+    public function getGrid(): GridSupervisorInterface
     {
         return $this->grid;
     }
@@ -114,9 +136,9 @@ class EntityController implements EntityControllerInterface
     /**
      * Sets grid.
      *
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      */
-    public function setGrid(GridInterface $grid): void
+    public function setGrid(GridSupervisorInterface $grid): void
     {
         $this->grid = $grid;
     }
@@ -148,7 +170,7 @@ class EntityController implements EntityControllerInterface
     {
         $grid = $this->getGrid();
         
-        foreach ($this->getEntityCollection()->getEntities() as $entity) {
+        foreach ($this->getEntitySupervisor()->getEntities() as $entity) {
             $grid->insertWithCoordinates($entity, $entity->getCoordinates());
         }
     }
@@ -156,37 +178,21 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns entity_collection.
      *
-     * @return EntityCollectionInterface
+     * @return EntitySupervisorInterface
      */
-    public function getEntityCollection(): EntityCollectionInterface
+    public function getEntitySupervisor(): EntitySupervisorInterface
     {
-        return $this->entity_collection;
+        return $this->entity_supervisor;
     }
     
     /**
      * Sets entity_collection.
      *
-     * @param EntityCollectionInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_supervisor
      */
-    public function setEntityCollection(EntityCollectionInterface $entity_collection): void
+    public function setEntitySupervisor(EntitySupervisorInterface $entity_supervisor): void
     {
-        $this->entity_collection = $entity_collection;
-    }
-    
-    /**
-     * Assign a new entity controller.
-     *
-     * @param string $controller
-     * @throws \ReflectionException
-     */
-    public function assignNewEntityCollection(string $controller): void
-    {
-        $this->setEntityCollection(
-            EntityFactory::newEntityCollection(
-                $this->getLogcontroller(),
-                $controller
-            )
-        );
+        $this->entity_supervisor = $entity_supervisor;
     }
     
     /**
@@ -212,73 +218,60 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns type_controller.
      *
-     * @return TypeControllerInterface
+     * @return TypeSupervisorInterface
      */
-    public function getTypeController(): TypeControllerInterface
+    public function getTypeSupervisor(): TypeSupervisorInterface
     {
-        return $this->type_controller;
-    }
-    
-    /**
-     * Assign a new type controller.
-     *
-     * @param string $controller
-     * @throws \ReflectionException
-     */
-    public function assignNewTypeController(string $controller): void
-    {
-        $this->setTypeController(
-            TypeControllerFactory::new(
-                $this->getEntityCollection(),
-                $controller
-            )
-        );
+        return $this->type_supervisor;
     }
     
     /**
      * Sets type_controller.
      *
-     * @param TypeControllerInterface $type_controller
+     * @param TypeSupervisorInterface $type_supervisor
      */
-    public function setTypeController(TypeControllerInterface $type_controller): void
+    public function setTypeSupervisor(TypeSupervisorInterface $type_supervisor): void
     {
-        $this->type_controller = $type_controller;
+        $this->type_supervisor = $type_supervisor;
     }
     
     /**
      * Returns translation_controller.
      *
-     * @return TranslationControllerInterface
+     * @return TranslationSupervisorInterface
      */
-    public function getTranslationController(): TranslationControllerInterface
+    public function getTranslationSupervisor(): TranslationSupervisorInterface
     {
-        return $this->translation_controller;
+        return $this->translation_supervisor;
     }
     
     /**
      * Sets translation_controller.
      *
-     * @param TranslationControllerInterface $translation_controller
+     * @param TranslationSupervisorInterface $translation_supervisor
      */
-    public function setTranslationController(TranslationControllerInterface $translation_controller): void
+    public function setTranslationSupervisor(TranslationSupervisorInterface $translation_supervisor): void
     {
-        $this->translation_controller = $translation_controller;
+        $this->translation_supervisor = $translation_supervisor;
     }
     
     /**
-     * Assign a new translation controller.
+     * Returns boundary_supervisor.
      *
-     * @param string $controller
+     * @return BoundarySupervisorInterface
      */
-    public function assignNewTranslationController(string $controller): void
+    public function getBoundarySupervisor(): BoundarySupervisorInterface
     {
-        $this->setTranslationController(
-            TranslationControllerFactory::new(
-                $this->getEntityCollection(),
-                $this->getLogcontroller(),
-                $this->getGrid(),
-                $controller
-            )
-        );
+        return $this->boundary_supervisor;
+    }
+    
+    /**
+     * Sets boundary_supervisor.
+     *
+     * @param BoundarySupervisorInterface $boundary_supervisor
+     */
+    public function setBoundarySupervisor(BoundarySupervisorInterface $boundary_supervisor): void
+    {
+        $this->boundary_supervisor = $boundary_supervisor;
     }
 }

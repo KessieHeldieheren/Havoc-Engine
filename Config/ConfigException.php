@@ -7,9 +7,9 @@ use Havoc\Engine\Exceptions\HavocEngineException;
 use Havoc\Engine\System\Property;
 
 /**
- * Havoc Engine configuration exceptions.
+ * Havoc Core configuration exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

@@ -6,9 +6,9 @@ namespace Havoc\Engine\Tick;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Engine tick exceptions.
+ * Havoc Core tick exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

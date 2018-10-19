@@ -4,25 +4,27 @@ declare(strict_types=1);
 namespace Havoc\Engine;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Engine\Engine;
-use Havoc\Engine\Engine\EngineInterface;
-use Havoc\Engine\Entity\EntityCollectionInterface;
-use Havoc\Engine\Entity\Translation\TranslationControllerInterface;
-use Havoc\Engine\Entity\Type\TypeControllerInterface;
+use Havoc\Engine\Core\Core;
+use Havoc\Engine\Core\CoreInterface;
+use Havoc\Engine\Core\Systems\ControllersInterface;
+use Havoc\Engine\Core\Systems\SupervisorsInterface;
+use Havoc\Engine\Entity\EntitySupervisorInterface;
+use Havoc\Engine\Entity\Translation\TranslationSupervisorInterface;
+use Havoc\Engine\Entity\Type\TypeSupervisorInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldControllerInterface;
 
 /**
- * Havoc Engine API class.
+ * Havoc Core API class.
  *
  * This class is intended to ease the use of accessing and finding different engine components.
  *
  * It contains all classes that are necessary to making a game. More advanced functionality can be acquired by
  * accessing engine modules directly.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -31,9 +33,17 @@ class Api
     /**
      * Havoc game engine.
      *
-     * @var EngineInterface
+     * @var CoreInterface
      */
     private $core;
+    
+    /**
+     * Api constructor method.
+     */
+    public function __construct()
+    {
+        $this->setCore(new Core());
+    }
     
     /**
      * Render world and return result.
@@ -47,11 +57,41 @@ class Api
         $world_controller = $this->getCore()->getWorldController();
         $entity_controller = $this->getCore()->getEntityController();
         
-        $world_controller->getGrid()->insertEmptyPoints();
+        $world_controller->getGridSupervisor()->insertEmptyPoints();
         $entity_controller->mapEntitiesToGrid();
         $world_controller->getRenderer()->render();
         
         return $world_controller->getRender();
+    }
+    
+    /**
+     * Bootstraps the engine core.
+     *
+     * @throws \ReflectionException
+     */
+    public function bootstrap(): void
+    {
+        $this->getCore()->bootstrap();
+    }
+    
+    /**
+     * Returns the system controllers collection.
+     *
+     * @return ControllersInterface
+     */
+    public function controllers(): ControllersInterface
+    {
+        return $this->getCore()->getControllers();
+    }
+    
+    /**
+     * Returns the system supervisors collection.
+     *
+     * @return SupervisorsInterface
+     */
+    public function supervisors(): SupervisorsInterface
+    {
+        return $this->getCore()->getSupervisors();
     }
     
     /**
@@ -87,31 +127,31 @@ class Api
     /**
      * Returns the entity controller.
      *
-     * @return EntityCollectionInterface
+     * @return EntitySupervisorInterface
      */
-    public function entities(): EntityCollectionInterface
+    public function entities(): EntitySupervisorInterface
     {
-        return $this->getCore()->getEntityController()->getEntityCollection();
+        return $this->getCore()->getEntityController()->getEntitySupervisor();
     }
     
     /**
      * Returns the entity type controller.
      *
-     * @return TypeControllerInterface
+     * @return TypeSupervisorInterface
      */
-    public function types(): TypeControllerInterface
+    public function types(): TypeSupervisorInterface
     {
-        return $this->getCore()->getEntityController()->getTypeController();
+        return $this->getCore()->getEntityController()->getTypeSupervisor();
     }
     
     /**
      * Returns the entity translation controller.
      *
-     * @return TranslationControllerInterface
+     * @return TranslationSupervisorInterface
      */
-    public function translator(): TranslationControllerInterface
+    public function translator(): TranslationSupervisorInterface
     {
-        return $this->getCore()->getEntityController()->getTranslationController();
+        return $this->getCore()->getEntityController()->getTranslationSupervisor();
     }
     
     /**
@@ -125,19 +165,11 @@ class Api
     }
     
     /**
-     * Api constructor method.
-     */
-    public function __construct()
-    {
-        $this->setCore(new Engine());
-    }
-    
-    /**
      * Returns engine.
      *
-     * @return EngineInterface
+     * @return CoreInterface
      */
-    public function getCore(): EngineInterface
+    public function getCore(): CoreInterface
     {
         return $this->core;
     }
@@ -145,9 +177,9 @@ class Api
     /**
      * Sets engine.
      *
-     * @param EngineInterface $core
+     * @param CoreInterface $core
      */
-    public function setCore(EngineInterface $core): void
+    public function setCore(CoreInterface $core): void
     {
         $this->core = $core;
     }

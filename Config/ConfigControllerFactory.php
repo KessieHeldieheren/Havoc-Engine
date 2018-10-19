@@ -6,9 +6,9 @@ namespace Havoc\Engine\Config;
 use ReflectionClass;
 
 /**
- * Havoc Engine configuration controller factory.
+ * Havoc Core configuration controller factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

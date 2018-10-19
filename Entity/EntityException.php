@@ -6,9 +6,9 @@ namespace Havoc\Engine\Entity;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Engine entity exceptions.
+ * Havoc Core entity exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -65,7 +65,7 @@ class EntityException extends HavocEngineException
      */
     public static function entityCollectionBadClass(string $given_class): self
     {
-        $required_class = EntityCollectionInterface::class;
+        $required_class = EntitySupervisorInterface::class;
         
         return new self (
             sprintf("Cannot create an entity collection using %s, as it must implement %s.", $given_class, $required_class),

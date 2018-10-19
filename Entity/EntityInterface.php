@@ -4,12 +4,13 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollectionInterface;
 
 /**
- * Havoc Engine entity interface.
+ * Havoc Core entity interface.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -108,4 +109,18 @@ interface EntityInterface
      * @return CoordinatesInterface
      */
     public function getLastCoordinates(): CoordinatesInterface;
+    
+    /**
+     * Returns boundary_rules.
+     *
+     * @return BoundaryRulesInterface
+     */
+    public function getBoundaryRules(): BoundaryRulesInterface;
+    
+    /**
+     * Sets boundary_rules.
+     *
+     * @param BoundaryRulesInterface $boundary_rules
+     */
+    public function setBoundaryRules(BoundaryRulesInterface $boundary_rules): void;
 }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace Havoc\Engine\RendererCli;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\GridInterface;
+use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Renderer\RendererInterface;
 
 /**
- * Havoc Engine CLI renderer.
+ * Havoc Core CLI renderer.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -27,7 +27,7 @@ class RendererCli implements RendererInterface
     /**
      * World grid.
      *
-     * @var GridInterface
+     * @var GridSupervisorInterface
      */
     private $grid;
     
@@ -49,10 +49,10 @@ class RendererCli implements RendererInterface
      * RendererCli constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      * @param RenderInterface $render
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, RenderInterface $render)
+    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render)
     {
         $this->setConfigController($config_controller);
         $this->setGrid($grid);
@@ -85,7 +85,7 @@ class RendererCli implements RendererInterface
         $i = 0;
         $composition = "";
         foreach ($grid->getGrid() as $point) {
-            if ($i % $x_grid === 0 && $i !== 0) {
+            if (0 === $i % $x_grid && 0 !== $i) {
                 if (false === $config->isCoordinatesGuideVisible()) {
                     $composition .= PHP_EOL;
                 }
@@ -231,9 +231,9 @@ class RendererCli implements RendererInterface
     /**
      * Returns grid.
      *
-     * @return GridInterface
+     * @return GridSupervisorInterface
      */
-    public function getGrid(): GridInterface
+    public function getGrid(): GridSupervisorInterface
     {
         return $this->grid;
     }
@@ -241,9 +241,9 @@ class RendererCli implements RendererInterface
     /**
      * Sets grid.
      *
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      */
-    public function setGrid(GridInterface $grid): void
+    public function setGrid(GridSupervisorInterface $grid): void
     {
         $this->grid = $grid;
     }

@@ -9,9 +9,9 @@ use Havoc\Engine\Timers\Counter\CounterInterface;
 use Havoc\Engine\Timers\Repeater\RepeaterInterface;
 
 /**
- * Havoc Engine timer exceptions.
+ * Havoc Core timer exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

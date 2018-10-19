@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Havoc\Engine\Config;
 
 /**
- * Havoc Engine default configuration settings.
+ * Havoc Core default configuration settings.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

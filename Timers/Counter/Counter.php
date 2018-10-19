@@ -6,9 +6,9 @@ namespace Havoc\Engine\Timers\Counter;
 use Havoc\Engine\Tick\TickControllerInterface;
 
 /**
- * Havoc Engine counter timer.
+ * Havoc Core counter timer.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

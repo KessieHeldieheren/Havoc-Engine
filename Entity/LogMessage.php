@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 /**
- * Havoc Engine entity controller log messages.
+ * Havoc Core entity controller log messages.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

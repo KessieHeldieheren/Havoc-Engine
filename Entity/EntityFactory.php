@@ -9,15 +9,17 @@ use Havoc\Engine\WorldPoint\WorldPointInterface;
 use ReflectionClass;
 
 /**
- * Havoc Engine entity factory.
+ * Havoc Core entity factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
 abstract class EntityFactory
 {
     /**
+     * Create a new entity.
+     *
      * @param string $entity_class
      * @param int $id
      * @param string $name
@@ -42,20 +44,22 @@ abstract class EntityFactory
     }
     
     /**
+     * Create a new entity supervisor.
+     *
      * @param LogControllerInterface $log_controller
-     * @param string $entity_collection_class
-     * @return EntityCollectionInterface
+     * @param string $supervisor
+     * @return EntitySupervisorInterface
      * @throws \ReflectionException
      */
-    public static function newEntityCollection(LogControllerInterface $log_controller, string $entity_collection_class = EntityCollection::class): EntityCollectionInterface
+    public static function newEntitySupervisor(LogControllerInterface $log_controller, string $supervisor = EntitySupervisor::class): EntitySupervisorInterface
     {
-        $reflects = (new ReflectionClass($entity_collection_class))
-            ->implementsInterface(EntityCollectionInterface::class);
+        $reflects = (new ReflectionClass($supervisor))
+            ->implementsInterface(EntitySupervisorInterface::class);
         
         if (false === $reflects) {
-            throw EntityException::entityCollectionBadClass($entity_collection_class);
+            throw EntityException::entityCollectionBadClass($supervisor);
         }
         
-        return new $entity_collection_class($log_controller);
+        return new $supervisor($log_controller);
     }
 }

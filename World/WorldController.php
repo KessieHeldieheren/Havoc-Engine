@@ -4,20 +4,17 @@ declare(strict_types=1);
 namespace Havoc\Engine\World;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\Grid;
-use Havoc\Engine\Grid\GridFactory;
-use Havoc\Engine\Grid\GridInterface;
-use Havoc\Engine\Render\Render;
+use Havoc\Engine\Grid\Standard\GridSupervisorFactory;
+use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderFactory;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Renderer\RendererFactory;
 use Havoc\Engine\Renderer\RendererInterface;
-use Havoc\Engine\RendererCli\RendererCli;
 
 /**
- * Havoc Engine world controller.
+ * Havoc Core world controller.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -33,9 +30,9 @@ class WorldController implements WorldControllerInterface
     /**
      * World grid.
      *
-     * @var GridInterface
+     * @var GridSupervisorInterface
      */
-    private $grid;
+    private $grid_supervisor;
     
     /**
      * World render.
@@ -67,8 +64,8 @@ class WorldController implements WorldControllerInterface
      */
     protected function bootstrap(): void
     {
-        $this->setGrid(
-            GridFactory::new($this->getConfigController())
+        $this->setGridSupervisor(
+            GridSupervisorFactory::new($this->getConfigController())
         );
     
         $this->setRender(
@@ -78,7 +75,7 @@ class WorldController implements WorldControllerInterface
         $this->setRenderer(
             RendererFactory::new(
                 $this->getConfigController(),
-                $this->getGrid(),
+                $this->getGridSupervisor(),
                 $this->getRender()
             )
         );
@@ -107,21 +104,21 @@ class WorldController implements WorldControllerInterface
     /**
      * Returns grid.
      *
-     * @return GridInterface
+     * @return GridSupervisorInterface
      */
-    public function getGrid(): GridInterface
+    public function getGridSupervisor(): GridSupervisorInterface
     {
-        return $this->grid;
+        return $this->grid_supervisor;
     }
     
     /**
      * Sets grid.
      *
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid_supervisor
      */
-    public function setGrid(GridInterface $grid): void
+    public function setGridSupervisor(GridSupervisorInterface $grid_supervisor): void
     {
-        $this->grid = $grid;
+        $this->grid_supervisor = $grid_supervisor;
     }
     
     /**
@@ -131,8 +128,8 @@ class WorldController implements WorldControllerInterface
      */
     public function assignNewGrid(string $dependency): void
     {
-        $this->setGrid(
-            GridFactory::new(
+        $this->setGridSupervisor(
+            GridSupervisorFactory::new(
                 $this->getConfigController(),
                 $dependency
             )
@@ -205,7 +202,7 @@ class WorldController implements WorldControllerInterface
         $this->setRenderer(
             RendererFactory::new(
                 $this->getConfigController(),
-                $this->getGrid(),
+                $this->getGridSupervisor(),
                 $this->getRender(),
                 $dependency
             )

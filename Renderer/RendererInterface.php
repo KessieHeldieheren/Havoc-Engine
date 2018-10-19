@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Havoc\Engine\Renderer;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\GridInterface;
+use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
 
 /**
- * Havoc Engine world renderer interface.
+ * Havoc Core world renderer interface.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -20,10 +20,10 @@ interface RendererInterface
      * RendererCli constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      * @param RenderInterface $render
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, RenderInterface $render);
+    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render);
     
     /**
      * Render the world as a string.

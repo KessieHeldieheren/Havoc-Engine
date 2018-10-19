@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
-use Havoc\Engine\ControllerFactory\ControllerFactoryException;
 use ReflectionClass;
 
 /**
- * Havoc Engine world coordinates factory.
+ * Havoc Core world coordinates factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

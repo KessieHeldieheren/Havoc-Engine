@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace Havoc\Engine\Render;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\ControllerFactory\ControllerFactoryException;
 use ReflectionClass;
 
 /**
- * Havoc Engine world render factory.
+ * Havoc Core world render factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

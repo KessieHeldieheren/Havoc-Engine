@@ -5,14 +5,17 @@ namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\DefaultConfig;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryRule;
+use Havoc\Engine\Entity\Boundary\BoundaryRulesFactory;
+use Havoc\Engine\Entity\Boundary\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollectionInterface;
 use Havoc\Engine\Entity\Type\TypeFactory;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Engine entity base.
+ * Havoc Core entity base.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -68,6 +71,13 @@ class Entity implements EntityInterface, WorldPointInterface
     private $type_collection;
     
     /**
+     * Boundary rules.
+     *
+     * @var BoundaryRulesInterface
+     */
+    private $boundary_rules;
+    
+    /**
      * EntityBase constructor method.
      *
      * @param int $id
@@ -82,6 +92,12 @@ class Entity implements EntityInterface, WorldPointInterface
         $this->setInitialCoordinates($coordinates);
         $this->setIcon($icon);
         $this->setTypeCollection(TypeFactory::newTypeCollection());
+        $this->setBoundaryRules(BoundaryRulesFactory::new(
+            BoundaryRule::CLAMP,
+            BoundaryRule::CLAMP,
+            BoundaryRule::CLAMP,
+            BoundaryRule::CLAMP
+        ));
     }
     
     /**
@@ -229,5 +245,25 @@ class Entity implements EntityInterface, WorldPointInterface
     public function setTypeCollection(TypeCollectionInterface $type_collection): void
     {
         $this->type_collection = $type_collection;
+    }
+    
+    /**
+     * Returns boundary_rules.
+     *
+     * @return BoundaryRulesInterface
+     */
+    public function getBoundaryRules(): BoundaryRulesInterface
+    {
+        return $this->boundary_rules;
+    }
+    
+    /**
+     * Sets boundary_rules.
+     *
+     * @param BoundaryRulesInterface $boundary_rules
+     */
+    public function setBoundaryRules(BoundaryRulesInterface $boundary_rules): void
+    {
+        $this->boundary_rules = $boundary_rules;
     }
 }

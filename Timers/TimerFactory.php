@@ -11,9 +11,9 @@ use Havoc\Engine\Timers\Counter\CounterInterface;
 use Havoc\Engine\Timers\Repeater\RepeaterInterface;
 
 /**
- * Havoc Engine timer factory.
+ * Havoc Core timer factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

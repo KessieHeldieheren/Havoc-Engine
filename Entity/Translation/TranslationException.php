@@ -6,9 +6,9 @@ namespace Havoc\Engine\Entity\Translation;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Engine entity translation exceptions.
+ * Havoc Core entity translation exceptions.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -22,7 +22,7 @@ class TranslationException extends HavocEngineException
      */
     public static function translationControllerBadClass(string $given_class): self
     {
-        $required_class = TranslationControllerInterface::class;
+        $required_class = TranslationSupervisorInterface::class;
     
         return new self (
             sprintf("Cannot create the translation controller using %s, as it must implement %s.", $given_class, $required_class),

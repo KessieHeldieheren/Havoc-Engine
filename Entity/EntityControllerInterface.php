@@ -4,15 +4,16 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Entity\Translation\TranslationControllerInterface;
-use Havoc\Engine\Entity\Type\TypeControllerInterface;
-use Havoc\Engine\Grid\GridInterface;
+use Havoc\Engine\Core\Systems\SupervisorsInterface;
+use Havoc\Engine\Entity\Translation\TranslationSupervisorInterface;
+use Havoc\Engine\Entity\Type\TypeSupervisorInterface;
+use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
- * Havoc Engine entity controller interface.
+ * Havoc Core entity controller interface.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -22,10 +23,10 @@ interface EntityControllerInterface
      * EntityController constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param GridInterface $grid
+     * @param GridSupervisorInterface $grid
      * @param LogControllerInterface $logger
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridInterface $grid, LogControllerInterface $logger);
+    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, LogControllerInterface $logger);
     
     /**
      * Maps all entities onto the grid.
@@ -35,44 +36,21 @@ interface EntityControllerInterface
     /**
      * Returns entity_collection.
      *
-     * @return EntityCollectionInterface
+     * @return EntitySupervisorInterface
      */
-    public function getEntityCollection(): EntityCollectionInterface;
+    public function getEntitySupervisor(): EntitySupervisorInterface;
     
     /**
      * Returns type_controller.
      *
-     * @return TypeControllerInterface
+     * @return TypeSupervisorInterface
      */
-    public function getTypeController(): TypeControllerInterface;
-    
-    /**
-     * Assign a new entity controller.
-     *
-     * @param string $controller
-     * @throws \ReflectionException
-     */
-    public function assignNewEntityCollection(string $controller): void;
-    
-    /**
-     * Assign a new type controller.
-     *
-     * @param string $controller
-     * @throws \ReflectionException
-     */
-    public function assignNewTypeController(string $controller): void;
-    
-    /**
-     * Assign a new translation controller.
-     *
-     * @param string $controller
-     */
-    public function assignNewTranslationController(string $controller): void;
+    public function getTypeSupervisor(): TypeSupervisorInterface;
     
     /**
      * Returns translation_controller.
      *
-     * @return TranslationControllerInterface
+     * @return TranslationSupervisorInterface
      */
-    public function getTranslationController(): TranslationControllerInterface;
+    public function getTranslationSupervisor(): TranslationSupervisorInterface;
 }

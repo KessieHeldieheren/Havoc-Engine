@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Havoc\Engine\System;
 
 /**
- * Havoc Engine engine properties.
+ * Havoc Core engine properties.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

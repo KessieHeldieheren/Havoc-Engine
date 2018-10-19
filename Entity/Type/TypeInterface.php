@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\Type;
 
 /**
- * Havoc Engine entity type interface.
+ * Havoc Core entity type interface.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

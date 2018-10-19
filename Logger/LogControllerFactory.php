@@ -7,9 +7,9 @@ use Havoc\Engine\Tick\TickControllerInterface;
 use ReflectionClass;
 
 /**
- * Havoc Engine log controller factory.
+ * Havoc Core log controller factory.
  *
- * @package Havoc-Engine
+ * @package Havoc-Core
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
