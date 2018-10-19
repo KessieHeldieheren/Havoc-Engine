@@ -35,6 +35,7 @@ Via the API, this may be done using the [`Api::controllers`](#Api_controllers) m
   
 ## Class Reference  
 ### Havoc\Engine\\<a name="Api">Api</a>
+The Api class provides an easy to use programming interface through which to use the Havoc Engine.
 > ### <a name="Api_render">`Api::render`</a>  
 > * **bool** `$increment_tick` `true`:  if true, the current tick will be incremented.
 > * **returns** [`RenderInterface`](#RenderInterface).
@@ -52,4 +53,14 @@ Via the API, this may be done using the [`Api::controllers`](#Api_controllers) m
 > * **returns** [`ControllersInterface`  ](#ControllersInterface)
 >   
 > Returns the Controllers object. Used to set what controllers the engine will use.  
+------------------------
+> ### <a name="Api_config">`Api::config`</a>  
+> * **returns** [`ConfigControllerInterface`  ](#ConfigControllerInterface)
+>   
+> Returns the configuration controller. 
+------------------------
+> ### <a name="Api_world">`Api::world`</a>  
+> * **returns** [`WorldControllerInterface`  ](#WorldControllerInterface)
+>   
+> Returns the world controller. 
 ------------------------
