@@ -40,7 +40,7 @@ The Api class provides an easy to use programming interface through which to use
 > * **bool** `$increment_tick` `true`:  if true, the current tick will be incremented.
 > * **returns** [`RenderInterface`](#RenderInterface).
 >   
-> This method renders the world and returns [`RenderInterface`](#RenderInterface).  
+> This method renders the world and returnsa render interface by which to output the game world. It also optionally increments the current game tick.
   ------------------------
 > ### <a name="Api_bootstrap">`Api::bootstrap`</a>
 > * **void**
@@ -63,4 +63,29 @@ The Api class provides an easy to use programming interface through which to use
 > * **returns** [`WorldControllerInterface`  ](#WorldControllerInterface)
 >   
 > Returns the world controller. 
+------------------------
+> ### <a name="Api_tick">`Api::tick`</a>  
+> * **returns** [`TickControllerInterface`  ](#TickControllerInterface)
+>   
+> Returns the tick controller. 
+------------------------
+> ### <a name="Api_entities">`Api::entities`</a>  
+> * **returns** [`EntityControllerInterface`  ](#EntityControllerInterface)
+>   
+> Returns the entity controller. 
+------------------------
+> ### <a name="Api_logger">`Api::logger`</a>  
+> * **returns** [`LogControllerInterface`  ](#LogControllerInterface)
+>   
+> Returns the log controller. 
+------------------------
+> ### <a name="Api_types">`Api::types`</a>  
+> * **returns** [`TypeSupervisorInterface`  ](#TypeSupervisorInterface)
+>   
+> Returns the entity type supervisor. 
+------------------------
+> ### <a name="Api_translation">`Api::translation`</a>  
+> * **returns** [`TranslationSupervisorInterface`  ](#TranslationSupervisorInterface)
+>   
+> Returns the entity translation supervisor. 
 ------------------------
