@@ -47,4 +47,10 @@ Via the API, this may be done using the [`Api::controllers`](#Api_controllers) m
 > 
 > This method is used to load all engine components, such as controllers, supervisors, and other utility classes. This method must be run before the engine may be utilised.
 
+> <a name="Api_controllers">`Api::controllers`</a>
+> 
+> `returns` `ControllersInterface`
+> 
+> Returns the Controllers object. Used to set what controllers the engine will use.
+
 ------
