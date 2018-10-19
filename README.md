@@ -32,9 +32,10 @@ The game core will not be usable immediately. The core must then be bootstrapped
 ## Class Reference
 
 ### Havoc\Engine\\<a name="Api">Api</a>
+
 > <a name="Api_render">`Api::render`</a>
 > 
-> `$increment_tick` `bool` If true, current engine tick will be incremented.
+> `bool` `$increment_tick` `= true` if true, the current tick will be incremented.
 > 
 > This method renders the world and returns [`RenderInterface`](#RenderInterface).
 
