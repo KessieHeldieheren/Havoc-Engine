@@ -1,13 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine;
+namespace Havoc\Engine\Api;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Core\Core;
 use Havoc\Engine\Core\CoreInterface;
 use Havoc\Engine\Core\Systems\ControllersInterface;
-use Havoc\Engine\Core\Systems\SupervisorsInterface;
 use Havoc\Engine\Entity\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisorInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisorInterface;
@@ -28,7 +27,7 @@ use Havoc\Engine\World\WorldControllerInterface;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
-class Api
+class Api implements ApiInterface
 {
     /**
      * Havoc game engine.
@@ -85,16 +84,6 @@ class Api
     }
     
     /**
-     * Returns the system supervisors collection.
-     *
-     * @return SupervisorsInterface
-     */
-    public function supervisors(): SupervisorsInterface
-    {
-        return $this->getCore()->getSupervisors();
-    }
-    
-    /**
      * Returns the configuration controller.
      *
      * @return ConfigControllerInterface
@@ -135,6 +124,16 @@ class Api
     }
     
     /**
+     * Returns the log controller.
+     *
+     * @return LogControllerInterface
+     */
+    public function logger(): LogControllerInterface
+    {
+        return $this->getCore()->getLogController();
+    }
+    
+    /**
      * Returns the entity type controller.
      *
      * @return TypeSupervisorInterface
@@ -149,19 +148,9 @@ class Api
      *
      * @return TranslationSupervisorInterface
      */
-    public function translator(): TranslationSupervisorInterface
+    public function translation(): TranslationSupervisorInterface
     {
         return $this->getCore()->getEntityController()->getTranslationSupervisor();
-    }
-    
-    /**
-     * Returns the log controller.
-     *
-     * @return LogControllerInterface
-     */
-    public function logger(): LogControllerInterface
-    {
-        return $this->getCore()->getLogController();
     }
     
     /**
@@ -179,7 +168,7 @@ class Api
      *
      * @param CoreInterface $core
      */
-    public function setCore(CoreInterface $core): void
+    protected function setCore(CoreInterface $core): void
     {
         $this->core = $core;
     }
