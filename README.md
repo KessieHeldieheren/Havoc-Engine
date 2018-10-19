@@ -104,47 +104,47 @@ The Api class provides an easy to use programming interface through which to use
 >   
 > This method is used to load all engine components, such as controllers, supervisors, and other utility classes. This method must be run before the engine may be utilised.  
   ------------------------
-> #### <a name="Api_controllers">`ApiInterface::controllers`</a>  
+> #### <a name="ApiInterface_controllers">`ApiInterface::controllers`</a>  
 > * **returns** [`ControllersInterface`  ](#ControllersInterface)
 >   
 > Returns the Controllers object. Used to set what controllers the engine will use.  
 ------------------------
-> #### <a name="Api_config">`ApiInterface::config`</a>  
+> #### <a name="ApiInterface_config">`ApiInterface::config`</a>  
 > * **returns** [`ConfigControllerInterface`  ](#ConfigControllerInterface)
 >   
 > Returns the configuration controller. 
 ------------------------
-> #### <a name="Api_world">`ApiInterface::world`</a>  
+> #### <a name="ApiInterface_world">`ApiInterface::world`</a>  
 > * **returns** [`WorldControllerInterface`  ](#WorldControllerInterface)
 >   
 > Returns the world controller. 
 ------------------------
-> #### <a name="Api_tick">`ApiInterface::tick`</a>  
+> #### <a name="ApiInterface_tick">`ApiInterface::tick`</a>  
 > * **returns** [`TickControllerInterface`  ](#TickControllerInterface)
 >   
 > Returns the tick controller. 
 ------------------------
-> #### <a name="Api_entities">`ApiInterface::entities`</a>  
+> #### <a name="ApiInterface_entities">`ApiInterface::entities`</a>  
 > * **returns** [`EntitySupervisorInterface`  ](#EntitySupervisorInterface)
 >   
 > Returns the entity supervisor. 
 ------------------------
-> #### <a name="Api_logger">`ApiInterface::logger`</a>  
+> #### <a name="ApiInterface_logger">`ApiInterface::logger`</a>  
 > * **returns** [`LogControllerInterface`  ](#LogControllerInterface)
 >   
 > Returns the log controller. 
 ------------------------
-> #### <a name="Api_types">`ApiInterface::types`</a>  
+> #### <a name="ApiInterface_types">`ApiInterface::types`</a>  
 > * **returns** [`TypeSupervisorInterface`  ](#TypeSupervisorInterface)
 >   
 > Returns the entity type supervisor. 
 ------------------------
-> #### <a name="Api_translation">`ApiInterface::translation`</a>  
+> #### <a name="ApiInterface_translation">`ApiInterface::translation`</a>  
 > * **returns** [`TranslationSupervisorInterface`  ](#TranslationSupervisorInterface)
 >   
 > Returns the entity translation supervisor. 
 ------------------------
-> #### <a name="Api_getCore">`ApiInterface::getCore`</a>  
+> #### <a name="ApiInterface_getCore">`ApiInterface::getCore`</a>  
 > * **returns** [`CoreInterface`  ](#CoreInterface)
 >   
 > Returns the engine core. 
