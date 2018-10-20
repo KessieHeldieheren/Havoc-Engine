@@ -11,17 +11,20 @@ This project exists purely as a demonstration of building unorthodox application
   
 **Email**: kessie@sdstudios.uk  
   
+![](https://i.imgur.com/mvHxDCp.png)
+
 ## Pre-word  
 This documentation uses [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) to define the terms MUST, MUST NOT, SHOULD, and SHOULD NOT. Such as one SHOULD NOT build a game engine using PHP. But not to say one cannot.  
   
 *Should you begin to experience a tingling sensation  around the front of your head, and you have an overwhelming urge to use `strlen` to hash functions, think that variables ought to be prefixed with `$`, or that [YODA](https://en.wikipedia.org/wiki/Yoda_conditions) conditionals look attractive in ways one wouldn't talk about in public, please make an appointment with your general practitioner.*
   
-## Table of Contents  
+## <a name="index">Table of Contents</a>  
 * §1 - [Instantiating the Engine](#instantiating-the-engine)  
 * §2 - [Extending the Engine](#extending-the-engine)
 * §3 - [The Api](#the-api)
 	* §3.1 - [Introduction to the API](#introduction-to-the-api)
 	* §3.2 - [Rendering the World](#rendering-the-world)
+* §4 - [Class References](#class-references)
   
 ## <a name="instantiating-the-engine">Instantiating the Engine</a>  
 The game engine core can be instantiated via the [API](#Api).  The API contains various helper functions for accessing engine modules, as well as a method for rendering output ([`ApiInterface::render`](#ApiInterface_render)).  
@@ -39,7 +42,8 @@ $engine = Havoc\Engine\Api\ApiFactory::new();
 $engine->bootstrap();
 ```
 
-[***Return to Index***](#index)
+------------------------
+[*Return to Index*](#index)
 
 ## <a name="extending-the-engine">Extending the Engine</a>  
 Havoc Engine allows all of its controllers to be readily swapped out for extensions that implement the respective interfaces of the original controllers. This would allow a developer to write a renderer that renders to the browser, or to change how logs are handled, such as adding them to a database. This section explains how to extend these modules.  
@@ -59,6 +63,8 @@ class MyLogController implements Havoc\Engine\Logger\LogControllerInterface {}
 ```php
 $engine->controllers()->setLogController(MyLogController::class);
 ```
+------------------------
+[*Return to Index*](#index)
 
 ## <a name="the-api">The API</a>
 ### <a name="introduction-to-the-api">Introduction to the API</a>
@@ -79,7 +85,7 @@ $engine->config();
 ```
 
 ### <a name="rendering-the-world">Rendering the World</a>
-The world can be rendered via the API, by the use of the [`ApiInterface::render`](#Api_render) method. This method returns a [`RenderInterface`](#RenderInterface) class. In order to get the CLI text representation of the world (which would have been rendered using [`RendererCli`](#RendererCli) on default settings), the [`RenderInterface::string`](#RenderInterface_string) method will return the world as a string, which may then be output the terminal.
+The world can be rendered via the API, by the use of the [`ApiInterface::render`](#Api_render) method. This method returns a [`RenderInterface`](#RenderInterface) class. In order to get the CLI text representation of the world (which would have been rendered using [`RendererCli`](#RendererCli) on default settings), the [`RenderInterface::string`](#RenderInterface_string) method will return the world as a string, which may then be output to the terminal.
 
 *An example of printing out a render of the world:*
 ```php
@@ -90,7 +96,34 @@ echo $render->string();
 
 Running the render method will also increment the engine's game tick by default (see [The Tick Controller](#the-tick-controller)). To render the world without incrementing the tick, pass `false` as the first argument to [`ApiInterface::render`](#Api_render).
 
-## Class Reference  
+When printing out the world as-is, the world will essentially be printed into the terminal and the PHP script will exit.
+![](https://i.imgur.com/1RM5RGj.png)
+
+The general idea is to use a loop that contains the main runtime. You can use an infinite (until broken) loop to behave as such.
+
+```php
+while (true) {
+	// If some conditions fail, such as "did player use exit command?", then quit.
+	if (false === $some_kill_condition) {
+		break;
+	}
+	
+	// Do game related stuff here, such as move entities.
+	
+	$render = $engine->render();
+	
+	echo $render->string();
+
+	// Wait for user input, use a timer, etc. before re-rendering.
+}
+
+// Clear the terminal, or display some UI stuff.
+```
+
+------------------------
+[*Return to Index*](#index)
+
+## <a name="class-references">Class References</a>  
 ### <a name="ApiInterface">`Havoc\Engine\ApiInterface`</a>
 The Api class provides an easy to use programming interface through which to use the Havoc Engine.
 > #### <a name="ApiInterface_render">`ApiInterface::render`</a>  
@@ -151,3 +184,4 @@ The Api class provides an easy to use programming interface through which to use
 >   
 > Returns the engine core. 
 ------------------------
+[*Return to Index*](#index)
