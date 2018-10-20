@@ -1,3 +1,4 @@
+
 # Havoc Engine  
 Havoc Engine is a PHP-based game engine designed to run 2D games in the command-line.  
   
@@ -68,7 +69,7 @@ $engine->controllers()->setLogController(MyLogController::class);
 
 ## <a name="the-api">The API</a>
 ### <a name="introduction-to-the-api">Introduction to the API</a>
-The API stores all of the common and necessary modules the engine uses in simple functions. All of the methods provided can be found [here](#Api). The API is essentially a wrapper for the engine core.
+The API stores all of the common and necessary modules the engine uses in simple functions. All of the methods provided can be found [here](#ApiInterface). The API is essentially a wrapper for the engine core.
 
 Although I would usually avoid these short, slightly more vague, method names, in the case of the API the method names have been made to be as short and concise as possible.
 
@@ -123,7 +124,7 @@ while (true) {
 ------------------------
 [*Return to Index*](#index)
 
-## <a name="class-references">Class References</a>  
+## <a name="class-references">Class References</a>
 ### <a name="ApiInterface">`Havoc\Engine\ApiInterface`</a>
 The Api class provides an easy to use programming interface through which to use the Havoc Engine.
 > #### <a name="ApiInterface_render">`ApiInterface::render`</a>  
