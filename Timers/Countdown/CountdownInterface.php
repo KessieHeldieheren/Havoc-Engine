@@ -6,11 +6,11 @@ namespace Havoc\Engine\Timers\Countdown;
 use Havoc\Engine\Tick\TickControllerInterface;
 
 /**
- * Havoc Core countdown timer interface.
+ * Havoc Engine countdown timer interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface CountdownInterface
 {

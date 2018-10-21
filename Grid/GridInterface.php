@@ -8,11 +8,11 @@ use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Engine grid interface.
+  * Havoc Engine grid interface.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface GridInterface
 {

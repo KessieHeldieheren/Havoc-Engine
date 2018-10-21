@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Havoc\Engine\Config;
 
 /**
- * Havoc Core config controller interface.
+ * Havoc Engine config controller interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface ConfigControllerInterface
 {

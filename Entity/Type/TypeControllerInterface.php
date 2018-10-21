@@ -7,11 +7,11 @@ use Havoc\Engine\Entity\EntityCollectionInterface;
 use Havoc\Engine\Entity\EntityInterface;
 
 /**
- * Havoc Engine entity type controller interface.
+  * Havoc Engine entity type controller interface.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface TypeControllerInterface
 {

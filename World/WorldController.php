@@ -12,11 +12,11 @@ use Havoc\Engine\Renderer\RendererFactory;
 use Havoc\Engine\Renderer\RendererInterface;
 
 /**
- * Havoc Core world controller.
+ * Havoc Engine world controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class WorldController implements WorldControllerInterface
 {

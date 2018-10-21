@@ -11,11 +11,11 @@ use Havoc\Engine\RendererCli\RendererCli;
 use ReflectionClass;
 
 /**
- * Havoc Core world renderer factory.
+ * Havoc Engine world renderer factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class RendererFactory
 {

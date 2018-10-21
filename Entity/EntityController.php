@@ -14,9 +14,9 @@ use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
- * Havoc Core entity controller.
+ * Havoc Engine entity controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */
@@ -118,7 +118,8 @@ class EntityController implements EntityControllerInterface
             BoundarySupervisorFactory::new(
                 $this->getEntitySupervisor(),
                 $this->getLogcontroller(),
-                $this->getGrid()->getBoundary()
+                $this->getGrid()->getBoundary(),
+                $this->getConfigController()
             )
         );
     }
@@ -170,7 +171,7 @@ class EntityController implements EntityControllerInterface
     {
         $grid = $this->getGrid();
         
-        foreach ($this->getEntitySupervisor()->getEntities() as $entity) {
+        foreach ($this->getEntitySupervisor()->getEntitycollection()->getEntities() as $entity) {
             $grid->insertWithCoordinates($entity, $entity->getCoordinates());
         }
     }

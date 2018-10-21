@@ -6,11 +6,11 @@ namespace Havoc\Engine\Logger;
 use Havoc\Engine\Tick\TickControllerInterface;
 
 /**
- * Havoc Core log controller.
+ * Havoc Engine log controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class LogController implements LogControllerInterface
 {

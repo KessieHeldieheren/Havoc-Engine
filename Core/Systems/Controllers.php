@@ -10,11 +10,11 @@ use Havoc\Engine\Tick\TickController;
 use Havoc\Engine\World\WorldController;
 
 /**
- * Havoc Core controllers.
+ * Havoc Engine controllers.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class Controllers implements ControllersInterface
 {

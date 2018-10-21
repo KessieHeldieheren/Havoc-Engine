@@ -10,11 +10,11 @@ use Havoc\Engine\Grid\Boundary\BoundaryInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Core grid supervisor interface.
+ * Havoc Engine grid supervisor interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface GridSupervisorInterface
 {

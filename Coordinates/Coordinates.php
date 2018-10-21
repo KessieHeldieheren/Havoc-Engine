@@ -6,11 +6,11 @@ namespace Havoc\Engine\Coordinates;
 use Havoc\Engine\Config\DefaultConfig;
 
 /**
- * Havoc Core world coordinates.
+ * Havoc Engine world coordinates.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class Coordinates implements CoordinatesInterface
 {

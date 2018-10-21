@@ -7,6 +7,7 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Core\Core;
 use Havoc\Engine\Core\CoreInterface;
 use Havoc\Engine\Core\Systems\ControllersInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollectionInterface;
 use Havoc\Engine\Entity\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisorInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisorInterface;
@@ -16,16 +17,16 @@ use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldControllerInterface;
 
 /**
- * Havoc Core API class.
+ * Havoc Engine API class.
  *
  * This class is intended to ease the use of accessing and finding different engine components.
  *
  * It contains all classes that are necessary to making a game. More advanced functionality can be acquired by
  * accessing engine modules directly.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class Api implements ApiInterface
 {
@@ -51,12 +52,12 @@ class Api implements ApiInterface
      */
     public function render(): RenderInterface
     {
-        $this->getCore()->getTickController()->incrementTick();
-        
         $world_controller = $this->getCore()->getWorldController();
         $entity_controller = $this->getCore()->getEntityController();
-        
+    
+        $this->getCore()->getTickController()->incrementTick();
         $world_controller->getGridSupervisor()->insertEmptyPoints();
+        $entity_controller->getBoundarySupervisor()->validateEntitiesInBounds();
         $entity_controller->mapEntitiesToGrid();
         $world_controller->getRenderer()->render();
         
@@ -151,6 +152,16 @@ class Api implements ApiInterface
     public function translation(): TranslationSupervisorInterface
     {
         return $this->getCore()->getEntityController()->getTranslationSupervisor();
+    }
+    
+    /**
+     * Returns all entities that are out of bounds in the current tick.
+     *
+     * @return BoundaryViolationCollectionInterface
+     */
+    public function boundaryViolators(): BoundaryViolationCollectionInterface
+    {
+        return $this->getCore()->getEntityController()->getBoundarySupervisor()->getBoundaryViolators();
     }
     
     /**

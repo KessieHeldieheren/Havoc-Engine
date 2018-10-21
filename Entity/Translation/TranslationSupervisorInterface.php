@@ -10,11 +10,11 @@ use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
- * Havoc Core entity translation controller interface.
+ * Havoc Engine entity translation controller interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface TranslationSupervisorInterface
 {

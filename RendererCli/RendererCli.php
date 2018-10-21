@@ -9,11 +9,11 @@ use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Renderer\RendererInterface;
 
 /**
- * Havoc Core CLI renderer.
+ * Havoc Engine CLI renderer.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class RendererCli implements RendererInterface
 {

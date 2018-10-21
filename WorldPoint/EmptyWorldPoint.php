@@ -7,11 +7,11 @@ use Havoc\Engine\Config\DefaultConfig;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 
 /**
- * Havoc Core empty world point.
+ * Havoc Engine empty world point.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class EmptyWorldPoint implements WorldPointInterface
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Havoc\Engine\WorldPoint;
 
 /**
- * Havoc Core world point factory.
+ * Havoc Engine world point factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class WorldPointFactory
 {

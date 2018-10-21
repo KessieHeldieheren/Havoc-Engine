@@ -7,11 +7,11 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use ReflectionClass;
 
 /**
- * Havoc Core world render factory.
+ * Havoc Engine world render factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class RenderFactory
 {

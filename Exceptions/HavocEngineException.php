@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Havoc\Engine\Exceptions;
 
 /**
- * Havoc Core base exception.
+ * Havoc Engine base exception.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class HavocEngineException extends \RuntimeException {}

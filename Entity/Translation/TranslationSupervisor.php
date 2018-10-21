@@ -10,11 +10,11 @@ use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
- * Havoc Core entity translation controller.
+ * Havoc Engine entity translation controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class TranslationSupervisor implements TranslationSupervisorInterface
 {
@@ -84,7 +84,7 @@ class TranslationSupervisor implements TranslationSupervisorInterface
     protected function detectEntityCollisions(EntityInterface $entity): void
     {
         $coordinates = $entity->getCoordinates()->rounded();
-        $entities = $this->getEntityCollection()->getEntities();
+        $entities = $this->getEntityCollection()->getEntitycollection();
         
         unset ($entities[$entity->getId()]);
         

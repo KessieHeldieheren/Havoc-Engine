@@ -4,24 +4,27 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\EntityCollectionInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
-use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Core entity supervisor.
+ * Havoc Engine entity supervisor.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class EntitySupervisor implements EntitySupervisorInterface
 {
+    public const CREATED_ENTITY = "Created entity %s (#%s, %s) at coordinates %s.";
+    public const DELETED_ENTITY = "Deleted entity %s (#%s, %s).";
+    
     /**
      * World entities.
      *
-     * @var EntityInterface[]|WorldPointInterface[]
+     * @var EntityCollectionInterface
      */
-    private $entities = [];
+    private $entity_collection;
     
     /**
      * Log controller.
@@ -38,6 +41,7 @@ class EntitySupervisor implements EntitySupervisorInterface
     public function __construct(LogControllerInterface $log_controller)
     {
         $this->setLogcontroller($log_controller);
+        $this->setEntityCollection(EntityCollectionFactory::new());
     }
     
     /**
@@ -46,7 +50,7 @@ class EntitySupervisor implements EntitySupervisorInterface
      */
     public function getByClass(string $search_class): array
     {
-        $entities = $this->getEntities();
+        $entities = $this->getEntitycollection();
         $result = [];
         
         foreach ($entities as $entity) {
@@ -73,7 +77,7 @@ class EntitySupervisor implements EntitySupervisorInterface
     {
         $id = $this->getNewKey();
         $entity = EntityFactory::newEntity($entity_class, $id, $name, $coordinates, $icon);
-        $this->entities[$id] = $entity;
+        $this->getEntitycollection()->add($entity);
         
         if (null !== $types) {
             $entity->getTypeCollection()->addTypes($types);
@@ -86,7 +90,7 @@ class EntitySupervisor implements EntitySupervisorInterface
                 $entity->getIcon(),
                 $entity->getCoordinates()->string()
             ],
-            LogMessage::CREATED_ENTITY,
+            self::CREATED_ENTITY,
             self::class
         );
         
@@ -100,7 +104,7 @@ class EntitySupervisor implements EntitySupervisorInterface
      */
     public function delete(EntityInterface $entity): void
     {
-        unset($this->entities[$entity->getId()]);
+        $this->getEntitycollection()->delete($entity);
         
         $this->getLogcontroller()->addLog(
             [
@@ -108,7 +112,7 @@ class EntitySupervisor implements EntitySupervisorInterface
                 $entity->getId(),
                 $entity->getIcon()
             ],
-            LogMessage::DELETED_ENTITY,
+            self::DELETED_ENTITY,
             self::class
         );
     }
@@ -116,11 +120,21 @@ class EntitySupervisor implements EntitySupervisorInterface
     /**
      * Returns entities.
      *
-     * @return EntityInterface[]|WorldPointInterface[]
+     * @return EntityCollectionInterface
      */
-    public function getEntities(): array
+    public function getEntitycollection(): EntityCollectionInterface
     {
-        return $this->entities;
+        return $this->entity_collection;
+    }
+    
+    /**
+     * Sets entity_collection.
+     *
+     * @param EntityCollectionInterface $entity_collection
+     */
+    public function setEntityCollection(EntityCollectionInterface $entity_collection): void
+    {
+        $this->entity_collection = $entity_collection;
     }
     
     /**
@@ -150,11 +164,13 @@ class EntitySupervisor implements EntitySupervisorInterface
      */
     protected function getNewKey(): int
     {
-        end($this->entities);
+        $entity_collection = $this->getEntitycollection()->getEntities();
         
-        $key = (int) key($this->entities) + 1;
+        end($entity_collection);
         
-        reset($this->entities);
+        $key = (int) key($this->entity_collection) + 1;
+        
+        reset($entity_collection);
         
         return $key;
     }

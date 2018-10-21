@@ -9,11 +9,11 @@ use Havoc\Engine\Logger\LogControllerInterface;
 use ReflectionClass;
 
 /**
- * Havoc Core entity controller factory.
+ * Havoc Engine entity controller factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class EntityControllerFactory
 {

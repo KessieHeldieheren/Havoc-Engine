@@ -7,11 +7,11 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use ReflectionClass;
 
 /**
- * Havoc Engine grid factory.
+  * Havoc Engine grid factory.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class GridFactory
 {

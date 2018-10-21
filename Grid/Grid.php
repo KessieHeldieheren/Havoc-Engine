@@ -10,11 +10,11 @@ use Havoc\Engine\WorldPoint\WorldPointInterface;
 use Iterator;
 
 /**
- * Havoc Engine grid.
+  * Havoc Engine grid.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class Grid implements GridInterface
 {

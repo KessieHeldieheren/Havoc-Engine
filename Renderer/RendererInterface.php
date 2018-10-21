@@ -8,9 +8,9 @@ use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
 
 /**
- * Havoc Core world renderer interface.
+ * Havoc Engine world renderer interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

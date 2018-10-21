@@ -15,11 +15,11 @@ use Havoc\Engine\Tick\TickControllerInterface;
 use Havoc\Engine\World\WorldControllerInterface;
 
 /**
- * Havoc Core API interface.
+ * Havoc Engine API interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface ApiInterface
 {

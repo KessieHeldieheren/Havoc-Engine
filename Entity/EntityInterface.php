@@ -8,11 +8,11 @@ use Havoc\Engine\Entity\Boundary\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollectionInterface;
 
 /**
- * Havoc Core entity interface.
+ * Havoc Engine entity interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface EntityInterface
 {

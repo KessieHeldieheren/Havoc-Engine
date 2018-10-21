@@ -11,11 +11,11 @@ use Havoc\Engine\Timers\Counter\CounterInterface;
 use Havoc\Engine\Timers\Repeater\RepeaterInterface;
 
 /**
- * Havoc Core timer factory.
+ * Havoc Engine timer factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class TimerFactory
 {

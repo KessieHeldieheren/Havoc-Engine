@@ -6,11 +6,11 @@ namespace Havoc\Engine\Timers\Counter;
 use Havoc\Engine\Tick\TickControllerInterface;
 
 /**
- * Havoc Core counter timer interface.
+ * Havoc Engine counter timer interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface CounterInterface
 {

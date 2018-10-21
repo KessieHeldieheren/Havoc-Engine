@@ -6,9 +6,9 @@ namespace Havoc\Engine\Entity\Type;
 use ReflectionClass;
 
 /**
- * Havoc Core entity type factory.
+ * Havoc Engine entity type factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

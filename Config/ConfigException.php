@@ -7,11 +7,11 @@ use Havoc\Engine\Exceptions\HavocEngineException;
 use Havoc\Engine\System\Property;
 
 /**
- * Havoc Core configuration exceptions.
+ * Havoc Engine configuration exceptions.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class ConfigException extends HavocEngineException
 {

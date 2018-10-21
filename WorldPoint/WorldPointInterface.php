@@ -6,13 +6,13 @@ namespace Havoc\Engine\WorldPoint;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 
 /**
- * Havoc Core world point interface.
+ * Havoc Engine world point interface.
  *
  * This interface allows objects to be placed on the world grid.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface WorldPointInterface
 {

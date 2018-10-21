@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity;
 
-use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\Entity\Type\TypeInterface;
-use Havoc\Engine\Logger\LogControllerInterface;
+use Havoc\Engine\Entity\EntityCollectionInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
@@ -13,7 +11,7 @@ use Havoc\Engine\WorldPoint\WorldPointInterface;
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class EntityCollection implements EntityCollectionInterface
 {
@@ -25,97 +23,7 @@ class EntityCollection implements EntityCollectionInterface
     private $entities = [];
     
     /**
-     * Log controller.
-     *
-     * @var LogControllerInterface
-     */
-    private $log_controller;
-    
-    /**
-     * EntityCollection constructor method.
-     *
-     * @param LogControllerInterface $log_controller
-     */
-    public function __construct(LogControllerInterface $log_controller)
-    {
-        $this->setLogcontroller($log_controller);
-    }
-    
-    /**
-     * @param string $search_class
-     * @return EntityInterface[]
-     */
-    public function getByClass(string $search_class): array
-    {
-        $entities = $this->getEntities();
-        $result = [];
-        
-        foreach ($entities as $entity) {
-            if ($search_class === \get_class($entity)) {
-                $result[] = $entity;
-            }
-        }
-        
-        return $result;
-    }
-    
-    /**
-     * Create a new entity.
-     *
-     * @param string $name
-     * @param CoordinatesInterface $coordinates
-     * @param string $icon
-     * @param array $types
-     * @param string $entity_class
-     * @return EntityInterface
-     * @throws \ReflectionException
-     */
-    public function create(string $name, CoordinatesInterface $coordinates, string $icon, array $types = [], string $entity_class = Entity::class): EntityInterface
-    {
-        $id = $this->getNewKey();
-        $entity = EntityFactory::newEntity($entity_class, $id, $name, $coordinates, $icon);
-        $this->entities[$id] = $entity;
-        
-        if (null !== $types) {
-            $entity->getTypeCollection()->addTypes($types);
-        }
-        
-        $this->getLogcontroller()->addLog(
-            [
-                $entity->getName(),
-                $entity->getId(),
-                $entity->getIcon(),
-                $entity->getCoordinates()->string()
-            ],
-            LogMessage::CREATED_ENTITY,
-            self::class
-        );
-        
-        return $entity;
-    }
-    
-    /**
-     * Attempts to silently delete an entity. No errors occur on failure.
-     *
-     * @param EntityInterface $entity
-     */
-    public function delete(EntityInterface $entity): void
-    {
-        unset($this->entities[$entity->getId()]);
-        
-        $this->getLogcontroller()->addLog(
-            [
-                $entity->getName(),
-                $entity->getId(),
-                $entity->getIcon()
-            ],
-            LogMessage::DELETED_ENTITY,
-            self::class
-        );
-    }
-    
-    /**
-     * Returns entities.
+     * Get all entities.
      *
      * @return EntityInterface[]|WorldPointInterface[]
      */
@@ -125,38 +33,30 @@ class EntityCollection implements EntityCollectionInterface
     }
     
     /**
-     * Returns logger.
+     * Add an entity to the collection.
      *
-     * @return LogControllerInterface
+     * @param EntityInterface $entity
      */
-    public function getLogcontroller(): LogControllerInterface
+    public function add(EntityInterface $entity): void
     {
-        return $this->log_controller;
+        $this->entities[$entity->getId()] = $entity;
     }
     
     /**
-     * Sets logger.
+     * Delete an entity from the collection.
      *
-     * @param LogControllerInterface $log_controller
+     * @param EntityInterface $entity
      */
-    public function setLogcontroller(LogControllerInterface $log_controller): void
+    public function delete(EntityInterface $entity): void
     {
-        $this->log_controller = $log_controller;
+        unset ($this->entities[$entity->getId()]);
     }
     
     /**
-     * Returns the last key plus 1.
-     *
-     * @return int
+     * Deletes all entities from the collection.
      */
-    protected function getNewKey(): int
+    public function clean(): void
     {
-        end($this->entities);
-        
-        $key = (int) key($this->entities) + 1;
-        
-        reset($this->entities);
-        
-        return $key;
+        $this->entities = [];
     }
 }

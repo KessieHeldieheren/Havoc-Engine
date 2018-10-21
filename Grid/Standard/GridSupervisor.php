@@ -11,11 +11,11 @@ use Havoc\Engine\WorldPoint\WorldPointFactory;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Core grid supervisor.
+ * Havoc Engine grid supervisor.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class GridSupervisor implements GridSupervisorInterface
 {

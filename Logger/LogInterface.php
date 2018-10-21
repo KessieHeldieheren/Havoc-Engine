@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Havoc\Engine\Logger;
 
 /**
- * Havoc Core log interface.
+ * Havoc Engine log interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface LogInterface
 {

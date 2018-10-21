@@ -6,11 +6,11 @@ namespace Havoc\Engine\Coordinates;
 use ReflectionClass;
 
 /**
- * Havoc Core world coordinates factory.
+ * Havoc Engine world coordinates factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class CoordinatesFactory
 {

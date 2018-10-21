@@ -13,9 +13,9 @@ use Havoc\Engine\Entity\Type\TypeFactory;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Core entity base.
+ * Havoc Engine entity base.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

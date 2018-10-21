@@ -10,11 +10,11 @@ use Havoc\Engine\Logger\LogControllerInterface;
 use ReflectionClass;
 
 /**
- * Havoc Engine entity translation controller factory.
+  * Havoc Engine entity translation controller factory.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class TranslationControllerFactory
 {

@@ -6,9 +6,9 @@ namespace Havoc\Engine\Render;
 use Havoc\Engine\Config\ConfigControllerInterface;
 
 /**
- * Havoc Core world render.
+ * Havoc Engine world render.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 1.0.0
  */

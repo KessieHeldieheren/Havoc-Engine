@@ -6,24 +6,25 @@ namespace Havoc\Engine\Entity\Translation;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Entity\EntityCollectionInterface;
 use Havoc\Engine\Entity\EntityInterface;
+use Havoc\Engine\Entity\EntitySupervisorInterface;
 use Havoc\Engine\Grid\GridInterface;
 use Havoc\Engine\Logger\LogControllerInterface;
 
 /**
- * Havoc Engine entity translation controller.
+  * Havoc Engine entity translation controller.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class TranslationController implements TranslationControllerInterface
 {
     /**
      * Entity collection.
      *
-     * @var EntityCollectionInterface
+     * @var EntitySupervisorInterface
      */
-    private $entity_collection;
+    private $entity_supervisor;
     
     /**
      * Log controller.
@@ -42,13 +43,13 @@ class TranslationController implements TranslationControllerInterface
     /**
      * TranslationController constructor method.
      *
-     * @param EntityCollectionInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_supervisor
      * @param LogControllerInterface $log_controller
      * @param GridInterface $grid
      */
-    public function __construct(EntityCollectionInterface $entity_collection, LogControllerInterface $log_controller, GridInterface $grid)
+    public function __construct(EntitySupervisorInterface $entity_supervisor, LogControllerInterface $log_controller, GridInterface $grid)
     {
-        $this->setEntityCollection($entity_collection);
+        $this->setEntitySupervisor($entity_supervisor);
         $this->setLogController($log_controller);
         $this->setGrid($grid);
     }
@@ -84,7 +85,7 @@ class TranslationController implements TranslationControllerInterface
     protected function detectEntityCollisions(EntityInterface $entity): void
     {
         $coordinates = $entity->getCoordinates()->rounded();
-        $entities = $this->getEntityCollection()->getEntities();
+        $entities = $this->getEntitySupervisor()->getEntitycollection();
         
         unset ($entities[$entity->getId()]);
         
@@ -112,23 +113,23 @@ class TranslationController implements TranslationControllerInterface
     }
     
     /**
-     * Returns entity_collection.
+     * Returns entity_supervisor.
      *
-     * @return EntityCollectionInterface
+     * @return EntitySupervisorInterface
      */
-    public function getEntityCollection(): EntityCollectionInterface
+    public function getEntitySupervisor(): EntitySupervisorInterface
     {
-        return $this->entity_collection;
+        return $this->entity_supervisor;
     }
     
     /**
-     * Sets entity_collection.
+     * Sets entity_supervisor.
      *
-     * @param EntityCollectionInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_supervisor
      */
-    public function setEntityCollection(EntityCollectionInterface $entity_collection): void
+    public function setEntitySupervisor(EntitySupervisorInterface $entity_supervisor): void
     {
-        $this->entity_collection = $entity_collection;
+        $this->entity_supervisor = $entity_supervisor;
     }
     
     /**

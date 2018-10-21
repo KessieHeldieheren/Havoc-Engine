@@ -6,11 +6,11 @@ namespace Havoc\Engine\Config;
 use Havoc\Engine\System\Property;
 
 /**
- * Havoc Core configuration controller.
+ * Havoc Engine configuration controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class ConfigController implements ConfigControllerInterface
 {

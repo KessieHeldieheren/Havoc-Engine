@@ -6,11 +6,11 @@ namespace Havoc\Engine\Logger;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Core log exceptions.
+ * Havoc Engine log exceptions.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class LogException extends HavocEngineException
 {

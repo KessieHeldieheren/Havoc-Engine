@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace Havoc\Engine\Tick;
 
 /**
- * Havoc Core tick controller.
+ * Havoc Engine tick controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class TickController implements TickControllerInterface
 {

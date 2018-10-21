@@ -4,23 +4,24 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Entity\EntityCollectionInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
- * Havoc Core entity supervisor interface.
+ * Havoc Engine entity supervisor interface.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 interface EntitySupervisorInterface
 {
     /**
      * Returns entities.
      *
-     * @return EntityInterface[]|WorldPointInterface[]
+     * @return EntityCollectionInterface
      */
-    public function getEntities(): array;
+    public function getEntitycollection(): EntityCollectionInterface;
     
     /**
      * Create a new entity.

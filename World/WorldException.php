@@ -6,11 +6,11 @@ namespace Havoc\Engine\World;
 use Havoc\Engine\Exceptions\HavocEngineException;
 
 /**
- * Havoc Core world exceptions.
+ * Havoc Engine world exceptions.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class WorldException extends HavocEngineException
 {

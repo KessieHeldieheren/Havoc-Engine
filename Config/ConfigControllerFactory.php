@@ -6,11 +6,11 @@ namespace Havoc\Engine\Config;
 use ReflectionClass;
 
 /**
- * Havoc Core configuration controller factory.
+ * Havoc Engine configuration controller factory.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 abstract class ConfigControllerFactory
 {

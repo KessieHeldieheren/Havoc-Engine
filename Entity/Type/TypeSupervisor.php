@@ -7,11 +7,11 @@ use Havoc\Engine\Entity\EntitySupervisorInterface;
 use Havoc\Engine\Entity\EntityInterface;
 
 /**
- * Havoc Core entity type controller.
+ * Havoc Engine entity type controller.
  *
- * @package Havoc-Core
+ * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
- * @version 1.0.0
+ * @version 0.0.0-alpha
  */
 class TypeSupervisor implements TypeSupervisorInterface
 {
@@ -75,7 +75,7 @@ class TypeSupervisor implements TypeSupervisorInterface
      */
     public function getEntitiesByType(TypeInterface $type): array
     {
-        $entities = $this->getEntityCollection()->getEntities();
+        $entities = $this->getEntityCollection()->getEntitycollection();
         $result = [];
         
         foreach ($entities as $entity) {
