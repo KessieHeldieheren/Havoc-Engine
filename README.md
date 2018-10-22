@@ -86,6 +86,8 @@ $engine->config();
 ```
 
 ### <a name="rendering-the-world">Rendering the World</a>
+*Note: this library does not offer a solution for rendering any kind of UI. Images of example games are built using SymfonyConsole and a custom SymfonyStyle extension.*
+
 The world can be rendered via the API, by the use of the [`ApiInterface::render`](#Api_render) method. This method returns a [`RenderInterface`](#RenderInterface) class. In order to get the CLI text representation of the world (which would have been rendered using [`RendererCli`](#RendererCli) on default settings), the [`RenderInterface::string`](#RenderInterface_string) method will return the world as a string, which may then be output to the terminal.
 
 *An example of printing out a render of the world:*
