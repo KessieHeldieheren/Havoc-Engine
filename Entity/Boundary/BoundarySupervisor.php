@@ -109,7 +109,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
         if ($y < $boundary->getYNegative()) {
             $this->yNegative($entity);
         } elseif ($y > $boundary->getYPositive()) {
-            $this->yPositive($entity);
+            $this->yPositive($entity); 
         }
     }
     
