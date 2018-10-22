@@ -5,10 +5,11 @@ namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\DefaultConfig;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\Entity\Boundary\BoundaryRule;
-use Havoc\Engine\Entity\Boundary\BoundaryRulesFactory;
-use Havoc\Engine\Entity\Boundary\BoundaryRulesInterface;
-use Havoc\Engine\Entity\Type\TypeCollectionInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRule;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\RulesFactory;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface;
+use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionFactory;
+use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
 use Havoc\Engine\Entity\Type\TypeFactory;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
@@ -73,7 +74,7 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Boundary rules.
      *
-     * @var BoundaryRulesInterface
+     * @var \Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface
      */
     private $boundary_rules;
     
@@ -91,8 +92,8 @@ class Entity implements EntityInterface, WorldPointInterface
         $this->setName($name);
         $this->setInitialCoordinates($coordinates);
         $this->setIcon($icon);
-        $this->setTypeCollection(TypeFactory::newTypeCollection());
-        $this->setBoundaryRules(BoundaryRulesFactory::new(
+        $this->setTypeCollection(TypeCollectionFactory::new());
+        $this->setBoundaryRules(RulesFactory::new(
             BoundaryRule::CLAMP,
             BoundaryRule::CLAMP,
             BoundaryRule::CLAMP,
@@ -230,7 +231,7 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Returns type_collection.
      *
-     * @return TypeCollectionInterface
+     * @return \Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface
      */
     public function getTypeCollection(): TypeCollectionInterface
     {
@@ -240,7 +241,7 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Sets type_collection.
      *
-     * @param TypeCollectionInterface $type_collection
+     * @param \Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface $type_collection
      */
     public function setTypeCollection(TypeCollectionInterface $type_collection): void
     {
@@ -250,9 +251,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Returns boundary_rules.
      *
-     * @return BoundaryRulesInterface
+     * @return RulesInterface
      */
-    public function getBoundaryRules(): BoundaryRulesInterface
+    public function getBoundaryRules(): RulesInterface
     {
         return $this->boundary_rules;
     }
@@ -260,9 +261,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Sets boundary_rules.
      *
-     * @param BoundaryRulesInterface $boundary_rules
+     * @param \Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface $boundary_rules
      */
-    public function setBoundaryRules(BoundaryRulesInterface $boundary_rules): void
+    public function setBoundaryRules(RulesInterface $boundary_rules): void
     {
         $this->boundary_rules = $boundary_rules;
     }

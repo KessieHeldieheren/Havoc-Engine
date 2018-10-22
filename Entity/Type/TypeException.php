@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Type;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
+use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine type exceptions.
@@ -12,7 +14,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class TypeException extends HavocEngineException
+class TypeException extends EngineException
 {
     public const TYPE_BAD_CLASS = 0x1;
     public const TYPE_COLLECTION_BAD_CLASS = 0x2;
@@ -50,7 +52,7 @@ class TypeException extends HavocEngineException
      * @param string $given_class
      * @return TypeException
      */
-    public static function typeControllerBadClass(string $given_class): self
+    public static function typeSupervisorBadClass(string $given_class): self
     {
         $required_class = TypeSupervisorInterface::class;
     

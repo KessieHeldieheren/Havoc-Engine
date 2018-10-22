@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\Entity\Boundary\BoundaryRulesInterface;
-use Havoc\Engine\Entity\Type\TypeCollectionInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface;
+use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
 
 /**
  * Havoc Engine entity interface.
@@ -85,14 +85,14 @@ interface EntityInterface
     /**
      * Returns type_collection.
      *
-     * @return TypeCollectionInterface
+     * @return \Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface
      */
     public function getTypeCollection(): TypeCollectionInterface;
     
     /**
      * Sets type_collection.
      *
-     * @param TypeCollectionInterface $type_collection
+     * @param \Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface $type_collection
      */
     public function setTypeCollection(TypeCollectionInterface $type_collection): void;
     
@@ -113,14 +113,14 @@ interface EntityInterface
     /**
      * Returns boundary_rules.
      *
-     * @return BoundaryRulesInterface
+     * @return \Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface
      */
-    public function getBoundaryRules(): BoundaryRulesInterface;
+    public function getBoundaryRules(): RulesInterface;
     
     /**
      * Sets boundary_rules.
      *
-     * @param BoundaryRulesInterface $boundary_rules
+     * @param RulesInterface $boundary_rules
      */
-    public function setBoundaryRules(BoundaryRulesInterface $boundary_rules): void;
+    public function setBoundaryRules(RulesInterface $boundary_rules): void;
 }

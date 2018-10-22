@@ -20,6 +20,6 @@ abstract class BoundaryCodeFactory
      */
     public static function new(int $boundary_code): BoundaryCodeInterface
     {
-        return new BoundaryCode($boundary_code);
+        return new BoundaryBoundaryCode($boundary_code);
     }
 }

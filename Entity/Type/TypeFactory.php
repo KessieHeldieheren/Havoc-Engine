@@ -23,7 +23,7 @@ abstract class TypeFactory
      * @return TypeInterface
      * @throws \ReflectionException
      */
-    public static function newType(int $id, string $name, string $type_class = Type::class): TypeInterface
+    public static function new(int $id, string $name, string $type_class = Type::class): TypeInterface
     {
         $reflects = (new ReflectionClass($type_class))->implementsInterface(TypeInterface::class);
     
@@ -32,23 +32,5 @@ abstract class TypeFactory
         }
     
         return new $type_class($id, $name);
-    }
-    
-    /**
-     * Create a new type collection.
-     *
-     * @param string $type_collection_class
-     * @return TypeCollectionInterface
-     * @throws \ReflectionException
-     */
-    public static function newTypeCollection(string $type_collection_class = TypeCollection::class): TypeCollectionInterface
-    {
-        $reflects = (new ReflectionClass($type_collection_class))->implementsInterface(TypeCollectionInterface::class);
-    
-        if (false === $reflects) {
-            throw TypeException::typeCollectionBadClass($type_collection_class);
-        }
-    
-        return new $type_collection_class();
     }
 }

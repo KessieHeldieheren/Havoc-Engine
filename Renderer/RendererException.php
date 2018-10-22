@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Renderer;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine renderer exceptions.
@@ -12,7 +12,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class RendererException extends HavocEngineException
+class RendererException extends EngineException
 {
     public const RENDERER_BAD_CLASS = 0x1;
     

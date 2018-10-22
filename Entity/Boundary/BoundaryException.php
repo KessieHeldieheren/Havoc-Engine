@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRule;
+use Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine entity boundary exceptions.
@@ -12,7 +14,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class BoundaryException extends HavocEngineException
+class BoundaryException extends EngineException
 {
     public const BOUNDARY_SUPERVISOR_BAD_CLASS = 0x1;
     public const BOUNDARY_RULE_INVALID = 0x2;

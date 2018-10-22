@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\Logger\LogControllerInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 use ReflectionClass;
 
@@ -41,25 +40,5 @@ abstract class EntityFactory
         }
         
         return new $entity_class($id, $name, $coordinates, $icon);
-    }
-    
-    /**
-     * Create a new entity supervisor.
-     *
-     * @param LogControllerInterface $log_controller
-     * @param string $supervisor
-     * @return EntitySupervisorInterface
-     * @throws \ReflectionException
-     */
-    public static function newEntitySupervisor(LogControllerInterface $log_controller, string $supervisor = EntitySupervisor::class): EntitySupervisorInterface
-    {
-        $reflects = (new ReflectionClass($supervisor))
-            ->implementsInterface(EntitySupervisorInterface::class);
-        
-        if (false === $reflects) {
-            throw EntityException::entityCollectionBadClass($supervisor);
-        }
-        
-        return new $supervisor($log_controller);
     }
 }

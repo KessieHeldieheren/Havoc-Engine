@@ -5,8 +5,7 @@ namespace Havoc\Engine\Grid\Standard;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\Grid\Boundary\BoundaryFactory;
-use Havoc\Engine\Grid\Boundary\BoundaryInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
@@ -53,7 +52,7 @@ interface GridSupervisorInterface
     /**
      * Returns the boundaries for the world grid.
      *
-     * @return BoundaryInterface
+     * @return \Havoc\Engine\Entity\Boundary\BoundaryInterface
      */
     public function getBoundary(): BoundaryInterface;
 }

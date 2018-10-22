@@ -5,13 +5,14 @@ namespace Havoc\Engine\Api;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Core\CoreInterface;
-use Havoc\Engine\Core\Systems\ControllersInterface;
-use Havoc\Engine\Entity\EntitySupervisorInterface;
-use Havoc\Engine\Entity\Translation\TranslationSupervisorInterface;
-use Havoc\Engine\Entity\Type\TypeSupervisorInterface;
-use Havoc\Engine\Logger\LogControllerInterface;
+use Havoc\Engine\Core\Controllers\ControllersInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface;
+use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
+use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
+use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
+use Havoc\Engine\Logger\LogController\LogControllerInterface;
 use Havoc\Engine\Render\RenderInterface;
-use Havoc\Engine\Tick\TickControllerInterface;
+use Havoc\Engine\Tick\TickController\TickControllerInterface;
 use Havoc\Engine\World\WorldControllerInterface;
 
 /**
@@ -68,14 +69,14 @@ interface ApiInterface
     /**
      * Returns the entity controller.
      *
-     * @return EntitySupervisorInterface
+     * @return \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
      */
     public function entities(): EntitySupervisorInterface;
     
     /**
      * Returns the log controller.
      *
-     * @return LogControllerInterface
+     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
      */
     public function logger(): LogControllerInterface;
     
@@ -99,4 +100,11 @@ interface ApiInterface
      * @return CoreInterface
      */
     public function getCore(): CoreInterface;
+    
+    /**
+     * Returns all entities that are out of bounds in the current tick.
+     *
+     * @return \Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface
+     */
+    public function boundaryViolations(): BoundaryViolationCollectionInterface;
 }

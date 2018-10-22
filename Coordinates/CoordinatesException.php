@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine configuration exceptions.
@@ -12,7 +12,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class CoordinatesException extends HavocEngineException
+class CoordinatesException extends EngineException
 {
     public const COORDINATES_BAD_CLASS = 0x6000;
     

@@ -10,4 +10,4 @@ namespace Havoc\Engine\Exceptions;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class EngineException extends HavocEngineException {}
+class EngineException extends \RuntimeException {}

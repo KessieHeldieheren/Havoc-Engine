@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Config;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
 use Havoc\Engine\System\Property;
 
 /**
@@ -13,7 +13,7 @@ use Havoc\Engine\System\Property;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class ConfigException extends HavocEngineException
+class ConfigException extends EngineException
 {
     public const CONFIG_CONTROLLER_BAD_CLASS = 0x1;
     public const CONFIG_X_GRID_OVER_MAX = 0x2;

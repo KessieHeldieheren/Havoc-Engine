@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\World;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine world exceptions.
@@ -12,7 +12,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class WorldException extends HavocEngineException
+class WorldException extends EngineException
 {
     public const WORLD_CONTROLLER_BAD_CLASS = 0x1;
     public const WORLD_POINT_BAD_CLASS = 0x2;

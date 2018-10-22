@@ -4,11 +4,10 @@ declare(strict_types=1);
 namespace Havoc\Engine\Core;
 
 use Havoc\Engine\Config\ConfigController;
-use Havoc\Engine\Core\Systems\Controllers;
-use Havoc\Engine\Core\Systems\SupervisorsInterface;
-use Havoc\Engine\Entity\EntityControllerInterface;
-use Havoc\Engine\Logger\LogControllerInterface;
-use Havoc\Engine\Tick\TickControllerInterface;
+use Havoc\Engine\Core\Controllers\Controllers;
+use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
+use Havoc\Engine\Logger\LogController\LogControllerInterface;
+use Havoc\Engine\Tick\TickController\TickControllerInterface;
 use Havoc\Engine\World\WorldController;
 
 interface CoreInterface
@@ -44,14 +43,14 @@ interface CoreInterface
     /**
      * Returns tick_controller.
      *
-     * @return TickControllerInterface
+     * @return \Havoc\Engine\Tick\TickController\TickControllerInterface
      */
     public function getTickController(): TickControllerInterface;
     
     /**
      * Sets tick_controller.
      *
-     * @param TickControllerInterface $tick_controller
+     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
      */
     public function setTickController(TickControllerInterface $tick_controller): void;
     

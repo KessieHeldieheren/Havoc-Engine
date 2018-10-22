@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Enumerator;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Enumerable module.
@@ -31,7 +31,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <me@kessie.gold>
  * @package Havoc-Enumerable
  */
-class EnumeratorException extends HavocEngineException
+class EnumeratorException extends EngineException
 {
     public const NAME_INVALID = 0x1;
     public const REFLECTION_ERROR = 0x2;

@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
+use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine entity exceptions.
@@ -12,7 +14,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class EntityException extends HavocEngineException
+class EntityException extends EngineException
 {
     public const ENTITY_CONTROLLER_BAD_CLASS = 0x1;
     public const ENTITY_ID_ALREADY_SET = 0x2;

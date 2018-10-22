@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Tick;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Tick\TickController\TickControllerInterface;
 
 /**
  * Havoc Engine tick exceptions.
@@ -12,7 +13,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class TickException extends HavocEngineException
+class TickException extends EngineException
 {
     public const TICK_CONTROLLER_BAD_CLASS = 0x1;
     

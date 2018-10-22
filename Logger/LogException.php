@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Logger;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Logger\LogController\LogControllerInterface;
 
 /**
  * Havoc Engine log exceptions.
@@ -12,7 +13,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class LogException extends HavocEngineException
+class LogException extends EngineException
 {
     public const LOG_CONTROLLER_BAD_CLASS = 0x1;
     public const LOG_BAD_CLASS = 0x2;

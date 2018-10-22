@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary\BoundaryCode;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine entity boundary codes exception.
@@ -12,7 +12,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class BoundaryCodeException extends HavocEngineException
+class BoundaryCodeException extends EngineException
 {
     public const BOUNDARY_CODE_INVALID = 0x1;
     
@@ -22,7 +22,7 @@ class BoundaryCodeException extends HavocEngineException
      */
     public static function boundaryCodeInvalid(int $code): self
     {
-        $valid_codes = implode(", ", BoundaryCode::getAllNames());
+        $valid_codes = implode(", ", BoundaryBoundaryCode::getAllNames());
         
         return new self (
             sprintf(

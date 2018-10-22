@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Translation;
 
-use Havoc\Engine\Exceptions\HavocEngineException;
+use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
+use Havoc\Engine\Exceptions\EngineException;
 
 /**
  * Havoc Engine entity translation exceptions.
@@ -12,7 +13,7 @@ use Havoc\Engine\Exceptions\HavocEngineException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class TranslationException extends HavocEngineException
+class TranslationException extends EngineException
 {
     public const TRANSLATION_CONTROLLER_BAD_CLASS = 0x1;
     
@@ -20,7 +21,7 @@ class TranslationException extends HavocEngineException
      * @param string $given_class
      * @return TranslationException
      */
-    public static function translationControllerBadClass(string $given_class): self
+    public static function translationSupervisorBadClass(string $given_class): self
     {
         $required_class = TranslationSupervisorInterface::class;
     
