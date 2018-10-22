@@ -56,7 +56,7 @@ interface LogInterface
      *
      * @return string
      */
-    public function __toString(): string;
+    public function string(): string;
     
     /**
      * Returns tick.

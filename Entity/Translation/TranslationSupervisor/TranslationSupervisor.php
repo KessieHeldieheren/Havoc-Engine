@@ -18,6 +18,8 @@ use Havoc\Engine\Logger\LogController\LogControllerInterface;
  */
 class TranslationSupervisor implements TranslationSupervisorInterface
 {
+    public const LOG_TELEPORTED_ENTITY = "%s (#%s) was teleported to %s.";
+    
     /**
      * Entity supervisor.
      *
@@ -69,7 +71,7 @@ class TranslationSupervisor implements TranslationSupervisorInterface
                 $entity->getId(),
                 $entity->getCoordinates()->string()
             ],
-            TranslationSupervisorLogMessage::TELEPORTED_ENTITY,
+            self::LOG_TELEPORTED_ENTITY,
             self::class
         );
         

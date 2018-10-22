@@ -175,7 +175,7 @@ class Log implements LogInterface
      *
      * @return string
      */
-    public function __toString(): string
+    public function string(): string
     {
         return sprintf(
             self::LOG_FORMAT,
