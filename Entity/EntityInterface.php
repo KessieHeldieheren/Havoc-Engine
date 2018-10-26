@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Coordinates\CoordinatesInterface;
-use Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
 
 /**
@@ -90,13 +90,6 @@ interface EntityInterface
     public function getTypeCollection(): TypeCollectionInterface;
     
     /**
-     * Sets type_collection.
-     *
-     * @param TypeCollectionInterface $type_collection
-     */
-    public function setTypeCollection(TypeCollectionInterface $type_collection): void;
-    
-    /**
      * Returns initial_coordinates.
      *
      * @return CoordinatesInterface
@@ -113,14 +106,21 @@ interface EntityInterface
     /**
      * Returns boundary_rules.
      *
-     * @return RulesInterface
+     * @return BoundaryRulesInterface
      */
-    public function getBoundaryRules(): RulesInterface;
+    public function getBoundaryRules(): BoundaryRulesInterface;
     
     /**
-     * Sets boundary_rules.
+     * Returns visible.
      *
-     * @param RulesInterface $boundary_rules
+     * @return bool
      */
-    public function setBoundaryRules(RulesInterface $boundary_rules): void;
+    public function isVisible(): bool;
+    
+    /**
+     * Sets visible.
+     *
+     * @param bool $visible
+     */
+    public function setVisible(bool $visible): void;
 }

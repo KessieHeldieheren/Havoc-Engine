@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\WorldPoint;
 
+use Havoc\Engine\Coordinates\CoordinatesInterface;
+
 /**
  * Havoc Engine world point factory.
  *
@@ -16,10 +18,11 @@ abstract class WorldPointFactory
      * Create a new empty world point.
      *
      * @param string $icon
+     * @param CoordinatesInterface $coordinates
      * @return WorldPointInterface
      */
-    public static function newEmpty(string $icon): WorldPointInterface
+    public static function newEmpty(string $icon, CoordinatesInterface $coordinates): WorldPointInterface
     {
-        return new EmptyWorldPoint($icon);
+        return new EmptyWorldPoint($icon, $coordinates);
     }
 }

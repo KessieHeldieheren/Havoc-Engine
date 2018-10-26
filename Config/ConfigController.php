@@ -71,6 +71,13 @@ class ConfigController implements ConfigControllerInterface
     private $world_point_alternate_icon = DefaultConfig::WORLD_POINT_ALTERNATE_ICON;
     
     /**
+     * World point out of bounds display icon.
+     *
+     * @var string
+     */
+    private $world_point_out_of_bounds_icon = DefaultConfig::WORLD_POINT_OUT_OF_BOUNDS_ICON;
+    
+    /**
      * World render horizontal grid bar.
      *
      * @var string
@@ -258,6 +265,26 @@ class ConfigController implements ConfigControllerInterface
     public function setWorldPointAlternateIcon(string $world_point_alternate_icon): void
     {
         $this->world_point_alternate_icon = $world_point_alternate_icon;
+    }
+    
+    /**
+     * Returns world_point_out_of_bounds_icon.
+     *
+     * @return string
+     */
+    public function getWorldPointOutOfBoundsIcon(): string
+    {
+        return $this->world_point_out_of_bounds_icon;
+    }
+    
+    /**
+     * Sets world_point_out_of_bounds_icon.
+     *
+     * @param string $world_point_out_of_bounds_icon
+     */
+    public function setWorldPointOutOfBoundsIcon(string $world_point_out_of_bounds_icon): void
+    {
+        $this->world_point_out_of_bounds_icon = $world_point_out_of_bounds_icon;
     }
     
     /**

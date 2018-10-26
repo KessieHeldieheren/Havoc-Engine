@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\Boundary;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
+use Havoc\Engine\Coordinates\CoordinatesInterface;
 
 /**
  * Havoc Engine grid boundary interface.
@@ -29,25 +30,11 @@ interface BoundaryInterface
     public function getXNegative(): int;
     
     /**
-     * Sets x_negative.
-     *
-     * @param int $x_negative
-     */
-    public function setXNegative(int $x_negative): void;
-    
-    /**
      * Returns x_positive.
      *
      * @return int
      */
     public function getXPositive(): int;
-    
-    /**
-     * Sets x_positive.
-     *
-     * @param int $x_positive
-     */
-    public function setXPositive(int $x_positive): void;
     
     /**
      * Returns y_negative.
@@ -57,13 +44,6 @@ interface BoundaryInterface
     public function getYNegative(): int;
     
     /**
-     * Sets y_negative.
-     *
-     * @param int $y_negative
-     */
-    public function setYNegative(int $y_negative): void;
-    
-    /**
      * Returns y_positive.
      *
      * @return int
@@ -71,14 +51,10 @@ interface BoundaryInterface
     public function getYPositive(): int;
     
     /**
-     * Sets y_positive.
+     * Validate that coordinates are in bounds.
      *
-     * @param int $y_positive
+     * @param CoordinatesInterface $coordinates
+     * @return bool
      */
-    public function setYPositive(int $y_positive): void;
-    
-    /**
-     * Update grid boundaries.
-     */
-    public function updateBoundary(): void;
+    public function validateCoordinatesInBounds(CoordinatesInterface $coordinates): bool;
 }

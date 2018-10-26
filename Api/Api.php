@@ -7,6 +7,7 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Core\Core;
 use Havoc\Engine\Core\CoreInterface;
 use Havoc\Engine\Core\Controllers\ControllersInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
@@ -47,11 +48,24 @@ class Api implements ApiInterface
     }
     
     /**
-     * Render world and return result.
+     * Refresh the world, cinrement tick, and render the world and return the world view.
      *
      * @return RenderInterface
      */
     public function render(): RenderInterface
+    {
+        $this->refresh();
+        
+        $world_controller = $this->getCore()->getWorldController();
+        $world_controller->getRenderer()->render();
+        
+        return $world_controller->getRender();
+    }
+    
+    /**
+     * Refresh the world and increment tick.
+     */
+    public function refresh(): void
     {
         $world_controller = $this->getCore()->getWorldController();
         $entity_controller = $this->getCore()->getEntityController();
@@ -62,9 +76,6 @@ class Api implements ApiInterface
         $entity_controller->getBoundarySupervisor()->rectifyBoundaryViolations();
         # Add detect collisions here.
         $entity_controller->mapEntitiesToGrid();
-        $world_controller->getRenderer()->render();
-        
-        return $world_controller->getRender();
     }
     
     /**
@@ -158,6 +169,16 @@ class Api implements ApiInterface
     }
     
     /**
+     * Returns the grid boundary.
+     *
+     * @return BoundaryInterface
+     */
+    public function boundary(): BoundaryInterface
+    {
+        return $this->getCore()->getWorldController()->getGridBoundary();
+    }
+    
+    /**
      * Returns all entities that are out of bounds in the current tick.
      *
      * @return BoundaryViolationCollectionInterface
@@ -174,7 +195,7 @@ class Api implements ApiInterface
      */
     public function view(): GridViewInterface
     {
-        return $this->getCore()->getWorldController()->getGridSupervisor()->getGridView();
+        return $this->getCore()->getWorldController()->getGridView();
     }
     
     /**

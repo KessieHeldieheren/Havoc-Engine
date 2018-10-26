@@ -6,6 +6,7 @@ namespace Havoc\Engine\Grid\GridSupervisor;
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryInterface;
 use Havoc\Engine\Grid\GridException;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use ReflectionClass;
 
 /**
@@ -22,11 +23,12 @@ abstract class GridSupervisorFactory
      *
      * @param ConfigControllerInterface $config_controller
      * @param BoundaryInterface $boundary
+     * @param GridViewInterface $grid_view
      * @param string $supervisor
      * @return GridSupervisorInterface
      * @throws \ReflectionException
      */
-    public static function new(ConfigControllerInterface $config_controller, BoundaryInterface $boundary, string $supervisor = GridSupervisor::class): GridSupervisorInterface
+    public static function new(ConfigControllerInterface $config_controller, BoundaryInterface $boundary, GridViewInterface $grid_view, string $supervisor = GridSupervisor::class): GridSupervisorInterface
     {
         $reflects = (new ReflectionClass($supervisor))->implementsInterface(GridSupervisorInterface::class);
     
@@ -34,6 +36,6 @@ abstract class GridSupervisorFactory
             throw GridException::gridBadClass($supervisor);
         }
     
-        return new $supervisor($config_controller, $boundary);
+        return new $supervisor($config_controller, $boundary, $grid_view);
     }
 }

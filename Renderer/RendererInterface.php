@@ -5,6 +5,7 @@ namespace Havoc\Engine\Renderer;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\Render\RenderInterface;
 
 /**
@@ -22,8 +23,9 @@ interface RendererInterface
      * @param ConfigControllerInterface $config_controller
      * @param GridSupervisorInterface $grid
      * @param RenderInterface $render
+     * @param GridViewInterface $grid_view
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render);
+    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render, GridViewInterface $grid_view);
     
     /**
      * Render the world as a string.

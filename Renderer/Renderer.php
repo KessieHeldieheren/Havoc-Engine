@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Renderer\SmallRenderer;
+namespace Havoc\Engine\Renderer;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\Render\RenderInterface;
-use Havoc\Engine\Renderer\RendererInterface;
 
 /**
  * Havoc Engine CLI renderer.
@@ -15,7 +15,7 @@ use Havoc\Engine\Renderer\RendererInterface;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class SmallRenderer implements RendererInterface
+class Renderer implements RendererInterface
 {
     /**
      * Configuration controller.
@@ -39,6 +39,13 @@ class SmallRenderer implements RendererInterface
     private $render;
     
     /**
+     * Grid view.
+     *
+     * @var GridViewInterface
+     */
+    private $grid_view;
+    
+    /**
      * Rendered grid lines.
      *
      * @var string[]
@@ -51,12 +58,14 @@ class SmallRenderer implements RendererInterface
      * @param ConfigControllerInterface $config_controller
      * @param GridSupervisorInterface $grid
      * @param RenderInterface $render
+     * @param GridViewInterface $grid_view
      */
-    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render)
+    public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render, GridViewInterface $grid_view)
     {
         $this->setConfigController($config_controller);
         $this->setGridgridsupervisor($grid);
         $this->setRender($render);
+        $this->setGridView($grid_view);
     }
     
     /**
@@ -66,6 +75,7 @@ class SmallRenderer implements RendererInterface
      */
     public function render(): void
     {
+        $this->clear();
         $this->renderXCoordinates();
         $this->renderHorizontalBar();
         $this->renderGrid();
@@ -74,19 +84,28 @@ class SmallRenderer implements RendererInterface
     }
     
     /**
+     * Clear the render and grid lines in order to render the next world view.
+     */
+    protected function clear(): void
+    {
+        $this->getRender()->clear();
+        $this->setGridLines([]);
+    }
+    
+    /**
      * Render the grid.
      */
     protected function renderGrid(): void
     {
         $config = $this->getConfigController();
-        $x_grid = $config->getXView();
+        $x_width = $this->getGridView()->getXWidth();
         $grid_supervisor = $this->getGridgridsupervisor();
         $render = $this->getRender();
         $i = 0;
         $composition = "";
         
         foreach ($grid_supervisor->getGrid() as $point) {
-            if ($i % $x_grid === 0 && $i !== 0) {
+            if ($i % $x_width === 0 && $i !== 0) {
                 if ($config->isCoordinatesGuideVisible() === false) {
                     $composition .= PHP_EOL;
                 }
@@ -116,14 +135,22 @@ class SmallRenderer implements RendererInterface
         if ($config->isCoordinatesGuideVisible() === false) {
             return;
         }
-        
+    
         $vertical_bar_character = $config->getRenderVerticalBarCharacter();
-        $i = 1;
         $grid_lines = $this->getGridLines();
+        $grid_view = $this->getGridView();
         $result = [];
-        
+        $i = $grid_view->getLowestY() - $grid_view->getCenterCoordinates()->getY();
+    
         foreach ($grid_lines as $grid_line) {
-            if ($i > 9) {
+            if ($i % 2 !== 0) {
+                $result[] = sprintf(
+                    "   %s%s%s" . PHP_EOL,
+                    $vertical_bar_character,
+                    $grid_line,
+                    $vertical_bar_character
+                );
+            } elseif ($i < -9) {
                 $result[] = sprintf(
                     "%s%s%s%s%s" . PHP_EOL,
                     $i,
@@ -132,20 +159,34 @@ class SmallRenderer implements RendererInterface
                     $vertical_bar_character,
                     $i
                 );
-                
-                $i++;
-                
-                continue;
+            } elseif ($i < 0) {
+                $result[] = sprintf(
+                    " %s%s%s%s%s" . PHP_EOL,
+                    $i,
+                    $vertical_bar_character,
+                    $grid_line,
+                    $vertical_bar_character,
+                    $i
+                );
+            } elseif ($i >= 0 && $i < 10) {
+                $result[] = sprintf(
+                    "  %s%s%s%s%s" . PHP_EOL,
+                    $i,
+                    $vertical_bar_character,
+                    $grid_line,
+                    $vertical_bar_character,
+                    $i
+                );
+            } elseif ($i > 9) {
+                $result[] = sprintf(
+                    " %s%s%s%s%s" . PHP_EOL,
+                    $i,
+                    $vertical_bar_character,
+                    $grid_line,
+                    $vertical_bar_character,
+                    $i
+                );
             }
-    
-            $result[] = sprintf(
-                " %s%s%s%s%s" . PHP_EOL,
-                $i,
-                $vertical_bar_character,
-                $grid_line,
-                $vertical_bar_character,
-                $i
-            );
             
             $i++;
         }
@@ -163,18 +204,24 @@ class SmallRenderer implements RendererInterface
         if ($config->isCoordinatesGuideVisible() === false) {
             return;
         }
-        
-        $x_grid = $config->getXView();
+    
+        $grid_view = $this->getGridView();
+        $highest_x = $grid_view->getHighestX() - $grid_view->getCenterCoordinates()->getX();
         $composition = "";
+        $i = $grid_view->getLowestX() - $grid_view->getCenterCoordinates()->getX();
         
-        for ($i = 1; $i <= $x_grid; $i++) {
-            if ($i > 9) {
-                $composition .= sprintf(" %s", $i);
-                
-                continue;
+        for (; $i <= $highest_x; $i++) {
+            if ($i % 2 !== 0 && $i !== 0) {
+                $composition .= "   ";
+            } elseif ($i < -9) {
+                $composition .= sprintf("%s", $i);
+            } elseif ($i < 0) {
+                $composition .= sprintf("%s ", $i);
+            } elseif ($i >= 0 && $i < 10) {
+                $composition .= sprintf(" %s ", $i);
+            } elseif ($i > 9) {
+                $composition .= sprintf("%s ", $i);
             }
-            
-            $composition .= sprintf(" %s ", $i);
         }
         
         $this->renderPadding();
@@ -188,8 +235,8 @@ class SmallRenderer implements RendererInterface
     {
         $config = $this->getConfigController();
         $horizontal_bar_character = $config->getRenderHorizontalBarCharacter();
-        $x_grid = $config->getXView();
-        $composition = str_repeat($horizontal_bar_character, $x_grid * 3);
+        $x_width = $this->getGridView()->getXWidth();
+        $composition = str_repeat($horizontal_bar_character, $x_width * 3);
         
         $this->renderPadding();
         $this->getRender()->append($composition);
@@ -200,7 +247,7 @@ class SmallRenderer implements RendererInterface
      */
     protected function renderPadding(): void
     {
-        $append = "   ";
+        $append = "    ";
         
         if ($this->getConfigController()->isCoordinatesGuideVisible() === false) {
             $append = "";
@@ -295,6 +342,26 @@ class SmallRenderer implements RendererInterface
     protected function getGridLinesAsString(): string
     {
         return implode("", $this->grid_lines);
+    }
+    
+    /**
+     * Returns grid_view.
+     *
+     * @return GridViewInterface
+     */
+    protected function getGridView(): GridViewInterface
+    {
+        return $this->grid_view;
+    }
+    
+    /**
+     * Sets grid_view.
+     *
+     * @param GridViewInterface $grid_view
+     */
+    protected function setGridView(GridViewInterface $grid_view): void
+    {
+        $this->grid_view = $grid_view;
     }
     
     /**

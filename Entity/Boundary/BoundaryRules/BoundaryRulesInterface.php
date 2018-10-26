@@ -10,7 +10,7 @@ namespace Havoc\Engine\Entity\Boundary\BoundaryRules;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-interface RulesInterface
+interface BoundaryRulesInterface
 {
     /**
      * BoundaryRules constructor method.

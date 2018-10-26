@@ -42,35 +42,35 @@ class GridView implements GridViewInterface
      *
      * @var CoordinatesInterface
      */
-    private $center_view;
+    private $center_coordinates;
     
     /**
      * Lowest coordinates visible on the X axis.
      *
      * @var int
      */
-    private $negative_x_view;
+    private $lowest_x;
     
     /**
      * Highest coordinates visible on the X axis.
      *
      * @var int
      */
-    private $positive_x_view;
+    private $highest_x;
     
     /**
      * Lowest coordinates visible on the Y axis.
      *
      * @var int
      */
-    private $negative_y_view;
+    private $lowest_y;
     
     /**
      * Highest coordinates visible on the Y axis.
      *
      * @var int
      */
-    private $positive_y_view;
+    private $highest_y;
     
     /**
      * GridView constructor method.
@@ -82,8 +82,37 @@ class GridView implements GridViewInterface
         $this->setConfigController($config_controller);
         $this->setXWidth($config_controller->getXView());
         $this->setYWidth($config_controller->getYView());
-        $this->setCenterView(CoordinatesFactory::new());
+        $this->setCenterCoordinates(CoordinatesFactory::new());
         $this->updateViewAxes();
+    }
+    
+    /**
+     * Validate that coordinates are in the grid view.
+     *
+     * @param CoordinatesInterface $coordinates
+     * @return bool
+     */
+    public function validateCoordinatesInView(CoordinatesInterface $coordinates): bool
+    {
+        [$x, $y] = $coordinates->array();
+    
+        if ($x < $this->getLowestX()) {
+            return false;
+        }
+    
+        if ($x > $this->getHighestX()) {
+            return false;
+        }
+    
+        if ($y < $this->getLowestY()) {
+            return false;
+        }
+    
+        if ($y > $this->getHighestY()) {
+            return false;
+        }
+    
+        return true;
     }
     
     /**
@@ -91,10 +120,10 @@ class GridView implements GridViewInterface
      */
     public function updateViewAxes(): void
     {
-        $this->setNegativeXView();
-        $this->setPositiveXView();
-        $this->setNegativeYView();
-        $this->setPositiveYView();
+        $this->setLowestX();
+        $this->setHighestX();
+        $this->setLowestY();
+        $this->setHighestY();
     }
     
     /**
@@ -162,19 +191,19 @@ class GridView implements GridViewInterface
      *
      * @return CoordinatesInterface
      */
-    public function getCenterView(): CoordinatesInterface
+    public function getCenterCoordinates(): CoordinatesInterface
     {
-        return $this->center_view;
+        return $this->center_coordinates;
     }
     
     /**
      * Sets center.
      *
-     * @param CoordinatesInterface $center_view
+     * @param CoordinatesInterface $center_coordinates
      */
-    public function setCenterView(CoordinatesInterface $center_view): void
+    public function setCenterCoordinates(CoordinatesInterface $center_coordinates): void
     {
-        $this->center_view = $center_view;
+        $this->center_coordinates = $center_coordinates;
     }
     
     /**
@@ -182,17 +211,17 @@ class GridView implements GridViewInterface
      *
      * @return int
      */
-    public function getNegativeXView(): int
+    public function getLowestX(): int
     {
-        return $this->negative_x_view;
+        return $this->lowest_x;
     }
     
     /**
      * Sets negative_x_view.
      */
-    public function setNegativeXView(): void
+    public function setLowestX(): void
     {
-        $this->negative_x_view = (int) $this->getCenterView()->getX() - ($this->getXWidth() / 2);
+        $this->lowest_x = (int) ($this->getCenterCoordinates()->getX() - ($this->getXWidth() / 2));
     }
     
     /**
@@ -200,17 +229,17 @@ class GridView implements GridViewInterface
      *
      * @return int
      */
-    public function getPositiveXView(): int
+    public function getHighestX(): int
     {
-        return $this->positive_x_view;
+        return $this->highest_x;
     }
     
     /**
      * Sets positive_x_view.
      */
-    public function setPositiveXView(): void
+    public function setHighestX(): void
     {
-        $this->positive_x_view = (int) $this->getCenterView()->getX() + ($this->getXWidth() / 2);
+        $this->highest_x = (int) ($this->getCenterCoordinates()->getX() + ($this->getXWidth() / 2));
     }
     
     /**
@@ -218,17 +247,17 @@ class GridView implements GridViewInterface
      *
      * @return int
      */
-    public function getNegativeYView(): int
+    public function getLowestY(): int
     {
-        return $this->negative_y_view;
+        return $this->lowest_y;
     }
     
     /**
      * Sets negative_y_view.
      */
-    public function setNegativeYView(): void
+    public function setLowestY(): void
     {
-        $this->negative_y_view = (int) $this->getCenterView()->getY() - ($this->getYWidth() / 2);
+        $this->lowest_y = (int) ($this->getCenterCoordinates()->getY() - ($this->getYWidth() / 2));
     }
     
     /**
@@ -236,16 +265,16 @@ class GridView implements GridViewInterface
      *
      * @return int
      */
-    public function getPositiveYView(): int
+    public function getHighestY(): int
     {
-        return $this->positive_y_view;
+        return $this->highest_y;
     }
     
     /**
      * Sets positive_y_view.
      */
-    public function setPositiveYView(): void
+    public function setHighestY(): void
     {
-        $this->positive_y_view = (int) $this->getCenterView()->getY() + ($this->getYWidth() / 2);
+        $this->highest_y = (int) ($this->getCenterCoordinates()->getY() + ($this->getYWidth() / 2));
     }
 }

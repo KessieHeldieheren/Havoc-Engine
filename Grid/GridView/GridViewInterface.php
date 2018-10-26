@@ -28,20 +28,6 @@ interface GridViewInterface
     public function updateViewAxes(): void;
     
     /**
-     * Returns config_controller.
-     *
-     * @return ConfigControllerInterface
-     */
-    public function getConfigController(): ConfigControllerInterface;
-    
-    /**
-     * Sets config_controller.
-     *
-     * @param ConfigControllerInterface $config_controller
-     */
-    public function setConfigController(ConfigControllerInterface $config_controller): void;
-    
-    /**
      * Returns x.
      *
      * @return int
@@ -74,60 +60,68 @@ interface GridViewInterface
      *
      * @return CoordinatesInterface
      */
-    public function getCenterView(): CoordinatesInterface;
+    public function getCenterCoordinates(): CoordinatesInterface;
     
     /**
      * Sets center.
      *
      * @param CoordinatesInterface $center
      */
-    public function setCenterView(CoordinatesInterface $center): void;
+    public function setCenterCoordinates(CoordinatesInterface $center): void;
     
     /**
      * Returns negative_x_view.
      *
      * @return int
      */
-    public function getNegativeXView(): int;
+    public function getLowestX(): int;
     
     /**
      * Sets negative_x_view.
      */
-    public function setNegativeXView(): void;
+    public function setLowestX(): void;
     
     /**
      * Returns positive_x_view.
      *
      * @return int
      */
-    public function getPositiveXView(): int;
+    public function getHighestX(): int;
     
     /**
      * Sets positive_x_view.
      */
-    public function setPositiveXView(): void;
+    public function setHighestX(): void;
     
     /**
      * Returns negative_y_view.
      *
      * @return int
      */
-    public function getNegativeYView(): int;
+    public function getLowestY(): int;
     
     /**
      * Sets negative_y_view.
      */
-    public function setNegativeYView(): void;
+    public function setLowestY(): void;
     
     /**
      * Returns positive_y_view.
      *
      * @return int
      */
-    public function getPositiveYView(): int;
+    public function getHighestY(): int;
     
     /**
      * Sets positive_y_view.
      */
-    public function setPositiveYView(): void;
+    public function setHighestY(): void;
+    
+    /**
+     * Validate that coordinates are in the grid view.
+     *
+     * @param CoordinatesInterface $coordinates
+     * @return bool
+     */
+    public function validateCoordinatesInView(CoordinatesInterface $coordinates): bool;
 }

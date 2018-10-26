@@ -43,6 +43,17 @@ class LogController implements LogControllerInterface
     }
     
     /**
+     * Get the last n logs.
+     *
+     * @param int $amount
+     * @return LogInterface[]
+     */
+    public function getLastLogs(int $amount): array
+    {
+        return \array_slice($this->logs, -$amount, $amount, true);
+    }
+    
+    /**
      * Returns logs.
      *
      * @param int $limit

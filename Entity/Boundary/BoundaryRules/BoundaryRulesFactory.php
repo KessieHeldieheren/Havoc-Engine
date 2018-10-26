@@ -19,10 +19,10 @@ class BoundaryRulesFactory
      * @param int $x_positive
      * @param int $y_negative
      * @param int $y_positive
-     * @return RulesInterface
+     * @return BoundaryRulesInterface
      */
-    public static function new(int $x_negative, int $x_positive, int $y_negative, int $y_positive): RulesInterface
+    public static function new(int $x_negative, int $x_positive, int $y_negative, int $y_positive): BoundaryRulesInterface
     {
-        return new BoundaryRules($x_negative, $x_positive, $y_negative, $y_positive);
+        return new BoundaryBoundaryRules($x_negative, $x_positive, $y_negative, $y_positive);
     }
 }

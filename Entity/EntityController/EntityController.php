@@ -127,6 +127,22 @@ class EntityController implements EntityControllerInterface
     }
     
     /**
+     * Maps all entities onto the grid.
+     */
+    public function mapEntitiesToGrid(): void
+    {
+        $grid = $this->getGridSupervisor();
+        
+        foreach ($this->getEntitySupervisor()->getEntityCollection()->getEntities() as $entity) {
+            if ($entity->isVisible() === false) {
+                continue;
+            }
+            
+            $grid->insertWithCoordinates($entity, $entity->getCoordinates());
+        }
+    }
+    
+    /**
      * Returns grid.
      *
      * @return GridSupervisorInterface
@@ -164,18 +180,6 @@ class EntityController implements EntityControllerInterface
     public function setConfigController(ConfigControllerInterface $config_controller): void
     {
         $this->config_controller = $config_controller;
-    }
-    
-    /**
-     * Maps all entities onto the grid.
-     */
-    public function mapEntitiesToGrid(): void
-    {
-        $grid = $this->getGridSupervisor();
-        
-        foreach ($this->getEntitySupervisor()->getEntityCollection()->getEntities() as $entity) {
-            $grid->insertWithCoordinates($entity, $entity->getCoordinates());
-        }
     }
     
     /**

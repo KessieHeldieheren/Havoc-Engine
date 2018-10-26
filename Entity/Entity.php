@@ -7,7 +7,7 @@ use Havoc\Engine\Config\DefaultConfig;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRule;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRulesFactory;
-use Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionFactory;
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
 use Havoc\Engine\Entity\Type\TypeFactory;
@@ -74,9 +74,16 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Boundary rules.
      *
-     * @var RulesInterface
+     * @var BoundaryRulesInterface
      */
     private $boundary_rules;
+    
+    /**
+     * Visibility of the entity. If false, the entity will not be shown on the grid.
+     *
+     * @var bool
+     */
+    private $visible = true;
     
     /**
      * EntityBase constructor method.
@@ -243,7 +250,7 @@ class Entity implements EntityInterface, WorldPointInterface
      *
      * @param TypeCollectionInterface $type_collection
      */
-    public function setTypeCollection(TypeCollectionInterface $type_collection): void
+    protected function setTypeCollection(TypeCollectionInterface $type_collection): void
     {
         $this->type_collection = $type_collection;
     }
@@ -251,9 +258,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Returns boundary_rules.
      *
-     * @return RulesInterface
+     * @return BoundaryRulesInterface
      */
-    public function getBoundaryRules(): RulesInterface
+    public function getBoundaryRules(): BoundaryRulesInterface
     {
         return $this->boundary_rules;
     }
@@ -261,10 +268,30 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Sets boundary_rules.
      *
-     * @param RulesInterface $boundary_rules
+     * @param BoundaryRulesInterface $boundary_rules
      */
-    public function setBoundaryRules(RulesInterface $boundary_rules): void
+    protected function setBoundaryRules(BoundaryRulesInterface $boundary_rules): void
     {
         $this->boundary_rules = $boundary_rules;
+    }
+    
+    /**
+     * Returns visible.
+     *
+     * @return bool
+     */
+    public function isVisible(): bool
+    {
+        return $this->visible;
+    }
+    
+    /**
+     * Sets visible.
+     *
+     * @param bool $visible
+     */
+    public function setVisible(bool $visible): void
+    {
+        $this->visible = $visible;
     }
 }

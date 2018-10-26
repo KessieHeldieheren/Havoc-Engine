@@ -25,7 +25,7 @@ use Havoc\Engine\Logger\LogController\LogControllerInterface;
  */
 class BoundarySupervisor implements BoundarySupervisorInterface
 {
-    public const LOG_ENTITY_FELL_OUT_OF_BOUNDS = "%s (#%s) fell out of the %s bound on coordinates %s (rectified to %s).";
+    public const LOG_ENTITY_FELL_OUT_OF_BOUNDS = "%s (#%s) fell out of the %s bound on coordinates %s (altered as %s).";
     
     /**
      * Entity supervisor.
@@ -124,7 +124,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      */
     protected function xNegative(EntityInterface $entity): void
     {
-        $rectifier = $this->createRectifier($entity);
+        $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getXNegative());
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyXNegative();
@@ -151,7 +151,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      */
     protected function xPositive(EntityInterface $entity): void
     {
-        $rectifier = $this->createRectifier($entity);
+        $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getXPositive());
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyXPositive();
@@ -178,7 +178,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      */
     protected function yNegative(EntityInterface $entity): void
     {
-        $rectifier = $this->createRectifier($entity);
+        $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getYNegative());
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyYNegative();
@@ -205,7 +205,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      */
     protected function yPositive(EntityInterface $entity): void
     {
-        $rectifier = $this->createRectifier($entity);
+        $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getYPositive());
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyYPositive();
@@ -228,12 +228,12 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      * Creates and returns a rectifier based on the entity's parameters.
      *
      * @param EntityInterface $entity
+     * @param int $boundary_rule
      * @return BoundaryRectifierInterface
      * @throws \ReflectionException
      */
-    protected function createRectifier(EntityInterface $entity): BoundaryRectifierInterface
+    protected function createRectifier(EntityInterface $entity, int $boundary_rule): BoundaryRectifierInterface
     {
-        $boundary_rule = $entity->getBoundaryRules()->getXNegative();
         $boundary_rule_name = BoundaryRule::getName($boundary_rule);
         
         return BoundaryRectifierFactory::new(

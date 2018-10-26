@@ -12,7 +12,7 @@ use Havoc\Engine\Entity\Boundary\BoundaryException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class BoundaryRules implements RulesInterface
+class BoundaryBoundaryRules implements BoundaryRulesInterface
 {
     /**
      * Boundary rule for the X negative axis.

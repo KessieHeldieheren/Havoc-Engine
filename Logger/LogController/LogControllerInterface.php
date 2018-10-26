@@ -58,4 +58,12 @@ interface LogControllerInterface
      * @return LogInterface[]
      */
     public function getLogsFrom(string $from, int $limit = 0, int $offset = 0): array;
+    
+    /**
+     * Get the last n logs.
+     *
+     * @param int $amount
+     * @return LogInterface[]
+     */
+    public function getLastLogs(int $amount): array;
 }

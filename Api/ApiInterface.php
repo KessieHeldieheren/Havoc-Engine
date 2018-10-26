@@ -6,10 +6,12 @@ namespace Havoc\Engine\Api;
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Core\CoreInterface;
 use Havoc\Engine\Core\Controllers\ControllersInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Tick\TickController\TickControllerInterface;
@@ -107,4 +109,20 @@ interface ApiInterface
      * @return BoundaryViolationCollectionInterface
      */
     public function boundaryViolations(): BoundaryViolationCollectionInterface;
+    
+    /**
+     * Returns the grid view, which allows camera view manipulation.
+     *
+     * @return GridViewInterface
+     */
+    public function view(): GridViewInterface;
+    
+    /**
+     * Returns the grid boundary.
+     *
+     * @return BoundaryInterface
+     */
+    public function boundary(): BoundaryInterface;
+    
+    public function refresh(): void;
 }

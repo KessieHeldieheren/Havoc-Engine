@@ -16,4 +16,6 @@ abstract class BoundaryRule extends Enumerator
 {
     public const CLAMP = 0x1;
     public const LOOP = 0x2;
+    public const HIDE = 0x3;
+    public const ALLOW = 0x4;
 }

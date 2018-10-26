@@ -151,4 +151,18 @@ interface ConfigControllerInterface
      * @param int $y_view
      */
     public function setYView(int $y_view): void;
+    
+    /**
+     * Returns world_point_out_of_bounds_icon.
+     *
+     * @return string
+     */
+    public function getWorldPointOutOfBoundsIcon(): string;
+    
+    /**
+     * Sets world_point_out_of_bounds_icon.
+     *
+     * @param string $world_point_out_of_bounds_icon
+     */
+    public function setWorldPointOutOfBoundsIcon(string $world_point_out_of_bounds_icon): void;
 }

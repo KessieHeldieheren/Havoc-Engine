@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\Boundary;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
+use Havoc\Engine\Coordinates\CoordinatesInterface;
 
 /**
  * Havoc Engine grid boundary.
@@ -22,34 +23,6 @@ class Boundary implements BoundaryInterface
     private $config_controller;
     
     /**
-     * Boundary along the X negative axis.
-     *
-     * @var int
-     */
-    private $x_negative;
-    
-    /**
-     * Boundary along the X positive axis.
-     *
-     * @var int
-     */
-    private $x_positive;
-    
-    /**
-     * Boundary along the Y negative axis.
-     *
-     * @var int
-     */
-    private $y_negative;
-    
-    /**
-     * Boundary along the Y positive axis.
-     *
-     * @var int
-     */
-    private $y_positive;
-    
-    /**
      * Boundary constructor method.
      *
      * @param ConfigControllerInterface $config_controller
@@ -57,20 +30,24 @@ class Boundary implements BoundaryInterface
     public function __construct(ConfigControllerInterface $config_controller)
     {
         $this->setConfigController($config_controller);
-        $this->updateBoundary();
     }
     
     /**
-     * Update grid boundaries.
+     * Validate that coordinates are in bounds.
+     *
+     * @param CoordinatesInterface $coordinates
+     * @return bool
      */
-    public function updateBoundary(): void
+    public function validateCoordinatesInBounds(CoordinatesInterface $coordinates): bool
     {
-        $config_controller = $this->getConfigController();
+        [$x, $y] = $coordinates->array();
     
-        $this->setXNegative(0 - $config_controller->getXBoundary());
-        $this->setXPositive($config_controller->getXBoundary());
-        $this->setYNegative(0 - $config_controller->getYBoundary());
-        $this->setYPositive($config_controller->getYBoundary());
+        return !(
+            $x < $this->getXNegative() === false &&
+            $x > $this->getXPositive() === false &&
+            $y < $this->getYNegative() === false &&
+            $y > $this->getYPositive() === false
+        );
     }
     
     /**
@@ -100,17 +77,7 @@ class Boundary implements BoundaryInterface
      */
     public function getXNegative(): int
     {
-        return $this->x_negative;
-    }
-    
-    /**
-     * Sets x_negative.
-     *
-     * @param int $x_negative
-     */
-    public function setXNegative(int $x_negative): void
-    {
-        $this->x_negative = $x_negative;
+        return 0 - $this->getConfigController()->getXBoundary();
     }
     
     /**
@@ -120,17 +87,7 @@ class Boundary implements BoundaryInterface
      */
     public function getXPositive(): int
     {
-        return $this->x_positive;
-    }
-    
-    /**
-     * Sets x_positive.
-     *
-     * @param int $x_positive
-     */
-    public function setXPositive(int $x_positive): void
-    {
-        $this->x_positive = $x_positive;
+        return $this->getConfigController()->getXBoundary();
     }
     
     /**
@@ -140,17 +97,7 @@ class Boundary implements BoundaryInterface
      */
     public function getYNegative(): int
     {
-        return $this->y_negative;
-    }
-    
-    /**
-     * Sets y_negative.
-     *
-     * @param int $y_negative
-     */
-    public function setYNegative(int $y_negative): void
-    {
-        $this->y_negative = $y_negative;
+        return 0 - $this->getConfigController()->getYBoundary();
     }
     
     /**
@@ -160,16 +107,6 @@ class Boundary implements BoundaryInterface
      */
     public function getYPositive(): int
     {
-        return $this->y_positive;
-    }
-    
-    /**
-     * Sets y_positive.
-     *
-     * @param int $y_positive
-     */
-    public function setYPositive(int $y_positive): void
-    {
-        $this->y_positive = $y_positive;
+        return $this->getConfigController()->getYBoundary();
     }
 }

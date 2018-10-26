@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Havoc\Engine\Grid\GridSupervisor;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
+use Havoc\Engine\Coordinates\CoordinatesFactory;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryInterface;
-use Havoc\Engine\Grid\GridView\GridViewFactory;
 use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\WorldPoint\WorldPointFactory;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
@@ -60,40 +60,13 @@ class GridSupervisor implements GridSupervisorInterface
      *
      * @param ConfigControllerInterface $config_controller
      * @param BoundaryInterface $boundary
+     * @param GridViewInterface $grid_view
      */
-    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $boundary)
+    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $boundary, GridViewInterface $grid_view)
     {
         $this->setConfigController($config_controller);
+        $this->setGridView($grid_view);
         $this->setBoundary($boundary);
-        $this->bootstrap();
-    }
-    
-    /**
-     * Bootstrap module.
-     */
-    protected function bootstrap(): void
-    {
-        $this->setGridView(GridViewFactory::new($this->getConfigController()));
-    }
-    
-    /**
-     * Returns the boundaries for the world grid.
-     *
-     * @return BoundaryInterface
-     */
-    public function getBoundary(): BoundaryInterface
-    {
-        return $this->boundary;
-    }
-    
-    /**
-     * Sets boundary.
-     *
-     * @param BoundaryInterface $boundary
-     */
-    public function setBoundary(BoundaryInterface $boundary): void
-    {
-        $this->boundary = $boundary;
     }
     
     /**
@@ -102,52 +75,45 @@ class GridSupervisor implements GridSupervisorInterface
     public function insertEmptyPoints(): void
     {
         $config = $this->getConfigController();
-        $x_grid = $config->getXView();
-        $y_grid = $config->getYView();
-        $total = $x_grid * $y_grid;
+        $grid_view = $this->getGridView();
+        $x_width = $grid_view->getXWidth();
+        $y_width = $grid_view->getYWidth();
+        $lowest_x = $grid_view->getLowestX();
+        $lowest_y = $grid_view->getLowestY() - 1; # todo not have to subtract 1 from the Y axis.
+        $total = $x_width * $y_width;
         $normal_icon = $config->getWorldPointNormalIcon();
         $alternate_icon = $config->getWorldPointAlternateIcon();
         $y_grid_index = 1;
         
         for ($i = 0; $i <= $total; $i++) {
-            if ($i % $x_grid === 0) {
+            if ($i % $x_width === 0) {
                 $y_grid_index++;
+        
+                $lowest_x = $grid_view->getLowestX();
+                $lowest_y++;
             }
             
             if ($y_grid_index % 2 === 0) {
                 $this->insertWithIndex(
-                    WorldPointFactory::newEmpty($alternate_icon),
+                    WorldPointFactory::newEmpty(
+                        $alternate_icon,
+                        CoordinatesFactory::new($lowest_x, $lowest_y)),
                     $i
                 );
-                
-                continue;
+            } else {
+                $this->insertWithIndex(
+                    WorldPointFactory::newEmpty(
+                        $normal_icon,
+                        CoordinatesFactory::new($lowest_x, $lowest_y)
+                    ),
+                    $i
+                );
             }
     
-            $this->insertWithIndex(
-                WorldPointFactory::newEmpty($normal_icon),
-                $i
-            );
+            $lowest_x++;
         }
-    }
-    
-    /**
-     * Returns grid.
-     *
-     * @return WorldPointInterface[]
-     */
-    public function getGrid(): array
-    {
-        return $this->grid;
-    }
-    
-    /**
-     * Wipe grid.
-     */
-    public function wipeGrid(): void
-    {
-        $this->grid = [];
         
-        reset($this->grid);
+        $this->setOutOfBoundsPoints();
     }
     
     /**
@@ -158,14 +124,16 @@ class GridSupervisor implements GridSupervisorInterface
      */
     public function insertWithCoordinates(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void
     {
-        if ($this->validateCoordinatesInView($coordinates) === false) {
+        $grid_view = $this->getGridView();
+        
+        if ($grid_view->validateCoordinatesInView($coordinates) === false) {
             return;
         }
-        
-        $grid_view = $this->getGridView();
-        $point_x = $coordinates->getX() + $grid_view->getPositiveXView();
-        $point_y = $coordinates->getY() + $grid_view->getPositiveYView();
-        $index = ($point_x - 1) + ($point_y - 1) * $this->getConfigController()->getXView();
+    
+        $grid_view_center = $grid_view->getCenterCoordinates();
+        $point_x = $coordinates->getX() - $grid_view_center->getX() + ($grid_view->getXWidth() / 2);
+        $point_y = $coordinates->getY() - $grid_view_center->getY() + ($grid_view->getYWidth() / 2);
+        $index = $point_x + $point_y * $grid_view->getXWidth();
         
         $this->grid[$index] = $world_point;
     }
@@ -182,33 +150,20 @@ class GridSupervisor implements GridSupervisorInterface
     }
     
     /**
-     * Validate that any given coordinates are in the grid view.
-     *
-     * @param CoordinatesInterface $coordinates
-     * @return bool
+     * Set any world points that are out of bounds to the out of bounds display icon.
      */
-    protected function validateCoordinatesInView(CoordinatesInterface $coordinates): bool
+    protected function setOutOfBoundsPoints(): void
     {
-        $grid_view = $this->getGridView();
-        [$x, $y] = $coordinates->array();
-    
-        if ($x < $grid_view->getNegativeXView()) {
-            return false;
-        }
-    
-        if ($x > $grid_view->getPositiveXView()) {
-            return false;
-        }
-    
-        if ($y < $grid_view->getNegativeYView()) {
-            return false;
-        }
-    
-        if ($y > $grid_view->getPositiveYView()) {
-            return false;
-        }
+        $boundary = $this->getBoundary();
+        $oob_icon = $this->getConfigController()->getWorldPointOutOfBoundsIcon();
         
-        return true;
+        foreach ($this->getGrid() as $world_point) {
+            if ($boundary->validateCoordinatesInBounds($world_point->getCoordinates()) === false) {
+                continue;
+            }
+    
+            $world_point->setIcon($oob_icon);
+        }
     }
     
     /**
@@ -252,6 +207,26 @@ class GridSupervisor implements GridSupervisorInterface
     }
     
     /**
+     * Returns grid.
+     *
+     * @return WorldPointInterface[]
+     */
+    public function getGrid(): array
+    {
+        return $this->grid;
+    }
+    
+    /**
+     * Wipe grid.
+     */
+    public function wipeGrid(): void
+    {
+        $this->grid = [];
+        
+        reset($this->grid);
+    }
+    
+    /**
      * Returns grid_view.
      *
      * @return GridViewInterface
@@ -269,5 +244,25 @@ class GridSupervisor implements GridSupervisorInterface
     public function setGridView(GridViewInterface $grid_view): void
     {
         $this->grid_view = $grid_view;
+    }
+    
+    /**
+     * Returns the boundaries for the world grid.
+     *
+     * @return BoundaryInterface
+     */
+    public function getBoundary(): BoundaryInterface
+    {
+        return $this->boundary;
+    }
+    
+    /**
+     * Sets boundary.
+     *
+     * @param BoundaryInterface $boundary
+     */
+    public function setBoundary(BoundaryInterface $boundary): void
+    {
+        $this->boundary = $boundary;
     }
 }

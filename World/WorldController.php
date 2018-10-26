@@ -8,6 +8,8 @@ use Havoc\Engine\Entity\Boundary\BoundaryFactory;
 use Havoc\Engine\Entity\Boundary\BoundaryInterface;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorFactory;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridView\GridViewFactory;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\Render\RenderFactory;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Renderer\RendererFactory;
@@ -42,6 +44,13 @@ class WorldController implements WorldControllerInterface
      * @var BoundaryInterface
      */
     private $grid_boundary;
+    
+    /**
+     * Grid view.
+     *
+     * @var GridViewInterface
+     */
+    private $grid_view;
     
     /**
      * World render.
@@ -79,8 +88,16 @@ class WorldController implements WorldControllerInterface
             BoundaryFactory::new($config_controller)
         );
         
+        $this->setGridView(
+            GridViewFactory::new($config_controller)
+        );
+    
         $this->setGridSupervisor(
-            GridSupervisorFactory::new($config_controller, $this->getGridBoundary())
+            GridSupervisorFactory::new(
+                $config_controller,
+                $this->getGridBoundary(),
+                $this->getGridView()
+            )
         );
     
         $this->setRender(
@@ -91,7 +108,8 @@ class WorldController implements WorldControllerInterface
             RendererFactory::new(
                 $config_controller,
                 $this->getGridSupervisor(),
-                $this->getRender()
+                $this->getRender(),
+                $this->getGridView()
             )
         );
     }
@@ -154,6 +172,26 @@ class WorldController implements WorldControllerInterface
     public function setGridBoundary(BoundaryInterface $grid_boundary): void
     {
         $this->grid_boundary = $grid_boundary;
+    }
+    
+    /**
+     * Returns grid_view.
+     *
+     * @return GridViewInterface
+     */
+    public function getGridView(): GridViewInterface
+    {
+        return $this->grid_view;
+    }
+    
+    /**
+     * Sets grid_view.
+     *
+     * @param GridViewInterface $grid_view
+     */
+    public function setGridView(GridViewInterface $grid_view): void
+    {
+        $this->grid_view = $grid_view;
     }
     
     /**

@@ -33,10 +33,12 @@ class EmptyWorldPoint implements WorldPointInterface
      * EmptyWorldPoint constructor method.
      *
      * @param string $icon
+     * @param CoordinatesInterface $coordinates
      */
-    public function __construct(string $icon)
+    public function __construct(string $icon, CoordinatesInterface $coordinates)
     {
         $this->setIcon($icon);
+        $this->setCoordinates($coordinates);
     }
     
     /**
