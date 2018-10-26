@@ -12,7 +12,7 @@ use Havoc\Engine\Entity\Boundary\BoundaryException;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class Rules implements RulesInterface
+class BoundaryRules implements RulesInterface
 {
     /**
      * Boundary rule for the X negative axis.
@@ -166,7 +166,7 @@ class Rules implements RulesInterface
      */
     private function validateBoundaryRuleExists(int $rule): void
     {
-        if (false === BoundaryRule::validValue($rule)) {
+        if (BoundaryRule::validValue($rule) === false) {
             throw BoundaryException::boundaryRuleInvalid($rule);
         }
     }

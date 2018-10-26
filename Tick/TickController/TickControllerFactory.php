@@ -26,7 +26,7 @@ abstract class TickControllerFactory
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(TickControllerInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TickException::tickControllerBadClass($controller);
         }
         

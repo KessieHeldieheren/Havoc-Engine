@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\Boundary\BoundarySupervisor;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Entity\Boundary\BoundaryCode\BoundaryBoundaryCode;
+use Havoc\Engine\Entity\Boundary\BoundaryCode\BoundaryCode;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRule;
 use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionFactory;
 use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface;
@@ -23,14 +23,14 @@ use Havoc\Engine\Logger\LogController\LogControllerInterface;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
+class BoundarySupervisor implements BoundarySupervisorInterface
 {
     public const LOG_ENTITY_FELL_OUT_OF_BOUNDS = "%s (#%s) fell out of the %s bound on coordinates %s (rectified to %s).";
     
     /**
      * Entity supervisor.
      *
-     * @var \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @var EntitySupervisorInterface
      */
     private $entity_supervisor;
     
@@ -65,7 +65,7 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
     /**
      * BoundarySupervisor constructor method.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_collection
      * @param LogControllerInterface $log_controller
      * @param BoundaryInterface $boundary
      * @param ConfigControllerInterface $config_controller
@@ -82,7 +82,7 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
     /**
      * Validate that all entities are in bounds.
      */
-    public function validateEntitiesInBounds(): void
+    public function rectifyBoundaryViolations(): void
     {
         $this->getBoundaryViolations()->cleanViolations();
         
@@ -128,13 +128,13 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyXNegative();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryBoundaryCode::X_NEGATIVE);
+        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::X_NEGATIVE);
         
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryBoundaryCode::getName(BoundaryBoundaryCode::X_NEGATIVE),
+                BoundaryCode::getName(BoundaryCode::X_NEGATIVE),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -155,13 +155,13 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyXPositive();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryBoundaryCode::X_POSITIVE);
+        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::X_POSITIVE);
     
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryBoundaryCode::getName(BoundaryBoundaryCode::X_POSITIVE),
+                BoundaryCode::getName(BoundaryCode::X_POSITIVE),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -182,13 +182,13 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyYNegative();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryBoundaryCode::Y_NEGATIVE);
+        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::Y_NEGATIVE);
     
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryBoundaryCode::getName(BoundaryBoundaryCode::Y_NEGATIVE),
+                BoundaryCode::getName(BoundaryCode::Y_NEGATIVE),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -209,13 +209,13 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
         $original_coordinates = $entity->getCoordinates()->clone();
         
         $rectifier->rectifyYPositive();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryBoundaryCode::Y_POSITIVE);
+        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::Y_POSITIVE);
     
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryBoundaryCode::getName(BoundaryBoundaryCode::Y_POSITIVE),
+                BoundaryCode::getName(BoundaryCode::Y_POSITIVE),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -246,7 +246,7 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
     /**
      * Returns entity_collection.
      *
-     * @return \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @return EntitySupervisorInterface
      */
     public function getEntitySupervisor(): EntitySupervisorInterface
     {
@@ -256,7 +256,7 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
     /**
      * Sets entity_collection.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_supervisor
+     * @param EntitySupervisorInterface $entity_supervisor
      */
     public function setEntitySupervisor(EntitySupervisorInterface $entity_supervisor): void
     {
@@ -286,7 +286,7 @@ class BoundaryBoundarySupervisor implements BoundarySupervisorInterface
     /**
      * Returns log_controller.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function getLogController(): LogControllerInterface
     {

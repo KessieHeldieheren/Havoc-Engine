@@ -8,7 +8,7 @@ use Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 
 /**
@@ -25,7 +25,7 @@ interface EntityControllerInterface
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridSupervisorInterface $grid
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $logger
+     * @param LogControllerInterface $logger
      * @throws \ReflectionException
      */
     public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, LogControllerInterface $logger);
@@ -35,14 +35,14 @@ interface EntityControllerInterface
      *
      * @return GridSupervisorInterface
      */
-    public function getGrid(): GridSupervisorInterface;
+    public function getGridSupervisor(): GridSupervisorInterface;
     
     /**
      * Sets grid.
      *
      * @param GridSupervisorInterface $grid
      */
-    public function setGrid(GridSupervisorInterface $grid): void;
+    public function setGridSupervisor(GridSupervisorInterface $grid): void;
     
     /**
      * Returns config.
@@ -66,7 +66,7 @@ interface EntityControllerInterface
     /**
      * Returns entity_collection.
      *
-     * @return \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @return EntitySupervisorInterface
      */
     public function getEntitySupervisor(): EntitySupervisorInterface;
     
@@ -80,7 +80,7 @@ interface EntityControllerInterface
     /**
      * Returns logger.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function getLogcontroller(): LogControllerInterface;
     
@@ -108,7 +108,7 @@ interface EntityControllerInterface
     /**
      * Returns translation_controller.
      *
-     * @return \Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface
+     * @return TranslationSupervisorInterface
      */
     public function getTranslationSupervisor(): TranslationSupervisorInterface;
     
@@ -122,14 +122,14 @@ interface EntityControllerInterface
     /**
      * Returns boundary_supervisor.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface
+     * @return BoundarySupervisorInterface
      */
     public function getBoundarySupervisor(): BoundarySupervisorInterface;
     
     /**
      * Sets boundary_supervisor.
      *
-     * @param \Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface $boundary_supervisor
+     * @param BoundarySupervisorInterface $boundary_supervisor
      */
     public function setBoundarySupervisor(BoundarySupervisorInterface $boundary_supervisor): void;
 }

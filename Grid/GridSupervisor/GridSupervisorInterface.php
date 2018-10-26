@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Grid\Standard;
+namespace Havoc\Engine\Grid\GridSupervisor;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryInterface;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
@@ -21,8 +22,9 @@ interface GridSupervisorInterface
      * Grid constructor method.
      *
      * @param ConfigControllerInterface $config_controller
+     * @param BoundaryInterface $boundary
      */
-    public function __construct(ConfigControllerInterface $config_controller);
+    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $boundary);
     
     /**
      * Returns grid.
@@ -52,7 +54,21 @@ interface GridSupervisorInterface
     /**
      * Returns the boundaries for the world grid.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundaryInterface
+     * @return BoundaryInterface
      */
     public function getBoundary(): BoundaryInterface;
+    
+    /**
+     * Returns grid_view.
+     *
+     * @return GridViewInterface
+     */
+    public function getGridView(): GridViewInterface;
+    
+    /**
+     * Sets grid_view.
+     *
+     * @param GridViewInterface $grid_view
+     */
+    public function setGridView(GridViewInterface $grid_view): void;
 }

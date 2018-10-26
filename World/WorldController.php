@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace Havoc\Engine\World;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorFactory;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Entity\Boundary\BoundaryFactory;
+use Havoc\Engine\Entity\Boundary\BoundaryInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorFactory;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderFactory;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Renderer\RendererFactory;
@@ -33,6 +35,13 @@ class WorldController implements WorldControllerInterface
      * @var GridSupervisorInterface
      */
     private $grid_supervisor;
+    
+    /**
+     * Grid boundary.
+     *
+     * @var BoundaryInterface
+     */
+    private $grid_boundary;
     
     /**
      * World render.
@@ -64,17 +73,23 @@ class WorldController implements WorldControllerInterface
      */
     protected function bootstrap(): void
     {
+        $config_controller = $this->getConfigController();
+    
+        $this->setGridBoundary(
+            BoundaryFactory::new($config_controller)
+        );
+        
         $this->setGridSupervisor(
-            GridSupervisorFactory::new($this->getConfigController())
+            GridSupervisorFactory::new($config_controller, $this->getGridBoundary())
         );
     
         $this->setRender(
-            RenderFactory::new($this->getConfigController())
+            RenderFactory::new($config_controller)
         );
     
         $this->setRenderer(
             RendererFactory::new(
-                $this->getConfigController(),
+                $config_controller,
                 $this->getGridSupervisor(),
                 $this->getRender()
             )
@@ -122,18 +137,23 @@ class WorldController implements WorldControllerInterface
     }
     
     /**
-     * Assign a new grid.
+     * Returns grid_boundary.
      *
-     * @param string $dependency
+     * @return BoundaryInterface
      */
-    public function assignNewGrid(string $dependency): void
+    public function getGridBoundary(): BoundaryInterface
     {
-        $this->setGridSupervisor(
-            GridSupervisorFactory::new(
-                $this->getConfigController(),
-                $dependency
-            )
-        );
+        return $this->grid_boundary;
+    }
+    
+    /**
+     * Sets grid_boundary.
+     *
+     * @param BoundaryInterface $grid_boundary
+     */
+    public function setGridBoundary(BoundaryInterface $grid_boundary): void
+    {
+        $this->grid_boundary = $grid_boundary;
     }
     
     /**
@@ -157,22 +177,6 @@ class WorldController implements WorldControllerInterface
     }
     
     /**
-     * Assign a new render.
-     *
-     * @param string $dependency
-     * @throws \ReflectionException
-     */
-    public function assignNewRender(string $dependency): void
-    {
-        $this->setRender(
-            RenderFactory::new(
-                $this->getConfigController(),
-                $dependency
-            )
-        );
-    }
-    
-    /**
      * Returns renderer.
      *
      * @return RendererInterface
@@ -190,22 +194,5 @@ class WorldController implements WorldControllerInterface
     public function setRenderer(RendererInterface $renderer): void
     {
         $this->renderer = $renderer;
-    }
-    
-    /**
-     * Assign a new renderer.
-     *
-     * @param string $dependency
-     */
-    public function assignNewRenderer(string $dependency): void
-    {
-        $this->setRenderer(
-            RendererFactory::new(
-                $this->getConfigController(),
-                $this->getGridSupervisor(),
-                $this->getRender(),
-                $dependency
-            )
-        );
     }
 }

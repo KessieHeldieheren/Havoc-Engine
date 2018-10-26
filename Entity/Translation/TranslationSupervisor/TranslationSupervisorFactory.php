@@ -6,7 +6,7 @@ namespace Havoc\Engine\Entity\Translation\TranslationSupervisor;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 
 use Havoc\Engine\Entity\Translation\TranslationException;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 use ReflectionClass;
 
@@ -22,7 +22,7 @@ class TranslationSupervisorFactory
     /**
      * Create a new entity translation controller.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_collection
      * @param LogControllerInterface $log_controller
      * @param GridSupervisorInterface $grid
      * @param string $supervisor
@@ -33,7 +33,7 @@ class TranslationSupervisorFactory
     {
         $reflects = (new ReflectionClass($supervisor))->implementsInterface(TranslationSupervisorInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TranslationException::translationSupervisorBadClass($supervisor);
         }
         

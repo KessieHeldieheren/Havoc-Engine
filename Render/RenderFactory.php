@@ -27,7 +27,7 @@ abstract class RenderFactory
     {
         $reflects = (new ReflectionClass($render))->implementsInterface(RenderInterface::class);
     
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw RenderException::renderBadClass($render);
         }
         

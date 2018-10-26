@@ -15,7 +15,7 @@ class Log implements LogInterface
     /**
      * Overall format of a stringified log.
      */
-    public const LOG_FORMAT = "T:%s - %s";
+    public const LOG_FORMAT = "Tick %s: %s";
     
     /**
      * Log ID.

@@ -27,7 +27,7 @@ abstract class WorldControllerFactory
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(WorldControllerInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw WorldException::worldControllerBadClass($controller);
         }
         

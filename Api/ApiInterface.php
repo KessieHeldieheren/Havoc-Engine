@@ -69,14 +69,14 @@ interface ApiInterface
     /**
      * Returns the entity controller.
      *
-     * @return \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @return EntitySupervisorInterface
      */
     public function entities(): EntitySupervisorInterface;
     
     /**
      * Returns the log controller.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function logger(): LogControllerInterface;
     
@@ -104,7 +104,7 @@ interface ApiInterface
     /**
      * Returns all entities that are out of bounds in the current tick.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface
+     * @return BoundaryViolationCollectionInterface
      */
     public function boundaryViolations(): BoundaryViolationCollectionInterface;
 }

@@ -22,7 +22,7 @@ abstract class TimerFactory
     /**
      * Create a new countdown timer.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      * @param int $expires_after
      * @param string $timer_class
      * @return CountdownInterface
@@ -33,7 +33,7 @@ abstract class TimerFactory
     {
         $reflects = (new \ReflectionClass($timer_class))->implementsInterface(CountdownInterface::class);
     
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TimerException::countdownBadClass($timer_class);
         }
         
@@ -43,7 +43,7 @@ abstract class TimerFactory
     /**
      * Create a new counter timer.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      * @param string $timer_class
      * @return CounterInterface
      * @throws \ReflectionException
@@ -52,7 +52,7 @@ abstract class TimerFactory
     {
         $reflects = (new \ReflectionClass($timer_class))->implementsInterface(CounterInterface::class);
     
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TimerException::countdownBadClass($timer_class);
         }
         
@@ -71,7 +71,7 @@ abstract class TimerFactory
     {
         $reflects = (new \ReflectionClass($timer_class))->implementsInterface(RepeaterInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TimerException::repeaterBadClass($timer_class);
         }
         

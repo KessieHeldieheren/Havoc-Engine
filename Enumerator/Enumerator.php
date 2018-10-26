@@ -59,7 +59,7 @@ abstract class Enumerator
         $enumerables = self::getCache();
         $result = array_search($value, $enumerables, true);
         
-        if (false === $result) {
+        if ($result === false) {
             throw EnumeratorException::valueNotFound();
         }
         

@@ -11,6 +11,7 @@ use Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\B
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
+use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Tick\TickController\TickControllerInterface;
@@ -56,8 +57,10 @@ class Api implements ApiInterface
         $entity_controller = $this->getCore()->getEntityController();
     
         $this->getCore()->getTickController()->incrementCurrentTick();
+        $world_controller->getGridSupervisor()->getGridView()->updateViewAxes();
         $world_controller->getGridSupervisor()->insertEmptyPoints();
-        $entity_controller->getBoundarySupervisor()->validateEntitiesInBounds();
+        $entity_controller->getBoundarySupervisor()->rectifyBoundaryViolations();
+        # Add detect collisions here.
         $entity_controller->mapEntitiesToGrid();
         $world_controller->getRenderer()->render();
         
@@ -157,11 +160,21 @@ class Api implements ApiInterface
     /**
      * Returns all entities that are out of bounds in the current tick.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundaryViolation\BoundaryViolationCollection\BoundaryViolationCollectionInterface
+     * @return BoundaryViolationCollectionInterface
      */
     public function boundaryViolations(): BoundaryViolationCollectionInterface
     {
         return $this->getCore()->getEntityController()->getBoundarySupervisor()->getBoundaryViolations();
+    }
+    
+    /**
+     * Returns the grid view, which allows camera view manipulation.
+     *
+     * @return GridViewInterface
+     */
+    public function view(): GridViewInterface
+    {
+        return $this->getCore()->getWorldController()->getGridSupervisor()->getGridView();
     }
     
     /**

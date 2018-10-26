@@ -5,9 +5,9 @@ namespace Havoc\Engine\Renderer;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
-use Havoc\Engine\RendererCli\RendererCli;
+use Havoc\Engine\Renderer\SmallRenderer\SmallRenderer;
 use ReflectionClass;
 
 /**
@@ -29,11 +29,11 @@ abstract class RendererFactory
      * @return RendererInterface
      * @throws \ReflectionException
      */
-    public static function new(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render, string $renderer = RendererCli::class): RendererInterface
+    public static function new(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render, string $renderer = SmallRenderer::class): RendererInterface
     {
         $reflects = (new ReflectionClass($renderer))->implementsInterface(RendererInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw RendererException::rendererBadClass($renderer);
         }
         

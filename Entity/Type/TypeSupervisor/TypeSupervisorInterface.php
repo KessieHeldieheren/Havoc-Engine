@@ -20,7 +20,7 @@ interface TypeSupervisorInterface
     /**
      * TypeController constructor method.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_collection
      */
     public function __construct(EntitySupervisorInterface $entity_collection);
     

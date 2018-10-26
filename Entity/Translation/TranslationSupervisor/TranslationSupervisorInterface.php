@@ -6,7 +6,7 @@ namespace Havoc\Engine\Entity\Translation\TranslationSupervisor;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\EntityInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 
 /**
@@ -21,7 +21,7 @@ interface TranslationSupervisorInterface
     /**
      * TranslationSupervisor constructor method.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_collection
      * @param LogControllerInterface $log_controller
      * @param GridSupervisorInterface $grid
      */

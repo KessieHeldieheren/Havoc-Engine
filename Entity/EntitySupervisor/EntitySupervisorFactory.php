@@ -19,7 +19,7 @@ abstract class EntitySupervisorFactory
     /**
      * Create a new entity supervisor.
      *
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $log_controller
+     * @param LogControllerInterface $log_controller
      * @param string $supervisor
      * @return EntitySupervisorInterface
      * @throws \ReflectionException
@@ -29,7 +29,7 @@ abstract class EntitySupervisorFactory
         $reflects = (new ReflectionClass($supervisor))
             ->implementsInterface(EntitySupervisorInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw EntityException::entityCollectionBadClass($supervisor);
         }
         

@@ -6,14 +6,13 @@ namespace Havoc\Engine\Entity\EntityController;
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorFactory;
 use Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface;
-use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorFactory;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorFactory;
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorFactory;
 use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 
 /**
@@ -30,7 +29,7 @@ class EntityController implements EntityControllerInterface
      *
      * @var GridSupervisorInterface
      */
-    private $grid;
+    private $grid_supervisor;
     
     /**
      * Configuration controller.
@@ -42,14 +41,14 @@ class EntityController implements EntityControllerInterface
     /**
      * Entity supervisor.
      *
-     * @var \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @var EntitySupervisorInterface
      */
     private $entity_supervisor;
     
     /**
      * Log controller.
      *
-     * @var \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @var LogControllerInterface
      */
     private $log_controller;
     
@@ -63,7 +62,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Translation supervisor.
      *
-     * @var \Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface
+     * @var TranslationSupervisorInterface
      */
     private $translation_supervisor;
     
@@ -79,13 +78,13 @@ class EntityController implements EntityControllerInterface
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridSupervisorInterface $grid
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $logger
+     * @param LogControllerInterface $logger
      * @throws \ReflectionException
      */
     public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, LogControllerInterface $logger)
     {
         $this->setConfigController($config_controller);
-        $this->setGrid($grid);
+        $this->setGridSupervisor($grid);
         $this->setLogcontroller($logger);
         $this->bootstrap();
     }
@@ -113,7 +112,7 @@ class EntityController implements EntityControllerInterface
             TranslationSupervisorFactory::new(
                 $this->getEntitySupervisor(),
                 $this->getLogcontroller(),
-                $this->getGrid()
+                $this->getGridSupervisor()
             )
         );
         
@@ -121,7 +120,7 @@ class EntityController implements EntityControllerInterface
             BoundarySupervisorFactory::new(
                 $this->getEntitySupervisor(),
                 $this->getLogcontroller(),
-                $this->getGrid()->getBoundary(),
+                $this->getGridSupervisor()->getBoundary(),
                 $this->getConfigController()
             )
         );
@@ -132,19 +131,19 @@ class EntityController implements EntityControllerInterface
      *
      * @return GridSupervisorInterface
      */
-    public function getGrid(): GridSupervisorInterface
+    public function getGridSupervisor(): GridSupervisorInterface
     {
-        return $this->grid;
+        return $this->grid_supervisor;
     }
     
     /**
      * Sets grid.
      *
-     * @param GridSupervisorInterface $grid
+     * @param GridSupervisorInterface $grid_supervisor
      */
-    public function setGrid(GridSupervisorInterface $grid): void
+    public function setGridSupervisor(GridSupervisorInterface $grid_supervisor): void
     {
-        $this->grid = $grid;
+        $this->grid_supervisor = $grid_supervisor;
     }
     
     /**
@@ -172,7 +171,7 @@ class EntityController implements EntityControllerInterface
      */
     public function mapEntitiesToGrid(): void
     {
-        $grid = $this->getGrid();
+        $grid = $this->getGridSupervisor();
         
         foreach ($this->getEntitySupervisor()->getEntityCollection()->getEntities() as $entity) {
             $grid->insertWithCoordinates($entity, $entity->getCoordinates());
@@ -182,7 +181,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns entity_collection.
      *
-     * @return \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @return EntitySupervisorInterface
      */
     public function getEntitySupervisor(): EntitySupervisorInterface
     {
@@ -192,7 +191,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Sets entity_collection.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_supervisor
+     * @param EntitySupervisorInterface $entity_supervisor
      */
     public function setEntitySupervisor(EntitySupervisorInterface $entity_supervisor): void
     {
@@ -202,7 +201,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns logger.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function getLogcontroller(): LogControllerInterface
     {
@@ -222,7 +221,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns type_controller.
      *
-     * @return \Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface
+     * @return TypeSupervisorInterface
      */
     public function getTypeSupervisor(): TypeSupervisorInterface
     {
@@ -232,7 +231,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Sets type_controller.
      *
-     * @param \Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface $type_supervisor
+     * @param TypeSupervisorInterface $type_supervisor
      */
     public function setTypeSupervisor(TypeSupervisorInterface $type_supervisor): void
     {
@@ -242,7 +241,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns translation_controller.
      *
-     * @return \Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface
+     * @return TranslationSupervisorInterface
      */
     public function getTranslationSupervisor(): TranslationSupervisorInterface
     {
@@ -262,7 +261,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Returns boundary_supervisor.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface
+     * @return BoundarySupervisorInterface
      */
     public function getBoundarySupervisor(): BoundarySupervisorInterface
     {
@@ -272,7 +271,7 @@ class EntityController implements EntityControllerInterface
     /**
      * Sets boundary_supervisor.
      *
-     * @param \Havoc\Engine\Entity\Boundary\BoundarySupervisor\BoundarySupervisorInterface $boundary_supervisor
+     * @param BoundarySupervisorInterface $boundary_supervisor
      */
     public function setBoundarySupervisor(BoundarySupervisorInterface $boundary_supervisor): void
     {

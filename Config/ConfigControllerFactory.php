@@ -24,7 +24,7 @@ abstract class ConfigControllerFactory
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(ConfigControllerInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw ConfigException::configControllerBadClass($controller);
         }
         

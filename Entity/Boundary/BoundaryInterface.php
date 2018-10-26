@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary;
 
+use Havoc\Engine\Config\ConfigControllerInterface;
+
 /**
  * Havoc Engine grid boundary interface.
  *
@@ -15,12 +17,9 @@ interface BoundaryInterface
     /**
      * Boundary constructor method.
      *
-     * @param int $x_negative
-     * @param int $x_positive
-     * @param int $y_negative
-     * @param int $y_positive
+     * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(int $x_negative, int $x_positive, int $y_negative, int $y_positive);
+    public function __construct(ConfigControllerInterface $config_controller);
     
     /**
      * Returns x_negative.
@@ -77,4 +76,9 @@ interface BoundaryInterface
      * @param int $y_positive
      */
     public function setYPositive(int $y_positive): void;
+    
+    /**
+     * Update grid boundaries.
+     */
+    public function updateBoundary(): void;
 }

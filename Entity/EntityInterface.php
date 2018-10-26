@@ -85,14 +85,14 @@ interface EntityInterface
     /**
      * Returns type_collection.
      *
-     * @return \Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface
+     * @return TypeCollectionInterface
      */
     public function getTypeCollection(): TypeCollectionInterface;
     
     /**
      * Sets type_collection.
      *
-     * @param \Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface $type_collection
+     * @param TypeCollectionInterface $type_collection
      */
     public function setTypeCollection(TypeCollectionInterface $type_collection): void;
     
@@ -113,7 +113,7 @@ interface EntityInterface
     /**
      * Returns boundary_rules.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundaryRules\RulesInterface
+     * @return RulesInterface
      */
     public function getBoundaryRules(): RulesInterface;
     

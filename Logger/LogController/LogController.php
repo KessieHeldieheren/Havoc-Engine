@@ -51,7 +51,7 @@ class LogController implements LogControllerInterface
      */
     public function getLogs(int $limit = 0, int $offset = 0): array
     {
-        if (0 === $limit) {
+        if ($limit === 0) {
             return $this->logs;
         }
         
@@ -75,7 +75,7 @@ class LogController implements LogControllerInterface
             }
         }
     
-        if (0 === $limit) {
+        if ($limit === 0) {
             return $result;
         }
     

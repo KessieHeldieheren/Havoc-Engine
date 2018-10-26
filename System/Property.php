@@ -12,9 +12,9 @@ namespace Havoc\Engine\System;
  */
 abstract class Property
 {
-    public const X_GRID_MIN = 4;
-    public const X_GRID_MAX = 80;
+    public const X_GRID_MIN = PHP_INT_MIN;
+    public const X_GRID_MAX = PHP_INT_MAX;
     
-    public const Y_GRID_MIN = 4;
-    public const Y_GRID_MAX = 80;
+    public const Y_GRID_MIN = PHP_INT_MIN;
+    public const Y_GRID_MAX = PHP_INT_MAX;
 }

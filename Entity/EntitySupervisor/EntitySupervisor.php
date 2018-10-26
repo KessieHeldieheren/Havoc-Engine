@@ -33,14 +33,14 @@ class EntitySupervisor implements EntitySupervisorInterface
     /**
      * Log controller.
      *
-     * @var \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @var LogControllerInterface
      */
     private $log_controller;
     
     /**
      * EntityCollection constructor method.
      *
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $log_controller
+     * @param LogControllerInterface $log_controller
      */
     public function __construct(LogControllerInterface $log_controller)
     {
@@ -91,7 +91,7 @@ class EntitySupervisor implements EntitySupervisorInterface
         
         $this->getEntityCollection()->add($entity);
         
-        if (null !== $types) {
+        if ($types !== null) {
             $entity->getTypeCollection()->addTypes($types);
         }
         
@@ -152,7 +152,7 @@ class EntitySupervisor implements EntitySupervisorInterface
     /**
      * Returns logger.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function getLogController(): LogControllerInterface
     {
@@ -162,7 +162,7 @@ class EntitySupervisor implements EntitySupervisorInterface
     /**
      * Sets logger.
      *
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $log_controller
+     * @param LogControllerInterface $log_controller
      */
     public function setLogController(LogControllerInterface $log_controller): void
     {

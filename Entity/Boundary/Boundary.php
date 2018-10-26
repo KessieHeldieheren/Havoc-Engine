@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary;
 
+use Havoc\Engine\Config\ConfigControllerInterface;
+
 /**
  * Havoc Engine grid boundary.
  *
@@ -12,6 +14,13 @@ namespace Havoc\Engine\Entity\Boundary;
  */
 class Boundary implements BoundaryInterface
 {
+    /**
+     * Configuration controller.
+     *
+     * @var ConfigControllerInterface
+     */
+    private $config_controller;
+    
     /**
      * Boundary along the X negative axis.
      *
@@ -43,17 +52,45 @@ class Boundary implements BoundaryInterface
     /**
      * Boundary constructor method.
      *
-     * @param int $x_negative
-     * @param int $x_positive
-     * @param int $y_negative
-     * @param int $y_positive
+     * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(int $x_negative, int $x_positive, int $y_negative, int $y_positive)
+    public function __construct(ConfigControllerInterface $config_controller)
     {
-        $this->setXNegative($x_negative);
-        $this->setXPositive($x_positive);
-        $this->setYNegative($y_negative);
-        $this->setYPositive($y_positive);
+        $this->setConfigController($config_controller);
+        $this->updateBoundary();
+    }
+    
+    /**
+     * Update grid boundaries.
+     */
+    public function updateBoundary(): void
+    {
+        $config_controller = $this->getConfigController();
+    
+        $this->setXNegative(0 - $config_controller->getXBoundary());
+        $this->setXPositive($config_controller->getXBoundary());
+        $this->setYNegative(0 - $config_controller->getYBoundary());
+        $this->setYPositive($config_controller->getYBoundary());
+    }
+    
+    /**
+     * Returns config_controller.
+     *
+     * @return ConfigControllerInterface
+     */
+    public function getConfigController(): ConfigControllerInterface
+    {
+        return $this->config_controller;
+    }
+    
+    /**
+     * Sets config_controller.
+     *
+     * @param ConfigControllerInterface $config_controller
+     */
+    public function setConfigController(ConfigControllerInterface $config_controller): void
+    {
+        $this->config_controller = $config_controller;
     }
     
     /**

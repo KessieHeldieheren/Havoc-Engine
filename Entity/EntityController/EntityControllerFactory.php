@@ -7,7 +7,7 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Entity\EntityController\EntityController;
 use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
 use Havoc\Engine\Entity\EntityException;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 use ReflectionClass;
 
@@ -25,7 +25,7 @@ abstract class EntityControllerFactory
      *
      * @param ConfigControllerInterface $config_controller
      * @param GridSupervisorInterface $grid
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $logger
+     * @param LogControllerInterface $logger
      * @param string $controller
      * @return EntityControllerInterface
      * @throws \ReflectionException
@@ -34,7 +34,7 @@ abstract class EntityControllerFactory
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(EntityControllerInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw EntityException::entityControllerBadClass($controller);
         }
         

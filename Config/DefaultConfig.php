@@ -12,8 +12,10 @@ namespace Havoc\Engine\Config;
  */
 abstract class DefaultConfig
 {
-    public const WORLD_DEFAULT_X = 32;
-    public const WORLD_DEFAULT_Y = 16;
+    public const WORLD_DEFAULT_X_BOUNDARY = 24;
+    public const WORLD_DEFAULT_Y_BOUNDARY = 24;
+    public const WORLD_DEFAULT_X_VIEW = 24;
+    public const WORLD_DEFAULT_Y_VIEW = 24;
     public const WORLD_COORDINATES_GUIDE_VISIBLE = true;
     public const WORLD_POINT_NORMAL_ICON = "∙";
     public const WORLD_POINT_ALTERNATE_ICON = "-";

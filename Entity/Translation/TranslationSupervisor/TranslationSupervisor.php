@@ -6,7 +6,7 @@ namespace Havoc\Engine\Entity\Translation\TranslationSupervisor;
 use Havoc\Engine\Coordinates\CoordinatesInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\EntityInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 
 /**
@@ -30,7 +30,7 @@ class TranslationSupervisor implements TranslationSupervisorInterface
     /**
      * Log controller.
      *
-     * @var \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @var LogControllerInterface
      */
     private $log_controller;
     
@@ -107,12 +107,6 @@ class TranslationSupervisor implements TranslationSupervisorInterface
         }
     }
     
-    
-    protected function detectCollisions(): void
-    {
-    
-    }
-    
     /**
      * Returns entity_collection.
      *
@@ -136,7 +130,7 @@ class TranslationSupervisor implements TranslationSupervisorInterface
     /**
      * Returns log_controller.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function getLogController(): LogControllerInterface
     {

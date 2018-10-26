@@ -19,7 +19,7 @@ interface LogControllerInterface
     /**
      * LogController constructor method.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      */
     public function __construct(TickControllerInterface $tick_controller);
     

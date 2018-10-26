@@ -15,18 +15,32 @@ use Havoc\Engine\System\Property;
 class ConfigController implements ConfigControllerInterface
 {
     /**
-     * World grid default X axis length.
+     * World grid default X axis size.
      *
      * @var int
      */
-    private $x_grid = DefaultConfig::WORLD_DEFAULT_X;
+    private $x_boundary = DefaultConfig::WORLD_DEFAULT_X_BOUNDARY;
     
     /**
-     * World grid default Y axis length.
+     * World grid default Y axis size.
      *
      * @var int
      */
-    private $y_grid = DefaultConfig::WORLD_DEFAULT_Y;
+    private $y_boundary = DefaultConfig::WORLD_DEFAULT_Y_BOUNDARY;
+    
+    /**
+     * World grid default X axis view.
+     *
+     * @var int
+     */
+    private $x_view = DefaultConfig::WORLD_DEFAULT_X_VIEW;
+    
+    /**
+     * World grid default Y axis view.
+     *
+     * @var int
+     */
+    private $y_view = DefaultConfig::WORLD_DEFAULT_Y_VIEW;
     
     /**
      * Coordinates string format.
@@ -75,27 +89,27 @@ class ConfigController implements ConfigControllerInterface
      *
      * @return int
      */
-    public function getXGrid(): int
+    public function getXBoundary(): int
     {
-        return $this->x_grid;
+        return $this->x_boundary;
     }
     
     /**
      * Sets x_grid.
      *
-     * @param int $x_grid
+     * @param int $x_boundary
      */
-    public function setXGrid(int $x_grid): void
+    public function setXBoundary(int $x_boundary): void
     {
-        if ($x_grid > Property::X_GRID_MAX) {
-            throw ConfigException::xGridOverMax($x_grid);
+        if ($x_boundary > Property::X_GRID_MAX) {
+            throw ConfigException::xGridOverMax($x_boundary);
         }
     
-        if ($x_grid < Property::X_GRID_MIN) {
-            throw ConfigException::xGridUnderMin($x_grid);
+        if ($x_boundary < Property::X_GRID_MIN) {
+            throw ConfigException::xGridUnderMin($x_boundary);
         }
     
-        $this->x_grid = $x_grid;
+        $this->x_boundary = $x_boundary;
     }
     
     /**
@@ -103,27 +117,67 @@ class ConfigController implements ConfigControllerInterface
      *
      * @return int
      */
-    public function getYGrid(): int
+    public function getYBoundary(): int
     {
-        return $this->y_grid;
+        return $this->y_boundary;
     }
     
     /**
      * Sets y_grid.
      *
-     * @param int $y_grid
+     * @param int $y_boundary
      */
-    public function setYGrid(int $y_grid): void
+    public function setYBoundary(int $y_boundary): void
     {
-        if ($y_grid > Property::Y_GRID_MAX) {
-            throw ConfigException::yGridOverMax($y_grid);
+        if ($y_boundary > Property::Y_GRID_MAX) {
+            throw ConfigException::yGridOverMax($y_boundary);
         }
     
-        if ($y_grid < Property::Y_GRID_MIN) {
-            throw ConfigException::yGridUnderMin($y_grid);
+        if ($y_boundary < Property::Y_GRID_MIN) {
+            throw ConfigException::yGridUnderMin($y_boundary);
         }
         
-        $this->y_grid = $y_grid;
+        $this->y_boundary = $y_boundary;
+    }
+    
+    /**
+     * Returns x_view.
+     *
+     * @return int
+     */
+    public function getXView(): int
+    {
+        return $this->x_view;
+    }
+    
+    /**
+     * Sets x_view.
+     *
+     * @param int $x_view
+     */
+    public function setXView(int $x_view): void
+    {
+        $this->x_view = $x_view;
+    }
+    
+    /**
+     * Returns y_view.
+     *
+     * @return int
+     */
+    public function getYView(): int
+    {
+        return $this->y_view;
+    }
+    
+    /**
+     * Sets y_view.
+     *
+     * @param int $y_view
+     */
+    public function setYView(int $y_view): void
+    {
+        $this->y_view = $y_view;
     }
     
     /**

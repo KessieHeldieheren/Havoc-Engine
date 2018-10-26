@@ -27,7 +27,7 @@ abstract class TypeFactory
     {
         $reflects = (new ReflectionClass($type_class))->implementsInterface(TypeInterface::class);
     
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TypeException::typeBadClass($type_class);
         }
     

@@ -31,11 +31,11 @@ abstract class EntityFactory
     {
         $reflection_interfaces = (new ReflectionClass($entity_class))->getInterfaceNames();
         
-        if (false === \in_array(EntityInterface::class, $reflection_interfaces, true)) {
+        if (\in_array(EntityInterface::class, $reflection_interfaces, true) === false) {
             throw EntityException::entityBadClass($entity_class);
         }
         
-        if (false === \in_array(WorldPointInterface::class, $reflection_interfaces, true)) {
+        if (\in_array(WorldPointInterface::class, $reflection_interfaces, true) === false) {
             throw EntityException::entityBadClass($entity_class);
         }
         

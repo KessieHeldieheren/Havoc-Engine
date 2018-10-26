@@ -29,7 +29,7 @@ class TypeSupervisorFactory
         $reflects = (new ReflectionClass($supervisor))
             ->implementsInterface(TypeSupervisorInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TypeException::typeSupervisorBadClass($supervisor);
         }
         

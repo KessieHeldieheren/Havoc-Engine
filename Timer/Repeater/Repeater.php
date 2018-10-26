@@ -52,7 +52,7 @@ class Repeater implements RepeaterInterface
     /**
      * Repeater constructor method.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      * @param int $repeats_after_interval
      */
     public function __construct(TickControllerInterface $tick_controller, int $repeats_after_interval)
@@ -71,7 +71,7 @@ class Repeater implements RepeaterInterface
     {
         $repeated = $this->getRepeatsAfter() <= $this->getTickController()->getCurrentTick();
         
-        if (false === $repeated) {
+        if ($repeated === false) {
             return false;
         }
         
@@ -83,7 +83,7 @@ class Repeater implements RepeaterInterface
     /**
      * Returns tick_controller.
      *
-     * @return \Havoc\Engine\Tick\TickController\TickControllerInterface
+     * @return TickControllerInterface
      */
     public function getTickController(): TickControllerInterface
     {

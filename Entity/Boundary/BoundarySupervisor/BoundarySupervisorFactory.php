@@ -24,17 +24,17 @@ abstract class BoundarySupervisorFactory
      *
      * @param EntitySupervisorInterface $entity_collection
      * @param LogControllerInterface $log_controller
-     * @param \Havoc\Engine\Entity\Boundary\BoundaryInterface $boundary
+     * @param BoundaryInterface $boundary
      * @param ConfigControllerInterface $config_controller
      * @param string $boundary_supervisor
      * @return BoundarySupervisorInterface
      * @throws \ReflectionException
      */
-    public static function new(EntitySupervisorInterface $entity_collection, LogControllerInterface $log_controller, BoundaryInterface $boundary, ConfigControllerInterface $config_controller, string $boundary_supervisor = BoundaryBoundarySupervisor::class): BoundarySupervisorInterface
+    public static function new(EntitySupervisorInterface $entity_collection, LogControllerInterface $log_controller, BoundaryInterface $boundary, ConfigControllerInterface $config_controller, string $boundary_supervisor = BoundarySupervisor::class): BoundarySupervisorInterface
     {
         $reflects = (new ReflectionClass($boundary_supervisor))->implementsInterface(BoundarySupervisorInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw BoundaryException::boundarySupervisorBadClass($boundary_supervisor);
         }
         

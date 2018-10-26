@@ -10,7 +10,7 @@ namespace Havoc\Engine\Entity\Boundary\BoundaryRules;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class RulesFactory
+class BoundaryRulesFactory
 {
     /**
      * Create new entity boundary rules.
@@ -23,6 +23,6 @@ class RulesFactory
      */
     public static function new(int $x_negative, int $x_positive, int $y_negative, int $y_positive): RulesInterface
     {
-        return new Rules($x_negative, $x_positive, $y_negative, $y_positive);
+        return new BoundaryRules($x_negative, $x_positive, $y_negative, $y_positive);
     }
 }

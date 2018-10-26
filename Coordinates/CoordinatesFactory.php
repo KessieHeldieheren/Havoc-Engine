@@ -22,42 +22,14 @@ abstract class CoordinatesFactory
      * @param string $coordinates_class
      * @return CoordinatesInterface
      */
-    public static function new(float $x, float $y, string $coordinates_class = Coordinates::class): CoordinatesInterface
+    public static function new(float $x = 0.0, float $y = 0.0, string $coordinates_class = Coordinates::class): CoordinatesInterface
     {
         $reflects = (new ReflectionClass($coordinates_class))->implementsInterface(CoordinatesInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw CoordinatesException::coordinatesBadClass($coordinates_class);
         }
-        
-        /** @var CoordinatesInterface $coordinates */
-        $coordinates = new $coordinates_class();
-        
-        $coordinates->setX($x);
-        $coordinates->setY($y);
-        
-        return $coordinates;
-    }
     
-    /**
-     * Create a new set of coordinates at the origin (1:1) coordinates.
-     *
-     * @param string $coordinates_class
-     * @return CoordinatesInterface
-     */
-    public static function newZero(string $coordinates_class = Coordinates::class): CoordinatesInterface
-    {
-        return self::new(1, 1, $coordinates_class);
-    }
-    
-    /**
-     * Clone a set of world coordinates.
-     *
-     * @param CoordinatesInterface $coordinates
-     * @return CoordinatesInterface
-     */
-    public static function clone(CoordinatesInterface $coordinates): CoordinatesInterface
-    {
-        return clone $coordinates;
+        return new $coordinates_class($x, $y);
     }
 }

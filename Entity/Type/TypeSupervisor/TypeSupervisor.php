@@ -28,14 +28,14 @@ class TypeSupervisor implements TypeSupervisorInterface
     /**
      * Entity supervisor.
      *
-     * @var \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @var EntitySupervisorInterface
      */
     private $entity_supervisor;
     
     /**
      * TypeController constructor method.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_collection
+     * @param EntitySupervisorInterface $entity_collection
      */
     public function __construct(EntitySupervisorInterface $entity_collection)
     {
@@ -82,7 +82,7 @@ class TypeSupervisor implements TypeSupervisorInterface
         $result = [];
         
         foreach ($entities as $entity) {
-            if (true === $entity->getTypeCollection()->hasType($type)) {
+            if ($entity->getTypeCollection()->hasType($type) === true) {
                 $result[] = $entity;
             }
         }
@@ -113,7 +113,7 @@ class TypeSupervisor implements TypeSupervisorInterface
     /**
      * Returns entity_collection.
      *
-     * @return \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface
+     * @return EntitySupervisorInterface
      */
     public function getEntitySupervisor(): EntitySupervisorInterface
     {
@@ -123,7 +123,7 @@ class TypeSupervisor implements TypeSupervisorInterface
     /**
      * Sets entity_collection.
      *
-     * @param \Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface $entity_supervisor
+     * @param EntitySupervisorInterface $entity_supervisor
      */
     public function setEntitySupervisor(EntitySupervisorInterface $entity_supervisor): void
     {

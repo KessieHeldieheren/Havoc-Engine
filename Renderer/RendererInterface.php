@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Renderer;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
 
 /**

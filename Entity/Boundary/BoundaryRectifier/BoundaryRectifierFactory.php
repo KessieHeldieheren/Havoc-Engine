@@ -20,7 +20,7 @@ abstract class BoundaryRectifierFactory
      * Create a new rectifier.
      *
      * @param EntityInterface $entity
-     * @param \Havoc\Engine\Entity\Boundary\BoundaryInterface $boundary
+     * @param BoundaryInterface $boundary
      * @param string $rectifier
      * @return BoundaryRectifierInterface
      * @throws \ReflectionException
@@ -29,7 +29,7 @@ abstract class BoundaryRectifierFactory
     {
         $reflects = (new ReflectionClass($rectifier))->implementsInterface(BoundaryRectifierInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw BoundaryRectifierException::rectifierBadClass($rectifier);
         }
         

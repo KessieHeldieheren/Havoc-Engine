@@ -22,7 +22,7 @@ class BoundaryCodeException extends EngineException
      */
     public static function boundaryCodeInvalid(int $code): self
     {
-        $valid_codes = implode(", ", BoundaryBoundaryCode::getAllNames());
+        $valid_codes = implode(", ", BoundaryCode::getAllNames());
         
         return new self (
             sprintf(

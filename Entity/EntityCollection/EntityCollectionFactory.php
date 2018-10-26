@@ -26,7 +26,7 @@ abstract class EntityCollectionFactory
     {
         $reflects = (new ReflectionClass($entity_collection))->implementsInterface(EntityCollectionInterface::class);
     
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw EntityException::entityCollectionBadClass($entity_collection);
         }
         

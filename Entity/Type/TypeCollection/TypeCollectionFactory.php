@@ -26,7 +26,7 @@ abstract class TypeCollectionFactory
     {
         $reflects = (new ReflectionClass($type_collection_class))->implementsInterface(TypeCollectionInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw TypeException::typeCollectionBadClass($type_collection_class);
         }
         

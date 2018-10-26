@@ -12,7 +12,7 @@ use Havoc\Engine\Enumerator\Enumerator;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class BoundaryBoundaryCode extends Enumerator implements BoundaryCodeInterface
+class BoundaryCode extends Enumerator implements BoundaryCodeInterface
 {
     public const X_NEGATIVE = 0x1;
     public const X_POSITIVE = 0x2;
@@ -53,7 +53,7 @@ class BoundaryBoundaryCode extends Enumerator implements BoundaryCodeInterface
      */
     public function setCode(int $code): void
     {
-        if (false === self::validValue($code)) {
+        if (self::validValue($code) === false) {
             throw BoundaryCodeException::boundaryCodeInvalid($code);
         }
         

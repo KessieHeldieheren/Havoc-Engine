@@ -19,14 +19,26 @@ class Coordinates implements CoordinatesInterface
      *
      * @var float
      */
-    private $x = 0.0;
+    private $x;
     
     /**
      * Coordinates on the Y axis.
      *
      * @var float
      */
-    private $y = 0.0;
+    private $y;
+    
+    /**
+     * Coordinates constructor method.
+     *
+     * @param float $x
+     * @param float $y
+     */
+    public function __construct(float $x = 0.0, float $y = 0.0)
+    {
+        $this->setX($x);
+        $this->setY($y);
+    }
     
     /**
      * Returns x.

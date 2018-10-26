@@ -39,7 +39,7 @@ interface CountdownInterface
     /**
      * Returns tick_controller.
      *
-     * @return \Havoc\Engine\Tick\TickController\TickControllerInterface
+     * @return TickControllerInterface
      */
     public function getTickController(): TickControllerInterface;
     

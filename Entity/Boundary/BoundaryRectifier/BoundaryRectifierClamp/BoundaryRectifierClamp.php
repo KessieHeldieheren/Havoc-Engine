@@ -97,7 +97,7 @@ class BoundaryRectifierClamp implements BoundaryRectifierInterface
     /**
      * Returns boundary.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundaryInterface
+     * @return BoundaryInterface
      */
     public function getBoundary(): BoundaryInterface
     {

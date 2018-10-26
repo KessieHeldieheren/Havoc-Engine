@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary;
 
+use Havoc\Engine\Config\ConfigControllerInterface;
+
 /**
  * Havoc Engine grid boundary factory.
  *
@@ -15,14 +17,11 @@ class BoundaryFactory
     /**
      * Create a new boundary.
      *
-     * @param int $x_negative
-     * @param int $x_positive
-     * @param int $y_negative
-     * @param int $y_positive
+     * @param ConfigControllerInterface $config_controller
      * @return BoundaryInterface
      */
-    public static function new(int $x_negative, int $x_positive, int $y_negative, int $y_positive): BoundaryInterface
+    public static function new(ConfigControllerInterface $config_controller): BoundaryInterface
     {
-        return new Boundary($x_negative, $x_positive, $y_negative, $y_positive);
+        return new Boundary($config_controller);
     }
 }

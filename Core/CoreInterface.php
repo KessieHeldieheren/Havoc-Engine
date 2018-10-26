@@ -43,14 +43,14 @@ interface CoreInterface
     /**
      * Returns tick_controller.
      *
-     * @return \Havoc\Engine\Tick\TickController\TickControllerInterface
+     * @return TickControllerInterface
      */
     public function getTickController(): TickControllerInterface;
     
     /**
      * Sets tick_controller.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      */
     public function setTickController(TickControllerInterface $tick_controller): void;
     

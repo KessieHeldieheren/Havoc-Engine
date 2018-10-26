@@ -28,7 +28,7 @@ abstract class LogControllerFactory
     {
         $reflects = (new ReflectionClass($controller))->implementsInterface(LogControllerInterface::class);
         
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw LogException::logControllerBadClass($controller);
         }
         

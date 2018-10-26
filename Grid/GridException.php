@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Grid\Standard;
+namespace Havoc\Engine\Grid;
 
 use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 
 /**
  * Havoc Engine grid exceptions.

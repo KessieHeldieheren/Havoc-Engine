@@ -34,7 +34,7 @@ class BoundaryRectifierLoop implements BoundaryRectifierInterface
      * RectifierClamper constructor method.
      *
      * @param EntityInterface $entity
-     * @param \Havoc\Engine\Entity\Boundary\BoundaryInterface $boundary
+     * @param BoundaryInterface $boundary
      */
     public function __construct(EntityInterface $entity, BoundaryInterface $boundary)
     {
@@ -97,7 +97,7 @@ class BoundaryRectifierLoop implements BoundaryRectifierInterface
     /**
      * Returns boundary.
      *
-     * @return \Havoc\Engine\Entity\Boundary\BoundaryInterface
+     * @return BoundaryInterface
      */
     public function getBoundary(): BoundaryInterface
     {
@@ -107,7 +107,7 @@ class BoundaryRectifierLoop implements BoundaryRectifierInterface
     /**
      * Sets boundary.
      *
-     * @param \Havoc\Engine\Entity\Boundary\BoundaryInterface $boundary
+     * @param BoundaryInterface $boundary
      */
     public function setBoundary(BoundaryInterface $boundary): void
     {

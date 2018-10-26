@@ -66,7 +66,7 @@ class Render implements RenderInterface
     {
         $this->render .= $append;
         
-        if (true === $newline) {
+        if ($newline === true) {
             $this->render .= PHP_EOL;
         }
     }

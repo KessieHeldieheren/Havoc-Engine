@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\RendererCli;
+namespace Havoc\Engine\Renderer\SmallRenderer;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Grid\Standard\GridSupervisorInterface;
+use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Render\RenderInterface;
 use Havoc\Engine\Renderer\RendererInterface;
 
@@ -15,7 +15,7 @@ use Havoc\Engine\Renderer\RendererInterface;
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class RendererCli implements RendererInterface
+class SmallRenderer implements RendererInterface
 {
     /**
      * Configuration controller.
@@ -29,7 +29,7 @@ class RendererCli implements RendererInterface
      *
      * @var GridSupervisorInterface
      */
-    private $grid;
+    private $gridgrid_supervisor;
     
     /**
      * World render.
@@ -55,7 +55,7 @@ class RendererCli implements RendererInterface
     public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render)
     {
         $this->setConfigController($config_controller);
-        $this->setGrid($grid);
+        $this->setGridgridsupervisor($grid);
         $this->setRender($render);
     }
     
@@ -79,14 +79,15 @@ class RendererCli implements RendererInterface
     protected function renderGrid(): void
     {
         $config = $this->getConfigController();
-        $x_grid = $config->getXGrid();
-        $grid = $this->getGrid();
+        $x_grid = $config->getXView();
+        $grid_supervisor = $this->getGridgridsupervisor();
         $render = $this->getRender();
         $i = 0;
         $composition = "";
-        foreach ($grid->getGrid() as $point) {
-            if (0 === $i % $x_grid && 0 !== $i) {
-                if (false === $config->isCoordinatesGuideVisible()) {
+        
+        foreach ($grid_supervisor->getGrid() as $point) {
+            if ($i % $x_grid === 0 && $i !== 0) {
+                if ($config->isCoordinatesGuideVisible() === false) {
                     $composition .= PHP_EOL;
                 }
                 
@@ -112,7 +113,7 @@ class RendererCli implements RendererInterface
     {
         $config = $this->getConfigController();
     
-        if (false === $config->isCoordinatesGuideVisible()) {
+        if ($config->isCoordinatesGuideVisible() === false) {
             return;
         }
         
@@ -159,11 +160,11 @@ class RendererCli implements RendererInterface
     {
         $config = $this->getConfigController();
         
-        if (false === $config->isCoordinatesGuideVisible()) {
+        if ($config->isCoordinatesGuideVisible() === false) {
             return;
         }
         
-        $x_grid = $config->getXGrid();
+        $x_grid = $config->getXView();
         $composition = "";
         
         for ($i = 1; $i <= $x_grid; $i++) {
@@ -187,7 +188,7 @@ class RendererCli implements RendererInterface
     {
         $config = $this->getConfigController();
         $horizontal_bar_character = $config->getRenderHorizontalBarCharacter();
-        $x_grid = $config->getXGrid();
+        $x_grid = $config->getXView();
         $composition = str_repeat($horizontal_bar_character, $x_grid * 3);
         
         $this->renderPadding();
@@ -201,7 +202,7 @@ class RendererCli implements RendererInterface
     {
         $append = "   ";
         
-        if (false === $this->getConfigController()->isCoordinatesGuideVisible()) {
+        if ($this->getConfigController()->isCoordinatesGuideVisible() === false) {
             $append = "";
         }
         
@@ -233,19 +234,19 @@ class RendererCli implements RendererInterface
      *
      * @return GridSupervisorInterface
      */
-    public function getGrid(): GridSupervisorInterface
+    public function getGridgridsupervisor(): GridSupervisorInterface
     {
-        return $this->grid;
+        return $this->gridgrid_supervisor;
     }
     
     /**
      * Sets grid.
      *
-     * @param GridSupervisorInterface $grid
+     * @param GridSupervisorInterface $gridgrid_supervisor
      */
-    public function setGrid(GridSupervisorInterface $grid): void
+    public function setGridgridsupervisor(GridSupervisorInterface $gridgrid_supervisor): void
     {
-        $this->grid = $grid;
+        $this->gridgrid_supervisor = $gridgrid_supervisor;
     }
     
     /**

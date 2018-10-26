@@ -17,7 +17,7 @@ class Countdown implements CountdownInterface
     /**
      * Tick controller.
      *
-     * @var \Havoc\Engine\Tick\TickController\TickControllerInterface
+     * @var TickControllerInterface
      */
     private $tick_controller;
     
@@ -91,7 +91,7 @@ class Countdown implements CountdownInterface
     /**
      * Sets tick_controller.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      */
     public function setTickController(TickControllerInterface $tick_controller): void
     {

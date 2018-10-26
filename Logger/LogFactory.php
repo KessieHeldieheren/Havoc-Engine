@@ -30,7 +30,7 @@ abstract class LogFactory
     {
         $reflects = (new ReflectionClass($log_class))->implementsInterface(LogInterface::class);
     
-        if (false === $reflects) {
+        if ($reflects === false) {
             throw LogException::logBadClass($log_class);
         }
         

@@ -13,6 +13,14 @@ namespace Havoc\Engine\Coordinates;
 interface CoordinatesInterface
 {
     /**
+     * Coordinates constructor method.
+     *
+     * @param float $x
+     * @param float $y
+     */
+    public function __construct(float $x = 0.0, float $y = 0.0);
+    
+    /**
      * Returns x.
      *
      * @return float

@@ -48,7 +48,7 @@ class Core implements CoreInterface
     /**
      * Tick controller.
      *
-     * @var \Havoc\Engine\Tick\TickController\TickControllerInterface
+     * @var TickControllerInterface
      */
     private $tick_controller;
     
@@ -62,7 +62,7 @@ class Core implements CoreInterface
     /**
      * Log controller.
      *
-     * @var \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @var LogControllerInterface
      */
     private $log_controller;
     
@@ -190,7 +190,7 @@ class Core implements CoreInterface
     /**
      * Sets tick_controller.
      *
-     * @param \Havoc\Engine\Tick\TickController\TickControllerInterface $tick_controller
+     * @param TickControllerInterface $tick_controller
      */
     public function setTickController(TickControllerInterface $tick_controller): void
     {
@@ -200,7 +200,7 @@ class Core implements CoreInterface
     /**
      * Returns entity_controller.
      *
-     * @return \Havoc\Engine\Entity\EntityController\EntityControllerInterface
+     * @return EntityControllerInterface
      */
     public function getEntityController(): EntityControllerInterface
     {
@@ -220,7 +220,7 @@ class Core implements CoreInterface
     /**
      * Returns log_controller.
      *
-     * @return \Havoc\Engine\Logger\LogController\LogControllerInterface
+     * @return LogControllerInterface
      */
     public function getLogController(): LogControllerInterface
     {
@@ -230,7 +230,7 @@ class Core implements CoreInterface
     /**
      * Sets log_controller.
      *
-     * @param \Havoc\Engine\Logger\LogController\LogControllerInterface $log_controller
+     * @param LogControllerInterface $log_controller
      */
     public function setLogController(LogControllerInterface $log_controller): void
     {
