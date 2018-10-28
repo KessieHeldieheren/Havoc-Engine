@@ -82,14 +82,14 @@ interface EntityControllerInterface
      *
      * @return LogControllerInterface
      */
-    public function getLogcontroller(): LogControllerInterface;
+    public function getLogController(): LogControllerInterface;
     
     /**
      * Sets logger.
      *
      * @param LogControllerInterface $log_controller
      */
-    public function setLogcontroller(LogControllerInterface $log_controller): void;
+    public function setLogController(LogControllerInterface $log_controller): void;
     
     /**
      * Returns type_controller.

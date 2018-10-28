@@ -125,4 +125,18 @@ interface ApiInterface
     public function boundary(): BoundaryInterface;
     
     public function refresh(): void;
+    
+    /**
+     * Load the game engine state.
+     *
+     * @param string $identifier
+     */
+    public function load(string $identifier): void;
+    
+    /**
+     * Save the game engine state.
+     *
+     * @param string $identifier
+     */
+    public function save(string $identifier): void;
 }

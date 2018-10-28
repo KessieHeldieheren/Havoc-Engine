@@ -57,4 +57,18 @@ interface BoundaryInterface
      * @return bool
      */
     public function validateCoordinatesInBounds(CoordinatesInterface $coordinates): bool;
+    
+    /**
+     * Set the X boundary.
+     *
+     * @param int $x_boundary
+     */
+    public function setXBoundary(int $x_boundary): void;
+    
+    /**
+     * Set the Y boundary.
+     *
+     * @param int $y_boundary
+     */
+    public function setYBoundary(int $y_boundary): void;
 }

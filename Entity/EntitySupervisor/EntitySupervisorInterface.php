@@ -49,4 +49,12 @@ interface EntitySupervisorInterface
      * @return EntityInterface[]
      */
     public function getByClass(string $search_class): array;
+    
+    /**
+     * Retrieve entity by ID.
+     *
+     * @param int $id
+     * @return EntityInterface|null
+     */
+    public function getById(int $id): ?EntityInterface;
 }

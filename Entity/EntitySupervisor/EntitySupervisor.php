@@ -54,7 +54,7 @@ class EntitySupervisor implements EntitySupervisorInterface
      */
     public function getByClass(string $search_class): array
     {
-        $entities = $this->getEntityCollection();
+        $entities = $this->getEntityCollection()->getEntities();
         $result = [];
         
         foreach ($entities as $entity) {
@@ -64,6 +64,25 @@ class EntitySupervisor implements EntitySupervisorInterface
         }
         
         return $result;
+    }
+    
+    /**
+     * Retrieve entity by ID.
+     *
+     * @param int $id
+     * @return EntityInterface|null
+     */
+    public function getById(int $id): ?EntityInterface
+    {
+        $entities = $this->getEntityCollection()->getEntities();
+        
+        foreach ($entities as $entity) {
+            if ($entity->getId() === $id) {
+                return $entity;
+            }
+        }
+        
+        return null;
     }
     
     /**

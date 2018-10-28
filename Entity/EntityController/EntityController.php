@@ -85,7 +85,7 @@ class EntityController implements EntityControllerInterface
     {
         $this->setConfigController($config_controller);
         $this->setGridSupervisor($grid);
-        $this->setLogcontroller($logger);
+        $this->setLogController($logger);
         $this->bootstrap();
     }
     
@@ -98,7 +98,7 @@ class EntityController implements EntityControllerInterface
     {
         $this->setEntitySupervisor(
             EntitySupervisorFactory::new(
-                $this->getLogcontroller()
+                $this->getLogController()
             )
         );
     
@@ -111,7 +111,7 @@ class EntityController implements EntityControllerInterface
         $this->setTranslationSupervisor(
             TranslationSupervisorFactory::new(
                 $this->getEntitySupervisor(),
-                $this->getLogcontroller(),
+                $this->getLogController(),
                 $this->getGridSupervisor()
             )
         );
@@ -119,8 +119,8 @@ class EntityController implements EntityControllerInterface
         $this->setBoundarySupervisor(
             BoundarySupervisorFactory::new(
                 $this->getEntitySupervisor(),
-                $this->getLogcontroller(),
-                $this->getGridSupervisor()->getBoundary(),
+                $this->getLogController(),
+                $this->getGridSupervisor()->getGridBoundary(),
                 $this->getConfigController()
             )
         );
@@ -207,7 +207,7 @@ class EntityController implements EntityControllerInterface
      *
      * @return LogControllerInterface
      */
-    public function getLogcontroller(): LogControllerInterface
+    public function getLogController(): LogControllerInterface
     {
         return $this->log_controller;
     }
@@ -217,7 +217,7 @@ class EntityController implements EntityControllerInterface
      *
      * @param LogControllerInterface $log_controller
      */
-    public function setLogcontroller(LogControllerInterface $log_controller): void
+    public function setLogController(LogControllerInterface $log_controller): void
     {
         $this->log_controller = $log_controller;
     }

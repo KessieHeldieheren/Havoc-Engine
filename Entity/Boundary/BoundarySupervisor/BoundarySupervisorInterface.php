@@ -23,10 +23,10 @@ interface BoundarySupervisorInterface
      *
      * @param EntitySupervisorInterface $entity_collection
      * @param LogControllerInterface $log_controller
-     * @param BoundaryInterface $boundary
+     * @param BoundaryInterface $grid_boundary
      * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(EntitySupervisorInterface $entity_collection, LogControllerInterface $log_controller, BoundaryInterface $boundary, ConfigControllerInterface $config_controller);
+    public function __construct(EntitySupervisorInterface $entity_collection, LogControllerInterface $log_controller, BoundaryInterface $grid_boundary, ConfigControllerInterface $config_controller);
     
     /**
      * Validate that all entities are in bounds.

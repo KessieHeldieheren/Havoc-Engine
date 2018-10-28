@@ -6,6 +6,7 @@ namespace Havoc\Engine\Core\Controllers;
 use Havoc\Engine\Config\ConfigController;
 use Havoc\Engine\Entity\EntityController\EntityController;
 use Havoc\Engine\Logger\LogController\LogController;
+use Havoc\Engine\Save\SaveController\SaveController;
 use Havoc\Engine\Tick\TickController\TickController;
 use Havoc\Engine\World\WorldController;
 
@@ -52,6 +53,13 @@ class Controllers implements ControllersInterface
      * @var string
      */
     private $log_controller = LogController::class;
+    
+    /**
+     * Save controller.
+     *
+     * @var string
+     */
+    private $save_controller = SaveController::class;
     
     /**
      * Returns config_controller.
@@ -151,5 +159,25 @@ class Controllers implements ControllersInterface
     public function setLogController(string $log_controller): void
     {
         $this->log_controller = $log_controller;
+    }
+    
+    /**
+     * Returns save_controller.
+     *
+     * @return string
+     */
+    public function getSaveController(): string
+    {
+        return $this->save_controller;
+    }
+    
+    /**
+     * Sets save_controller.
+     *
+     * @param string $save_controller
+     */
+    public function setSaveController(string $save_controller): void
+    {
+        $this->save_controller = $save_controller;
     }
 }

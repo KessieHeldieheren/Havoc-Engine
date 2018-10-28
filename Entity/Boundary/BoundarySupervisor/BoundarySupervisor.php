@@ -53,7 +53,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      *
      * @var BoundaryInterface
      */
-    private $boundary;
+    private $grid_boundary;
     
     /**
      * Configuration controller.
@@ -67,14 +67,14 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      *
      * @param EntitySupervisorInterface $entity_collection
      * @param LogControllerInterface $log_controller
-     * @param BoundaryInterface $boundary
+     * @param BoundaryInterface $grid_boundary
      * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(EntitySupervisorInterface $entity_collection, LogControllerInterface $log_controller, BoundaryInterface $boundary, ConfigControllerInterface $config_controller)
+    public function __construct(EntitySupervisorInterface $entity_collection, LogControllerInterface $log_controller, BoundaryInterface $grid_boundary, ConfigControllerInterface $config_controller)
     {
         $this->setEntitySupervisor($entity_collection);
         $this->setLogController($log_controller);
-        $this->setBoundary($boundary);
+        $this->setGridBoundary($grid_boundary);
         $this->setConfigController($config_controller);
         $this->setBoundaryViolations(BoundaryViolationCollectionFactory::new());
     }
@@ -101,7 +101,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
     protected function validateEntityInBounds(EntityInterface $entity): void
     {
         [$x, $y] = $entity->getCoordinates()->array();
-        $boundary = $this->getBoundary();
+        $boundary = $this->getGridBoundary();
         
         if ($x < $boundary->getXNegative()) {
             $this->xNegative($entity);
@@ -238,7 +238,7 @@ class BoundarySupervisor implements BoundarySupervisorInterface
         
         return BoundaryRectifierFactory::new(
             $entity,
-            $this->getBoundary(),
+            $this->getGridBoundary(),
             BoundaryRectifier::getValue($boundary_rule_name)
         );
     }
@@ -308,19 +308,19 @@ class BoundarySupervisor implements BoundarySupervisorInterface
      *
      * @return BoundaryInterface
      */
-    public function getBoundary(): BoundaryInterface
+    public function getGridBoundary(): BoundaryInterface
     {
-        return $this->boundary;
+        return $this->grid_boundary;
     }
     
     /**
      * Sets boundary.
      *
-     * @param BoundaryInterface $boundary
+     * @param BoundaryInterface $grid_boundary
      */
-    public function setBoundary(BoundaryInterface $boundary): void
+    public function setGridBoundary(BoundaryInterface $grid_boundary): void
     {
-        $this->boundary = $boundary;
+        $this->grid_boundary = $grid_boundary;
     }
     
     /**

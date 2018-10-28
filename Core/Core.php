@@ -10,6 +10,8 @@ use Havoc\Engine\Entity\EntityController\EntityControllerFactory;
 use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
 use Havoc\Engine\Logger\LogController\LogControllerFactory;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
+use Havoc\Engine\Save\SaveController\SaveControllerFactory;
+use Havoc\Engine\Save\SaveController\SaveControllerInterface;
 use Havoc\Engine\Tick\TickController\TickControllerFactory;
 use Havoc\Engine\Tick\TickController\TickControllerInterface;
 use Havoc\Engine\World\WorldController;
@@ -67,6 +69,13 @@ class Core implements CoreInterface
     private $log_controller;
     
     /**
+     * Save controller.
+     *
+     * @var SaveControllerInterface
+     */
+    private $save_controller;
+    
+    /**
      * Core constructor method.
      */
     public function __construct()
@@ -112,6 +121,10 @@ class Core implements CoreInterface
                 $this->getLogController(),
                 $controllers->getEntityController()
             )
+        );
+        
+        $this->setSaveController(
+            SaveControllerFactory::new($controllers->getSaveController())
         );
         
         $this->getTickController()->incrementCurrentTick();
@@ -235,5 +248,25 @@ class Core implements CoreInterface
     public function setLogController(LogControllerInterface $log_controller): void
     {
         $this->log_controller = $log_controller;
+    }
+    
+    /**
+     * Returns save_controller.
+     *
+     * @return SaveControllerInterface
+     */
+    public function getSaveController(): SaveControllerInterface
+    {
+        return $this->save_controller;
+    }
+    
+    /**
+     * Sets save_controller.
+     *
+     * @param SaveControllerInterface $save_controller
+     */
+    public function setSaveController(SaveControllerInterface $save_controller): void
+    {
+        $this->save_controller = $save_controller;
     }
 }

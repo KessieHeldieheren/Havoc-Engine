@@ -22,10 +22,10 @@ interface GridSupervisorInterface
      * Grid constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param BoundaryInterface $grid_boundary
+     * @param BoundaryInterface $grid_grid_boundary
      * @param GridViewInterface $grid_view
      */
-    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $grid_boundary, GridViewInterface $grid_view);
+    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $grid_grid_boundary, GridViewInterface $grid_view);
     
     /**
      * Returns grid.
@@ -57,7 +57,7 @@ interface GridSupervisorInterface
      *
      * @return BoundaryInterface
      */
-    public function getBoundary(): BoundaryInterface;
+    public function getGridBoundary(): BoundaryInterface;
     
     /**
      * Returns grid_view.

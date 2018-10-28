@@ -53,20 +53,20 @@ class GridSupervisor implements GridSupervisorInterface
      *
      * @var BoundaryInterface
      */
-    private $boundary;
+    private $grid_boundary;
     
     /**
      * Grid constructor method.
      *
      * @param ConfigControllerInterface $config_controller
-     * @param BoundaryInterface $boundary
+     * @param BoundaryInterface $grid_boundary
      * @param GridViewInterface $grid_view
      */
-    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $boundary, GridViewInterface $grid_view)
+    public function __construct(ConfigControllerInterface $config_controller, BoundaryInterface $grid_boundary, GridViewInterface $grid_view)
     {
         $this->setConfigController($config_controller);
         $this->setGridView($grid_view);
-        $this->setBoundary($boundary);
+        $this->setGridBoundary($grid_boundary);
     }
     
     /**
@@ -154,7 +154,7 @@ class GridSupervisor implements GridSupervisorInterface
      */
     protected function setOutOfBoundsPoints(): void
     {
-        $boundary = $this->getBoundary();
+        $boundary = $this->getGridBoundary();
         $oob_icon = $this->getConfigController()->getWorldPointOutOfBoundsIcon();
         
         foreach ($this->getGrid() as $world_point) {
@@ -251,18 +251,18 @@ class GridSupervisor implements GridSupervisorInterface
      *
      * @return BoundaryInterface
      */
-    public function getBoundary(): BoundaryInterface
+    public function getGridBoundary(): BoundaryInterface
     {
-        return $this->boundary;
+        return $this->grid_boundary;
     }
     
     /**
      * Sets boundary.
      *
-     * @param BoundaryInterface $boundary
+     * @param BoundaryInterface $grid_boundary
      */
-    public function setBoundary(BoundaryInterface $boundary): void
+    public function setGridBoundary(BoundaryInterface $grid_boundary): void
     {
-        $this->boundary = $boundary;
+        $this->grid_boundary = $grid_boundary;
     }
 }

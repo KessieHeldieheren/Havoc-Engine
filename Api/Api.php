@@ -74,7 +74,7 @@ class Api implements ApiInterface
         $world_controller->getGridSupervisor()->getGridView()->updateViewAxes();
         $world_controller->getGridSupervisor()->insertEmptyPoints();
         $entity_controller->getBoundarySupervisor()->rectifyBoundaryViolations();
-        # Add detect collisions here.
+        # todo add detect collisions here.
         $entity_controller->mapEntitiesToGrid();
     }
     
@@ -196,6 +196,35 @@ class Api implements ApiInterface
     public function view(): GridViewInterface
     {
         return $this->getCore()->getWorldController()->getGridView();
+    }
+    
+    /**
+     * Save the game engine state.
+     *
+     * @param string $identifier
+     */
+    public function save(string $identifier): void
+    {
+        $save_controller = $this->getCore()->getSaveController();
+        
+        $save_controller->getSaveCollection()->addSavedState(
+            $identifier,
+            $this->getCore()
+        );
+    }
+    
+    /**
+     * Load the game engine state.
+     *
+     * @param string $identifier
+     */
+    public function load(string $identifier): void
+    {
+        $save_controller = $this->getCore()->getSaveController();
+        
+        $this->setCore(
+            $save_controller->getSaveCollection()->getSavedState($identifier)
+        );
     }
     
     /**

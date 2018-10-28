@@ -7,6 +7,7 @@ use Havoc\Engine\Config\ConfigController;
 use Havoc\Engine\Core\Controllers\Controllers;
 use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
+use Havoc\Engine\Save\SaveController\SaveControllerInterface;
 use Havoc\Engine\Tick\TickController\TickControllerInterface;
 use Havoc\Engine\World\WorldController;
 
@@ -95,4 +96,18 @@ interface CoreInterface
      * @throws \ReflectionException
      */
     public function bootstrap(): void;
+    
+    /**
+     * Returns save_controller.
+     *
+     * @return SaveControllerInterface
+     */
+    public function getSaveController(): SaveControllerInterface;
+    
+    /**
+     * Sets save_controller.
+     *
+     * @param SaveControllerInterface $save_controller
+     */
+    public function setSaveController(SaveControllerInterface $save_controller): void;
 }
