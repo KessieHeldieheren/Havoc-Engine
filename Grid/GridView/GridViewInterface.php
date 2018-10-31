@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Grid\GridView;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
  * Havoc Engine grid view interface.
@@ -21,11 +21,6 @@ interface GridViewInterface
      * @param ConfigControllerInterface $config_controller
      */
     public function __construct(ConfigControllerInterface $config_controller);
-    
-    /**
-     * Update view axes.
-     */
-    public function updateViewAxes(): void;
     
     /**
      * Returns x.
@@ -58,16 +53,16 @@ interface GridViewInterface
     /**
      * Returns center.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getCenterCoordinates(): CoordinatesInterface;
+    public function getCenterCoordinates(): CartesianCoordinatesInterface;
     
     /**
      * Sets center.
      *
-     * @param CoordinatesInterface $center
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $center
      */
-    public function setCenterCoordinates(CoordinatesInterface $center): void;
+    public function setCenterCoordinates(CartesianCoordinatesInterface $center): void;
     
     /**
      * Returns negative_x_view.
@@ -77,21 +72,11 @@ interface GridViewInterface
     public function getLowestX(): int;
     
     /**
-     * Sets negative_x_view.
-     */
-    public function setLowestX(): void;
-    
-    /**
      * Returns positive_x_view.
      *
      * @return int
      */
     public function getHighestX(): int;
-    
-    /**
-     * Sets positive_x_view.
-     */
-    public function setHighestX(): void;
     
     /**
      * Returns negative_y_view.
@@ -101,11 +86,6 @@ interface GridViewInterface
     public function getLowestY(): int;
     
     /**
-     * Sets negative_y_view.
-     */
-    public function setLowestY(): void;
-    
-    /**
      * Returns positive_y_view.
      *
      * @return int
@@ -113,15 +93,10 @@ interface GridViewInterface
     public function getHighestY(): int;
     
     /**
-     * Sets positive_y_view.
-     */
-    public function setHighestY(): void;
-    
-    /**
      * Validate that coordinates are in the grid view.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      * @return bool
      */
-    public function validateCoordinatesInView(CoordinatesInterface $coordinates): bool;
+    public function validateCoordinatesInView(CartesianCoordinatesInterface $coordinates): bool;
 }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity;
 
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 use ReflectionClass;
 
@@ -22,12 +22,12 @@ abstract class EntityFactory
      * @param string $entity_class
      * @param int $id
      * @param string $name
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      * @param string $icon
      * @return EntityInterface
      * @throws \ReflectionException
      */
-    public static function newEntity(string $entity_class = Entity::class, int $id, string $name, CoordinatesInterface $coordinates, string $icon): EntityInterface
+    public static function newEntity(string $entity_class = Entity::class, int $id, string $name, CartesianCoordinatesInterface $coordinates, string $icon): EntityInterface
     {
         $reflection_interfaces = (new ReflectionClass($entity_class))->getInterfaceNames();
         

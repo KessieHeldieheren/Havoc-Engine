@@ -41,20 +41,6 @@ interface ConfigControllerInterface
     public function setYBoundary(int $y_grid): void;
     
     /**
-     * Returns coordinates_format.
-     *
-     * @return string
-     */
-    public function getCoordinatesFormat(): string;
-    
-    /**
-     * Sets coordinates_format.
-     *
-     * @param string $coordinates_format
-     */
-    public function setCoordinatesFormat(string $coordinates_format): void;
-    
-    /**
      * Returns display_coordinates.
      *
      * @return bool

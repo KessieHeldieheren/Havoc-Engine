@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates;
 
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
+use Havoc\Engine\Coordinates\Polar\PolarCoordinatesInterface;
 use Havoc\Engine\Exceptions\EngineException;
 
 /**
@@ -14,19 +16,34 @@ use Havoc\Engine\Exceptions\EngineException;
  */
 class CoordinatesException extends EngineException
 {
-    public const COORDINATES_BAD_CLASS = 0x6000;
+    public const CARTESIAN_COORDINATES_BAD_CLASS = 0x1;
+    public const POLAR_COORDINATES_BAD_CLASS = 0x2;
     
     /**
      * @param string $given_class
      * @return CoordinatesException
      */
-    public static function coordinatesBadClass(string $given_class): self
+    public static function cartesianCoordinatesBadClass(string $given_class): self
     {
-        $required_class = CoordinatesInterface::class;
+        $required_class = CartesianCoordinatesInterface::class;
         
         return new self (
             sprintf("Cannot create a set of coordinates using %s, as it must implement %s.", $given_class, $required_class),
-            self::COORDINATES_BAD_CLASS
+            self::CARTESIAN_COORDINATES_BAD_CLASS
+        );
+    }
+    
+    /**
+     * @param string $given_class
+     * @return CoordinatesException
+     */
+    public static function polarCoordinatesBadClass(string $given_class): self
+    {
+        $required_class = PolarCoordinatesInterface::class;
+        
+        return new self (
+            sprintf("Cannot create a set of coordinates using %s, as it must implement %s.", $given_class, $required_class),
+            self::POLAR_COORDINATES_BAD_CLASS
         );
     }
 }

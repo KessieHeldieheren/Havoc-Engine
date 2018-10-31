@@ -4,13 +4,12 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Config\DefaultConfig;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRule;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRulesFactory;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionFactory;
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
-use Havoc\Engine\Entity\Type\TypeFactory;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
@@ -39,21 +38,21 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Entity coordinates.
      *
-     * @var CoordinatesInterface
+     * @var CartesianCoordinatesInterface
      */
     private $coordinates;
     
     /**
      * Entity initial spawn coordinates.
      *
-     * @var CoordinatesInterface
+     * @var CartesianCoordinatesInterface
      */
     private $initial_coordinates;
     
     /**
      * Entity last coordinates.
      *
-     * @var CoordinatesInterface
+     * @var \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface
      */
     private $last_coordinates;
     
@@ -90,10 +89,10 @@ class Entity implements EntityInterface, WorldPointInterface
      *
      * @param int $id
      * @param string $name
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      * @param string $icon
      */
-    public function __construct(int $id, string $name, CoordinatesInterface $coordinates, string $icon)
+    public function __construct(int $id, string $name, CartesianCoordinatesInterface $coordinates, string $icon)
     {
         $this->setId($id);
         $this->setName($name);
@@ -155,9 +154,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Returns coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getCoordinates(): CoordinatesInterface
+    public function getCoordinates(): CartesianCoordinatesInterface
     {
         return $this->coordinates;
     }
@@ -165,9 +164,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Sets coordinates.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      */
-    public function setCoordinates(CoordinatesInterface $coordinates): void
+    public function setCoordinates(CartesianCoordinatesInterface $coordinates): void
     {
         $this->setLastCoordinates($this->getCoordinates());
         $this->coordinates = $coordinates;
@@ -176,9 +175,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Returns initial_coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getInitialCoordinates(): CoordinatesInterface
+    public function getInitialCoordinates(): CartesianCoordinatesInterface
     {
         return $this->initial_coordinates;
     }
@@ -186,9 +185,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Sets initial_coordinates.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      */
-    protected function setInitialCoordinates(CoordinatesInterface $coordinates): void
+    protected function setInitialCoordinates(CartesianCoordinatesInterface $coordinates): void
     {
         $this->initial_coordinates = $coordinates->clone();
         $this->last_coordinates = $coordinates->clone();
@@ -198,9 +197,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Returns last_coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getLastCoordinates(): CoordinatesInterface
+    public function getLastCoordinates(): CartesianCoordinatesInterface
     {
         return $this->last_coordinates;
     }
@@ -208,9 +207,9 @@ class Entity implements EntityInterface, WorldPointInterface
     /**
      * Sets last_coordinates.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      */
-    protected function setLastCoordinates(CoordinatesInterface $coordinates): void
+    protected function setLastCoordinates(CartesianCoordinatesInterface $coordinates): void
     {
         $this->last_coordinates = $coordinates->clone();
     }

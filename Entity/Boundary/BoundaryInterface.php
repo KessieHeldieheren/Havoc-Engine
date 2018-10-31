@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\Boundary;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
  * Havoc Engine grid boundary interface.
@@ -53,10 +53,10 @@ interface BoundaryInterface
     /**
      * Validate that coordinates are in bounds.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      * @return bool
      */
-    public function validateCoordinatesInBounds(CoordinatesInterface $coordinates): bool;
+    public function validateCoordinatesInBounds(CartesianCoordinatesInterface $coordinates): bool;
     
     /**
      * Set the X boundary.

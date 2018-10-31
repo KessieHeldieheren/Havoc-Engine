@@ -5,7 +5,7 @@ namespace Havoc\Engine\Grid\GridSupervisor;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesFactory;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryInterface;
 use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\WorldPoint\WorldPointFactory;
@@ -97,14 +97,14 @@ class GridSupervisor implements GridSupervisorInterface
                 $this->insertWithIndex(
                     WorldPointFactory::newEmpty(
                         $alternate_icon,
-                        CoordinatesFactory::new($lowest_x, $lowest_y)),
+                        CoordinatesFactory::newCartesian($lowest_x, $lowest_y)),
                     $i
                 );
             } else {
                 $this->insertWithIndex(
                     WorldPointFactory::newEmpty(
                         $normal_icon,
-                        CoordinatesFactory::new($lowest_x, $lowest_y)
+                        CoordinatesFactory::newCartesian($lowest_x, $lowest_y)
                     ),
                     $i
                 );
@@ -120,9 +120,9 @@ class GridSupervisor implements GridSupervisorInterface
      * Insert world point into grid using coordinates.
      *
      * @param WorldPointInterface $world_point
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      */
-    public function insertWithCoordinates(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void
+    public function insertWithCoordinates(WorldPointInterface $world_point, CartesianCoordinatesInterface $coordinates): void
     {
         $grid_view = $this->getGridView();
         
@@ -131,8 +131,9 @@ class GridSupervisor implements GridSupervisorInterface
         }
     
         $grid_view_center = $grid_view->getCenterCoordinates();
-        $point_x = $coordinates->getX() - $grid_view_center->getX() + ($grid_view->getXWidth() / 2);
-        $point_y = $coordinates->getY() - $grid_view_center->getY() + ($grid_view->getYWidth() / 2);
+        # Casting to int prevents fractional results. Non-conducive to splicing in entities to the world grid.
+        $point_x = (int) ($coordinates->getX() - $grid_view_center->getX() + ($grid_view->getXWidth() / 2));
+        $point_y = (int) ($coordinates->getY() - $grid_view_center->getY() + ($grid_view->getYWidth() / 2));
         $index = $point_x + $point_y * $grid_view->getXWidth();
         
         $this->grid[$index] = $world_point;

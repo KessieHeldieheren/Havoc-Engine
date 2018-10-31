@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Coordinates;
+namespace Havoc\Engine\Coordinates\Cartesian;
 
 /**
- * Havoc Engine world coordinates interface.
+ * Havoc Engine world cartesian coordinates interface.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-interface CoordinatesInterface
+interface CartesianCoordinatesInterface
 {
     /**
      * Coordinates constructor method.
@@ -51,16 +51,16 @@ interface CoordinatesInterface
     /**
      * Clone coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function clone(): CoordinatesInterface;
+    public function clone(): CartesianCoordinatesInterface;
     
     /**
      * Return rounded coordinates that fit on the grid precisely.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function rounded(): CoordinatesInterface;
+    public function rounded(): CartesianCoordinatesInterface;
     
     /**
      * Format coordinates as array.

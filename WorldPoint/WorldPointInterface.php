@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\WorldPoint;
 
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
  * Havoc Engine world point interface.
@@ -33,14 +33,14 @@ interface WorldPointInterface
     /**
      * Returns coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getCoordinates(): CoordinatesInterface;
+    public function getCoordinates(): CartesianCoordinatesInterface;
     
     /**
      * Sets coordinates.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      */
-    public function setCoordinates(CoordinatesInterface $coordinates): void;
+    public function setCoordinates(CartesianCoordinatesInterface $coordinates): void;
 }

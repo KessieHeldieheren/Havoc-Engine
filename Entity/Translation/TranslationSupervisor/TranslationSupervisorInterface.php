@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Translation\TranslationSupervisor;
 
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
 use Havoc\Engine\Entity\EntityInterface;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
@@ -31,7 +31,7 @@ interface TranslationSupervisorInterface
      * Teleport an entity to a set of coordinates.
      *
      * @param EntityInterface $entity
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      */
-    public function teleportToCoordinates(EntityInterface $entity, CoordinatesInterface $coordinates): void;
+    public function teleport(EntityInterface $entity, CartesianCoordinatesInterface $coordinates): void;
 }

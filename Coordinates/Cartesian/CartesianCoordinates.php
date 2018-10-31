@@ -1,18 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Coordinates;
-
-use Havoc\Engine\Config\DefaultConfig;
+namespace Havoc\Engine\Coordinates\Cartesian;
 
 /**
- * Havoc Engine world coordinates.
+ * Havoc Engine world cartesian coordinates.
  *
  * @package Havoc-Engine
  * @author Kessie Heldieheren <kessie@sdstudios.uk>
  * @version 0.0.0-alpha
  */
-class Coordinates implements CoordinatesInterface
+class CartesianCoordinates implements CartesianCoordinatesInterface
 {
     /**
      * Coordinates on the X axis.
@@ -83,9 +81,9 @@ class Coordinates implements CoordinatesInterface
     /**
      * Clone coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function clone(): CoordinatesInterface
+    public function clone(): CartesianCoordinatesInterface
     {
         return clone $this;
     }
@@ -93,14 +91,14 @@ class Coordinates implements CoordinatesInterface
     /**
      * Return rounded coordinates that fit on the grid precisely.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function rounded(): CoordinatesInterface
+    public function rounded(): CartesianCoordinatesInterface
     {
         $coordinates = clone $this;
         
-        $coordinates->setX(round($coordinates->getX(), 0));
-        $coordinates->setY(round($coordinates->getY(), 0));
+        $coordinates->setX(round($coordinates->getX(), 0, PHP_ROUND_HALF_DOWN));
+        $coordinates->setY(round($coordinates->getY(), 0), PHP_ROUND_HALF_DOWN);
         
         return $coordinates;
     }
@@ -122,6 +120,6 @@ class Coordinates implements CoordinatesInterface
      */
     public function string(): string
     {
-        return sprintf(DefaultConfig::COORDINATES_FORMAT, $this->getX(), $this->getY());
+        return sprintf("%s:%s", $this->getX(), $this->getY());
     }
 }

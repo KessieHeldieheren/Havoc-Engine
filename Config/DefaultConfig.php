@@ -21,8 +21,6 @@ abstract class DefaultConfig
     public const WORLD_POINT_ALTERNATE_ICON = "-";
     public const WORLD_POINT_OUT_OF_BOUNDS_ICON = "+";
     
-    public const COORDINATES_FORMAT = '%s:%s';
-    
     public const RENDER_HORIZONTAL_BAR_CHARACTER = "–";
     public const RENDER_VERTICAL_BAR_CHARACTER = "|";
 }

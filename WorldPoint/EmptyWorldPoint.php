@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\WorldPoint;
 
 use Havoc\Engine\Config\DefaultConfig;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
  * Havoc Engine empty world point.
@@ -25,7 +25,7 @@ class EmptyWorldPoint implements WorldPointInterface
     /**
      * Entity coordinates.
      *
-     * @var CoordinatesInterface
+     * @var CartesianCoordinatesInterface
      */
     private $coordinates;
     
@@ -33,9 +33,9 @@ class EmptyWorldPoint implements WorldPointInterface
      * EmptyWorldPoint constructor method.
      *
      * @param string $icon
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      */
-    public function __construct(string $icon, CoordinatesInterface $coordinates)
+    public function __construct(string $icon, CartesianCoordinatesInterface $coordinates)
     {
         $this->setIcon($icon);
         $this->setCoordinates($coordinates);
@@ -64,9 +64,9 @@ class EmptyWorldPoint implements WorldPointInterface
     /**
      * Returns coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getCoordinates(): CoordinatesInterface
+    public function getCoordinates(): CartesianCoordinatesInterface
     {
         return $this->coordinates;
     }
@@ -74,9 +74,9 @@ class EmptyWorldPoint implements WorldPointInterface
     /**
      * Sets coordinates.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      */
-    public function setCoordinates(CoordinatesInterface $coordinates): void
+    public function setCoordinates(CartesianCoordinatesInterface $coordinates): void
     {
         $this->coordinates = $coordinates;
     }

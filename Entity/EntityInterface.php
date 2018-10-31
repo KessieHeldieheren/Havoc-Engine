@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity;
 
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\Entity\Boundary\BoundaryRules\BoundaryRulesInterface;
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
 
@@ -21,10 +21,10 @@ interface EntityInterface
      *
      * @param int $id
      * @param string $name
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      * @param string $icon
      */
-    public function __construct(int $id, string $name, CoordinatesInterface $coordinates, string $icon);
+    public function __construct(int $id, string $name, CartesianCoordinatesInterface $coordinates, string $icon);
     
     /**
      * Returns id.
@@ -71,16 +71,16 @@ interface EntityInterface
     /**
      * Returns coordinates.
      *
-     * @return CoordinatesInterface
+     * @return \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface
      */
-    public function getCoordinates(): CoordinatesInterface;
+    public function getCoordinates(): CartesianCoordinatesInterface;
     
     /**
      * Sets coordinates.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      */
-    public function setCoordinates(CoordinatesInterface $coordinates): void;
+    public function setCoordinates(CartesianCoordinatesInterface $coordinates): void;
     
     /**
      * Returns type_collection.
@@ -92,16 +92,16 @@ interface EntityInterface
     /**
      * Returns initial_coordinates.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getInitialCoordinates(): CoordinatesInterface;
+    public function getInitialCoordinates(): CartesianCoordinatesInterface;
     
     /**
      * Returns last_coordinates.
      *
-     * @return CoordinatesInterface
+     * @return \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface
      */
-    public function getLastCoordinates(): CoordinatesInterface;
+    public function getLastCoordinates(): CartesianCoordinatesInterface;
     
     /**
      * Returns boundary_rules.

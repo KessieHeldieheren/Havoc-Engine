@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\EntitySupervisor;
 
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\Entity\Entity;
 use Havoc\Engine\Entity\EntityCollection\EntityCollectionInterface;
 use Havoc\Engine\Entity\EntityInterface;
@@ -28,13 +28,13 @@ interface EntitySupervisorInterface
      * Create a new entity.
      *
      * @param string $name
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      * @param string $icon
      * @param array $types
      * @param string $entity_class
      * @return EntityInterface
      */
-    public function create(string $name, CoordinatesInterface $coordinates, string $icon, array $types = [], string $entity_class = Entity::class): EntityInterface;
+    public function create(string $name, CartesianCoordinatesInterface $coordinates, string $icon, array $types = [], string $entity_class = Entity::class): EntityInterface;
     
     /**
      * Attempts to silently delete an entity. No errors occur on failure.

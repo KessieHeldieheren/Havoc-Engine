@@ -5,7 +5,7 @@ namespace Havoc\Engine\Grid\GridView;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\CoordinatesFactory;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
  * Havoc Engine grid view.
@@ -40,37 +40,9 @@ class GridView implements GridViewInterface
     /**
      * Grid view center coordinates.
      *
-     * @var CoordinatesInterface
+     * @var CartesianCoordinatesInterface
      */
     private $center_coordinates;
-    
-    /**
-     * Lowest coordinates visible on the X axis.
-     *
-     * @var int
-     */
-    private $lowest_x;
-    
-    /**
-     * Highest coordinates visible on the X axis.
-     *
-     * @var int
-     */
-    private $highest_x;
-    
-    /**
-     * Lowest coordinates visible on the Y axis.
-     *
-     * @var int
-     */
-    private $lowest_y;
-    
-    /**
-     * Highest coordinates visible on the Y axis.
-     *
-     * @var int
-     */
-    private $highest_y;
     
     /**
      * GridView constructor method.
@@ -82,17 +54,16 @@ class GridView implements GridViewInterface
         $this->setConfigController($config_controller);
         $this->setXWidth($config_controller->getXView());
         $this->setYWidth($config_controller->getYView());
-        $this->setCenterCoordinates(CoordinatesFactory::new());
-        $this->updateViewAxes();
+        $this->setCenterCoordinates(CoordinatesFactory::newCartesian());
     }
     
     /**
      * Validate that coordinates are in the grid view.
      *
-     * @param CoordinatesInterface $coordinates
+     * @param CartesianCoordinatesInterface $coordinates
      * @return bool
      */
-    public function validateCoordinatesInView(CoordinatesInterface $coordinates): bool
+    public function validateCoordinatesInView(CartesianCoordinatesInterface $coordinates): bool
     {
         [$x, $y] = $coordinates->array();
     
@@ -113,17 +84,6 @@ class GridView implements GridViewInterface
         }
     
         return true;
-    }
-    
-    /**
-     * Update view axes.
-     */
-    public function updateViewAxes(): void
-    {
-        $this->setLowestX();
-        $this->setHighestX();
-        $this->setLowestY();
-        $this->setHighestY();
     }
     
     /**
@@ -159,11 +119,13 @@ class GridView implements GridViewInterface
     /**
      * Sets x.
      *
+     * +1 sets width even for both directions.
+     *
      * @param int $x_width
      */
     public function setXWidth(int $x_width): void
     {
-        $this->x_width = $x_width;
+        $this->x_width = $x_width + 1;
     }
     
     /**
@@ -179,19 +141,21 @@ class GridView implements GridViewInterface
     /**
      * Sets y.
      *
+     * +1 sets width even for both directions.
+     *
      * @param int $y_width
      */
     public function setYWidth(int $y_width): void
     {
-        $this->y_width = $y_width;
+        $this->y_width = $y_width + 1;
     }
     
     /**
      * Returns center.
      *
-     * @return CoordinatesInterface
+     * @return CartesianCoordinatesInterface
      */
-    public function getCenterCoordinates(): CoordinatesInterface
+    public function getCenterCoordinates(): CartesianCoordinatesInterface
     {
         return $this->center_coordinates;
     }
@@ -199,9 +163,9 @@ class GridView implements GridViewInterface
     /**
      * Sets center.
      *
-     * @param CoordinatesInterface $center_coordinates
+     * @param CartesianCoordinatesInterface $center_coordinates
      */
-    public function setCenterCoordinates(CoordinatesInterface $center_coordinates): void
+    public function setCenterCoordinates(CartesianCoordinatesInterface $center_coordinates): void
     {
         $this->center_coordinates = $center_coordinates;
     }
@@ -213,15 +177,7 @@ class GridView implements GridViewInterface
      */
     public function getLowestX(): int
     {
-        return $this->lowest_x;
-    }
-    
-    /**
-     * Sets negative_x_view.
-     */
-    public function setLowestX(): void
-    {
-        $this->lowest_x = (int) ($this->getCenterCoordinates()->getX() - ($this->getXWidth() / 2));
+        return (int) ($this->getCenterCoordinates()->getX() - ($this->getXWidth() / 2));
     }
     
     /**
@@ -231,15 +187,7 @@ class GridView implements GridViewInterface
      */
     public function getHighestX(): int
     {
-        return $this->highest_x;
-    }
-    
-    /**
-     * Sets positive_x_view.
-     */
-    public function setHighestX(): void
-    {
-        $this->highest_x = (int) ($this->getCenterCoordinates()->getX() + ($this->getXWidth() / 2));
+        return (int) ($this->getCenterCoordinates()->getX() + ($this->getXWidth() / 2));
     }
     
     /**
@@ -249,15 +197,7 @@ class GridView implements GridViewInterface
      */
     public function getLowestY(): int
     {
-        return $this->lowest_y;
-    }
-    
-    /**
-     * Sets negative_y_view.
-     */
-    public function setLowestY(): void
-    {
-        $this->lowest_y = (int) ($this->getCenterCoordinates()->getY() - ($this->getYWidth() / 2));
+        return (int) ($this->getCenterCoordinates()->getY() - ($this->getYWidth() / 2));
     }
     
     /**
@@ -267,14 +207,6 @@ class GridView implements GridViewInterface
      */
     public function getHighestY(): int
     {
-        return $this->highest_y;
-    }
-    
-    /**
-     * Sets positive_y_view.
-     */
-    public function setHighestY(): void
-    {
-        $this->highest_y = (int) ($this->getCenterCoordinates()->getY() + ($this->getYWidth() / 2));
+        return (int) ($this->getCenterCoordinates()->getY() + ($this->getYWidth() / 2));
     }
 }

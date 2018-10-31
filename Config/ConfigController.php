@@ -43,13 +43,6 @@ class ConfigController implements ConfigControllerInterface
     private $y_view = DefaultConfig::WORLD_DEFAULT_Y_VIEW;
     
     /**
-     * Coordinates string format.
-     *
-     * @var string
-     */
-    private $coordinates_format = DefaultConfig::COORDINATES_FORMAT;
-    
-    /**
      * Display coordinates on the world grid.
      *
      * @var bool
@@ -185,26 +178,6 @@ class ConfigController implements ConfigControllerInterface
     public function setYView(int $y_view): void
     {
         $this->y_view = $y_view;
-    }
-    
-    /**
-     * Returns coordinates_format.
-     *
-     * @return string
-     */
-    public function getCoordinatesFormat(): string
-    {
-        return $this->coordinates_format;
-    }
-    
-    /**
-     * Sets coordinates_format.
-     *
-     * @param string $coordinates_format
-     */
-    public function setCoordinatesFormat(string $coordinates_format): void
-    {
-        $this->coordinates_format = $coordinates_format;
     }
     
     /**

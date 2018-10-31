@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Grid;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Coordinates\CoordinatesInterface;
+use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 use Havoc\Engine\WorldPoint\WorldPointInterface;
 
 /**
@@ -39,9 +39,9 @@ interface GridInterface
      * Splice world point onto grid.
      *
      * @param WorldPointInterface $world_point
-     * @param CoordinatesInterface $coordinates
+     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $coordinates
      */
-    public function insertWithCoordinates(WorldPointInterface $world_point, CoordinatesInterface $coordinates): void;
+    public function insertWithCoordinates(WorldPointInterface $world_point, CartesianCoordinatesInterface $coordinates): void;
     
     /**
      * Insert empty points into the grid.
