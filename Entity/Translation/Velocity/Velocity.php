@@ -20,6 +20,13 @@ class Velocity implements VelocityInterface
     private $velocity;
     
     /**
+     * Maximum velocity.
+     *
+     * @var float
+     */
+    private $max_velocity;
+    
+    /**
      * Velocity constructor method.
      *
      * @param float $velocity

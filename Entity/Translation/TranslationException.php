@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\Translation;
 
 use Havoc\Engine\Entity\Translation\TranslationSupervisor\TranslationSupervisorInterface;
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 
 /**
  * Havoc Engine entity translation exceptions.

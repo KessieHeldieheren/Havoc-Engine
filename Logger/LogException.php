@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Logger;
 
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;
 
 /**

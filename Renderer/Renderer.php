@@ -29,7 +29,7 @@ class Renderer implements RendererInterface
      *
      * @var GridSupervisorInterface
      */
-    private $gridgrid_supervisor;
+    private $grid_supervisor;
     
     /**
      * World render.
@@ -63,7 +63,7 @@ class Renderer implements RendererInterface
     public function __construct(ConfigControllerInterface $config_controller, GridSupervisorInterface $grid, RenderInterface $render, GridViewInterface $grid_view)
     {
         $this->setConfigController($config_controller);
-        $this->setGridgridsupervisor($grid);
+        $this->setGridgridSupervisor($grid);
         $this->setRender($render);
         $this->setGridView($grid_view);
     }
@@ -98,8 +98,8 @@ class Renderer implements RendererInterface
     protected function renderGrid(): void
     {
         $config = $this->getConfigController();
-        $x_width = $this->getGridView()->getXWidth();
-        $grid_supervisor = $this->getGridgridsupervisor();
+        $x_width = $this->getGridView()->getXView();
+        $grid_supervisor = $this->getGridgridSupervisor();
         $render = $this->getRender();
         $i = 0;
         $composition = "";
@@ -235,7 +235,7 @@ class Renderer implements RendererInterface
     {
         $config = $this->getConfigController();
         $horizontal_bar_character = $config->getRenderHorizontalBarCharacter();
-        $x_width = $this->getGridView()->getXWidth();
+        $x_width = $this->getGridView()->getXView();
         $composition = str_repeat($horizontal_bar_character, $x_width * 3);
         
         $this->renderPadding();
@@ -281,19 +281,19 @@ class Renderer implements RendererInterface
      *
      * @return GridSupervisorInterface
      */
-    public function getGridgridsupervisor(): GridSupervisorInterface
+    public function getGridgridSupervisor(): GridSupervisorInterface
     {
-        return $this->gridgrid_supervisor;
+        return $this->grid_supervisor;
     }
     
     /**
      * Sets grid.
      *
-     * @param GridSupervisorInterface $gridgrid_supervisor
+     * @param GridSupervisorInterface $grid_supervisor
      */
-    public function setGridgridsupervisor(GridSupervisorInterface $gridgrid_supervisor): void
+    public function setGridgridSupervisor(GridSupervisorInterface $grid_supervisor): void
     {
-        $this->gridgrid_supervisor = $gridgrid_supervisor;
+        $this->grid_supervisor = $grid_supervisor;
     }
     
     /**

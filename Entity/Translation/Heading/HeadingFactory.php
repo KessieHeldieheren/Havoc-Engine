@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Translation\Heading;
 
+use Havoc\Engine\Entity\Translation\Units\UnitFactory;
+
 /**
  * Havoc Engine entity translation heading factory.
  *
@@ -20,6 +22,6 @@ class HeadingFactory
      */
     public static function new(float $degrees): HeadingInterface
     {
-        return new Heading($degrees);
+        return new Heading(UnitFactory::newDegrees($degrees));
     }
 }

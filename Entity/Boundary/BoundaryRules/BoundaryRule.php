@@ -14,8 +14,23 @@ use Havoc\Engine\Enumerator\Enumerator;
  */
 abstract class BoundaryRule extends Enumerator
 {
+    /**
+     * Clamps entity to the edge of the boundary.
+     */
     public const CLAMP = 0x1;
+    
+    /**
+     * Loops entity to the opposite boundary.
+     */
     public const LOOP = 0x2;
+    
+    /**
+     * Entity ignores boundary and becomes invisible.
+     */
     public const HIDE = 0x3;
+    
+    /**
+     * Entity ignores boundary.
+     */
     public const ALLOW = 0x4;
 }

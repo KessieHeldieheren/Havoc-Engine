@@ -20,7 +20,7 @@ class PolarCoordinates implements PolarCoordinatesInterface
     private $r;
     
     /**
-     * Polar theta.
+     * Polar radians.
      *
      * @var float
      */

@@ -85,11 +85,11 @@ class WorldController implements WorldControllerInterface
         $config_controller = $this->getConfigController();
     
         $this->setGridBoundary(
-            BoundaryFactory::new($config_controller)
+            BoundaryFactory::new()
         );
         
         $this->setGridView(
-            GridViewFactory::new($config_controller)
+            GridViewFactory::new()
         );
     
         $this->setGridSupervisor(

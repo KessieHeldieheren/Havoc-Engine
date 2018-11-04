@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary;
 
-use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
@@ -17,10 +16,8 @@ interface BoundaryInterface
 {
     /**
      * Boundary constructor method.
-     *
-     * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(ConfigControllerInterface $config_controller);
+    public function __construct();
     
     /**
      * Returns x_negative.

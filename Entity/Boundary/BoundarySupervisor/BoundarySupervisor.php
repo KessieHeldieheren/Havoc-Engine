@@ -126,15 +126,18 @@ class BoundarySupervisor implements BoundarySupervisorInterface
     {
         $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getXNegative());
         $original_coordinates = $entity->getCoordinates()->clone();
+        $boundary_code = BoundaryCode::X_NEGATIVE;
         
         $rectifier->rectifyXNegative();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::X_NEGATIVE);
+        $this->getBoundaryViolations()->addViolation($entity, $boundary_code);
+        
+        $entity->onBoundaryCollision($boundary_code);
         
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryCode::getName(BoundaryCode::X_NEGATIVE),
+                BoundaryCode::getName($boundary_code),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -153,15 +156,18 @@ class BoundarySupervisor implements BoundarySupervisorInterface
     {
         $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getXPositive());
         $original_coordinates = $entity->getCoordinates()->clone();
+        $boundary_code = BoundaryCode::X_POSITIVE;
         
         $rectifier->rectifyXPositive();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::X_POSITIVE);
+        $this->getBoundaryViolations()->addViolation($entity, $boundary_code);
     
+        $entity->onBoundaryCollision($boundary_code);
+        
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryCode::getName(BoundaryCode::X_POSITIVE),
+                BoundaryCode::getName($boundary_code),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -180,15 +186,18 @@ class BoundarySupervisor implements BoundarySupervisorInterface
     {
         $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getYNegative());
         $original_coordinates = $entity->getCoordinates()->clone();
+        $boundary_code = BoundaryCode::Y_NEGATIVE;
         
         $rectifier->rectifyYNegative();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::Y_NEGATIVE);
+        $this->getBoundaryViolations()->addViolation($entity, $boundary_code);
     
+        $entity->onBoundaryCollision($boundary_code);
+        
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryCode::getName(BoundaryCode::Y_NEGATIVE),
+                BoundaryCode::getName($boundary_code),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],
@@ -207,15 +216,18 @@ class BoundarySupervisor implements BoundarySupervisorInterface
     {
         $rectifier = $this->createRectifier($entity, $entity->getBoundaryRules()->getYPositive());
         $original_coordinates = $entity->getCoordinates()->clone();
+        $boundary_code = BoundaryCode::Y_POSITIVE;
         
         $rectifier->rectifyYPositive();
-        $this->getBoundaryViolations()->addViolation($entity, BoundaryCode::Y_POSITIVE);
+        $this->getBoundaryViolations()->addViolation($entity, $boundary_code);
     
+        $entity->onBoundaryCollision($boundary_code);
+        
         $this->getLogController()->addLog(
             [
                 $entity->getName(),
                 $entity->getId(),
-                BoundaryCode::getName(BoundaryCode::Y_POSITIVE),
+                BoundaryCode::getName($boundary_code),
                 $original_coordinates->string(),
                 $entity->getCoordinates()->string()
             ],

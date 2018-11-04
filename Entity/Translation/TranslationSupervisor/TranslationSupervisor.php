@@ -74,37 +74,6 @@ class TranslationSupervisor implements TranslationSupervisorInterface
             self::LOG_TELEPORTED_ENTITY,
             self::class
         );
-        
-        $this->detectEntityCollisions($entity);
-    }
-    
-    /**
-     * Detect a collision with an entity.
-     *
-     * @param EntityInterface $entity
-     */
-    protected function detectEntityCollisions(EntityInterface $entity): void
-    {
-        $coordinates = $entity->getCoordinates()->rounded();
-        $entities = $this->getEntitySupervisor()->getEntityCollection()->getEntities();
-        
-        unset ($entities[$entity->getId()]);
-        
-        foreach ($entities as $target_entity) {
-            if ($coordinates->array() === $target_entity->getCoordinates()->rounded()->array()) {
-                $this->getLogController()->addLog(
-                    [
-                        $entity->getName(),
-                        $entity->getId(),
-                        $target_entity->getName(),
-                        $target_entity->getId(),
-                        $coordinates->string()
-                    ],
-                "%s (#%s) collided with %s (#%s) at %s.",
-                self::class
-                );
-            }
-        }
     }
     
     /**

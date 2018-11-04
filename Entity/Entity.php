@@ -293,4 +293,11 @@ class Entity implements EntityInterface, WorldPointInterface
     {
         $this->visible = $visible;
     }
+    
+    /**
+     * Callable: on boundary collision.
+     *
+     * @param int $boundary_code
+     */
+    public function onBoundaryCollision(int $boundary_code): void {}
 }

@@ -123,4 +123,11 @@ interface EntityInterface
      * @param bool $visible
      */
     public function setVisible(bool $visible): void;
+    
+    /**
+     * Callable: on boundary collision.
+     *
+     * @param int $boundary_code
+     */
+    public function onBoundaryCollision(int $boundary_code): void;
 }

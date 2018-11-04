@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Save\SaveStorage;
 
-use Havoc\Engine\Save\SaveStorage\SaveStorageFilesystem\SaveStorageFilesystem;
-
 /**
  * Havoc Engine save storage interface.
  *

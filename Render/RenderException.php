@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Render;
 
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 
 /**
  * Havoc Engine render exceptions.

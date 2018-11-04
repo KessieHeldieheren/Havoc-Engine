@@ -76,8 +76,8 @@ class GridSupervisor implements GridSupervisorInterface
     {
         $config = $this->getConfigController();
         $grid_view = $this->getGridView();
-        $x_width = $grid_view->getXWidth();
-        $y_width = $grid_view->getYWidth();
+        $x_width = $grid_view->getXView();
+        $y_width = $grid_view->getYView();
         $lowest_x = $grid_view->getLowestX();
         $lowest_y = $grid_view->getLowestY() - 1; # todo not have to subtract 1 from the Y axis.
         $total = $x_width * $y_width;
@@ -132,9 +132,9 @@ class GridSupervisor implements GridSupervisorInterface
     
         $grid_view_center = $grid_view->getCenterCoordinates();
         # Casting to int prevents fractional results. Non-conducive to splicing in entities to the world grid.
-        $point_x = (int) ($coordinates->getX() - $grid_view_center->getX() + ($grid_view->getXWidth() / 2));
-        $point_y = (int) ($coordinates->getY() - $grid_view_center->getY() + ($grid_view->getYWidth() / 2));
-        $index = $point_x + $point_y * $grid_view->getXWidth();
+        $point_x = (int) ($coordinates->getX() - $grid_view_center->getX() + ($grid_view->getXView() / 2));
+        $point_y = (int) ($coordinates->getY() - $grid_view_center->getY() + ($grid_view->getYView() / 2));
+        $index = $point_x + $point_y * $grid_view->getXView();
         
         $this->grid[$index] = $world_point;
     }

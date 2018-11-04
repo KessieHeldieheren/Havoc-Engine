@@ -8,7 +8,6 @@ use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Grid\GridView\GridViewInterface;
 use Havoc\Engine\Render\RenderInterface;
-use Havoc\Engine\Renderer\Renderer;
 use ReflectionClass;
 
 /**

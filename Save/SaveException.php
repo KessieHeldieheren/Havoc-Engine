@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Save;
 
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 use Havoc\Engine\Save\SaveCollection\SaveCollectionInterface;
 use Havoc\Engine\Save\SaveController\SaveControllerInterface;
 use Havoc\Engine\Save\SaveStorage\SaveStorageInterface;

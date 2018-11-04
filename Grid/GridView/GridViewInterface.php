@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Grid\GridView;
 
-use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
@@ -17,38 +16,36 @@ interface GridViewInterface
 {
     /**
      * GridView constructor method.
-     *
-     * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(ConfigControllerInterface $config_controller);
+    public function __construct();
     
     /**
      * Returns x.
      *
      * @return int
      */
-    public function getXWidth(): int;
+    public function getXView(): int;
     
     /**
      * Sets x.
      *
      * @param int $x_width
      */
-    public function setXWidth(int $x_width): void;
+    public function setXView(int $x_width): void;
     
     /**
      * Returns y.
      *
      * @return int
      */
-    public function getYWidth(): int;
+    public function getYView(): int;
     
     /**
      * Sets y.
      *
      * @param int $y_width
      */
-    public function setYWidth(int $y_width): void;
+    public function setYView(int $y_width): void;
     
     /**
      * Returns center.
@@ -60,7 +57,7 @@ interface GridViewInterface
     /**
      * Sets center.
      *
-     * @param \Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface $center
+     * @param CartesianCoordinatesInterface $center
      */
     public function setCenterCoordinates(CartesianCoordinatesInterface $center): void;
     

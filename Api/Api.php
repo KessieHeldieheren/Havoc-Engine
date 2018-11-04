@@ -73,7 +73,6 @@ class Api implements ApiInterface
         $this->getCore()->getTickController()->incrementCurrentTick();
         $entity_controller->getBoundarySupervisor()->rectifyBoundaryViolations();
         $world_controller->getGridSupervisor()->insertEmptyPoints();
-        # todo add detect collisions here.
         $entity_controller->mapEntitiesToGrid();
     }
     

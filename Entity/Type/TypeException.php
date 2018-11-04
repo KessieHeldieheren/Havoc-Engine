@@ -5,7 +5,7 @@ namespace Havoc\Engine\Entity\Type;
 
 use Havoc\Engine\Entity\Type\TypeCollection\TypeCollectionInterface;
 use Havoc\Engine\Entity\Type\TypeSupervisor\TypeSupervisorInterface;
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 
 /**
  * Havoc Engine type exceptions.

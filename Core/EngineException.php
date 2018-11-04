@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Havoc\Engine\Exceptions;
+namespace Havoc\Engine\Core;
 
 /**
  * Havoc Engine engine related exceptions.

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Coordinates\Cartesian;
 
+use Havoc\Engine\Coordinates\CoordinatesException;
+
 /**
  * Havoc Engine world cartesian coordinates.
  *
@@ -12,6 +14,11 @@ namespace Havoc\Engine\Coordinates\Cartesian;
  */
 class CartesianCoordinates implements CartesianCoordinatesInterface
 {
+    public const X_MAX = 9000000000000000000;
+    public const Y_MAX = 9000000000000000000;
+    public const X_MIN = -9000000000000000000;
+    public const Y_MIN = -9000000000000000000;
+    
     /**
      * Coordinates on the X axis.
      *
@@ -27,7 +34,7 @@ class CartesianCoordinates implements CartesianCoordinatesInterface
     private $y;
     
     /**
-     * Coordinates constructor method.
+     * CartesianCoordinates constructor method.
      *
      * @param float $x
      * @param float $y
@@ -55,6 +62,14 @@ class CartesianCoordinates implements CartesianCoordinatesInterface
      */
     public function setX(float $x): void
     {
+        if ($x > self::X_MAX) {
+            throw CoordinatesException::xCartesianOverMax($x);
+        }
+        
+        if ($x < self::X_MIN) {
+            throw CoordinatesException::xCartesianUnderMin($x);
+        }
+        
         $this->x = $x;
     }
     
@@ -75,6 +90,14 @@ class CartesianCoordinates implements CartesianCoordinatesInterface
      */
     public function setY(float $y): void
     {
+        if ($y > self::Y_MAX) {
+            throw CoordinatesException::yCartesianOverMax($y);
+        }
+        
+        if ($y < self::Y_MIN) {
+            throw CoordinatesException::yCartesianUnderMin($y);
+        }
+        
         $this->y = $y;
     }
     
@@ -98,7 +121,7 @@ class CartesianCoordinates implements CartesianCoordinatesInterface
         $coordinates = clone $this;
         
         $coordinates->setX(round($coordinates->getX(), 0, PHP_ROUND_HALF_DOWN));
-        $coordinates->setY(round($coordinates->getY(), 0), PHP_ROUND_HALF_DOWN);
+        $coordinates->setY(round($coordinates->getY(), 0, PHP_ROUND_HALF_DOWN));
         
         return $coordinates;
     }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Timer;
 
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 use Havoc\Engine\Timer\Countdown\CountdownInterface;
 use Havoc\Engine\Timer\Counter\CounterInterface;
 use Havoc\Engine\Timer\Repeater\RepeaterInterface;

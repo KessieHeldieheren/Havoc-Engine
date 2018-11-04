@@ -23,6 +23,6 @@ class BoundaryRulesFactory
      */
     public static function new(int $x_negative, int $x_positive, int $y_negative, int $y_positive): BoundaryRulesInterface
     {
-        return new BoundaryBoundaryRules($x_negative, $x_positive, $y_negative, $y_positive);
+        return new BoundaryRules($x_negative, $x_positive, $y_negative, $y_positive);
     }
 }

@@ -13,34 +13,6 @@ namespace Havoc\Engine\Config;
 interface ConfigControllerInterface
 {
     /**
-     * Returns x_grid.
-     *
-     * @return int
-     */
-    public function getXBoundary(): int;
-    
-    /**
-     * Sets x_grid.
-     *
-     * @param int $x_grid
-     */
-    public function setXBoundary(int $x_grid): void;
-    
-    /**
-     * Returns y_grid.
-     *
-     * @return int
-     */
-    public function getYBoundary(): int;
-    
-    /**
-     * Sets y_grid.
-     *
-     * @param int $y_grid
-     */
-    public function setYBoundary(int $y_grid): void;
-    
-    /**
      * Returns display_coordinates.
      *
      * @return bool
@@ -109,34 +81,6 @@ interface ConfigControllerInterface
      * @param string $render_vertical_bar_character
      */
     public function setRenderVerticalBarCharacter(string $render_vertical_bar_character): void;
-    
-    /**
-     * Returns x_view.
-     *
-     * @return int
-     */
-    public function getXView(): int;
-    
-    /**
-     * Sets x_view.
-     *
-     * @param int $x_view
-     */
-    public function setXView(int $x_view): void;
-    
-    /**
-     * Returns y_view.
-     *
-     * @return int
-     */
-    public function getYView(): int;
-    
-    /**
-     * Sets y_view.
-     *
-     * @param int $y_view
-     */
-    public function setYView(int $y_view): void;
     
     /**
      * Returns world_point_out_of_bounds_icon.

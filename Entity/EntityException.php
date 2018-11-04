@@ -5,7 +5,7 @@ namespace Havoc\Engine\Entity;
 
 use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
 use Havoc\Engine\Entity\EntitySupervisor\EntitySupervisorInterface;
-use Havoc\Engine\Exceptions\EngineException;
+use Havoc\Engine\Core\EngineException;
 
 /**
  * Havoc Engine entity exceptions.

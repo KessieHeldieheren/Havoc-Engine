@@ -12,38 +12,4 @@ namespace Havoc\Engine\Entity\Translation\Heading;
  */
 interface HeadingInterface
 {
-    /**
-     * Heading constructor method.
-     *
-     * @param float $degrees
-     */
-    public function __construct(float $degrees);
-    
-    /**
-     * Returns radians.
-     *
-     * @return float
-     */
-    public function getRadians(): float;
-    
-    /**
-     * Sets radians.
-     *
-     * @param float $radians
-     */
-    public function setRadians(float $radians): void;
-    
-    /**
-     * Sets heading.
-     *
-     * @param float $degrees
-     */
-    public function setDegrees(float $degrees): void;
-    
-    /**
-     * Returns heading.
-     *
-     * @return float
-     */
-    public function getDegrees(): float;
 }

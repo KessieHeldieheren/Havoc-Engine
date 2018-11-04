@@ -26,6 +26,8 @@ use Havoc\Engine\World\WorldControllerFactory;
  */
 class Core implements CoreInterface
 {
+    public const LOG_BOOTUP = "Successfully booted the engine.";
+    
     /**
      * Core controllers.
      *
@@ -128,6 +130,12 @@ class Core implements CoreInterface
         );
         
         $this->getTickController()->incrementCurrentTick();
+        
+        $this->getLogController()->addLog(
+            [],
+            self::LOG_BOOTUP,
+            self::class
+        );
     }
     
     /**

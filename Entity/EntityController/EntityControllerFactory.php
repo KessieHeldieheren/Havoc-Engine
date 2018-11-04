@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace Havoc\Engine\Entity\EntityController;
 
 use Havoc\Engine\Config\ConfigControllerInterface;
-use Havoc\Engine\Entity\EntityController\EntityController;
-use Havoc\Engine\Entity\EntityController\EntityControllerInterface;
 use Havoc\Engine\Entity\EntityException;
 use Havoc\Engine\Grid\GridSupervisor\GridSupervisorInterface;
 use Havoc\Engine\Logger\LogController\LogControllerInterface;

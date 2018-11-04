@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Boundary;
 
-use Havoc\Engine\Config\ConfigControllerInterface;
 use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
 
 /**
@@ -15,12 +14,10 @@ use Havoc\Engine\Coordinates\Cartesian\CartesianCoordinatesInterface;
  */
 class Boundary implements BoundaryInterface
 {
-    /**
-     * Configuration controller.
-     *
-     * @var ConfigControllerInterface
-     */
-    private $config_controller;
+    public const X_BOUNDARY_DEFAULT = 9000000000000000000;
+    public const Y_BOUNDARY_DEFAULT = 9000000000000000000;
+    public const X_BOUNDARY_MAX = 9000000000000000000;
+    public const Y_BOUNDARY_MAX = 9000000000000000000;
     
     /**
      * X negative axis boundary.
@@ -52,12 +49,9 @@ class Boundary implements BoundaryInterface
     
     /**
      * Boundary constructor method.
-     *
-     * @param ConfigControllerInterface $config_controller
      */
-    public function __construct(ConfigControllerInterface $config_controller)
+    public function __construct()
     {
-        $this->setConfigController($config_controller);
         $this->setInitialBoundaries();
     }
     
@@ -84,10 +78,8 @@ class Boundary implements BoundaryInterface
      */
     protected function setInitialBoundaries(): void
     {
-        $this->setXNegative(0 - $this->getConfigController()->getXBoundary());
-        $this->setXPositive($this->getConfigController()->getXBoundary());
-        $this->setYNegative(0 - $this->getConfigController()->getYBoundary());
-        $this->setYPositive($this->getConfigController()->getYBoundary());
+        $this->setXBoundary(self::X_BOUNDARY_DEFAULT);
+        $this->setYBoundary(self::Y_BOUNDARY_DEFAULT);
     }
     
     /**
@@ -97,6 +89,17 @@ class Boundary implements BoundaryInterface
      */
     public function setXBoundary(int $x_boundary): void
     {
+        if ($x_boundary === 0) {
+            $this->setXNegative(0 - self::X_BOUNDARY_MAX);
+            $this->setXPositive(self::X_BOUNDARY_MAX);
+            
+            return;
+        }
+        
+        if ($x_boundary > self::X_BOUNDARY_MAX) {
+            throw BoundaryException::xGridOverMax($x_boundary);
+        }
+        
         $this->setXNegative(0 - $x_boundary);
         $this->setXPositive($x_boundary);
     }
@@ -108,28 +111,19 @@ class Boundary implements BoundaryInterface
      */
     public function setYBoundary(int $y_boundary): void
     {
+        if ($y_boundary === 0) {
+            $this->setYNegative(0 - self::Y_BOUNDARY_MAX);
+            $this->setYPositive(self::Y_BOUNDARY_MAX);
+        
+            return;
+        }
+        
+        if ($y_boundary > self::Y_BOUNDARY_MAX) {
+            throw BoundaryException::yGridOverMax($y_boundary);
+        }
+        
         $this->setYNegative(0 - $y_boundary);
         $this->setYPositive($y_boundary);
-    }
-    
-    /**
-     * Returns config_controller.
-     *
-     * @return ConfigControllerInterface
-     */
-    public function getConfigController(): ConfigControllerInterface
-    {
-        return $this->config_controller;
-    }
-    
-    /**
-     * Sets config_controller.
-     *
-     * @param ConfigControllerInterface $config_controller
-     */
-    public function setConfigController(ConfigControllerInterface $config_controller): void
-    {
-        $this->config_controller = $config_controller;
     }
     
     /**

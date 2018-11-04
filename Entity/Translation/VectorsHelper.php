@@ -65,7 +65,7 @@ abstract class VectorsHelper
     {
         $radians = self::angle($coordinates_from, $coordinates_to);
         
-        return self::radiansToCartesianCoordinates($radians);
+        return self::radiansToCartesian($radians);
     }
     
     /**
@@ -130,7 +130,7 @@ abstract class VectorsHelper
      * @param RadiansInterface $radians
      * @return CartesianCoordinatesInterface
      */
-    public static function radiansToCartesianCoordinates(RadiansInterface $radians): CartesianCoordinatesInterface
+    public static function radiansToCartesian(RadiansInterface $radians): CartesianCoordinatesInterface
     {
         $radians_value = $radians->getRadians();
         

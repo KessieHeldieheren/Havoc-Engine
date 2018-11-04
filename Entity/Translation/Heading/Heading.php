@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Havoc\Engine\Entity\Translation\Heading;
 
+use Havoc\Engine\Entity\Translation\Units\Degrees\DegreesInterface;
+use Havoc\Engine\Entity\Translation\Units\Radians\RadiansInterface;
 use Havoc\Engine\Entity\Translation\VectorsHelper;
 
 /**
@@ -17,44 +19,51 @@ class Heading implements HeadingInterface
     /**
      * Translation heading.
      *
-     * @var float
+     * @var DegreesInterface
      */
     private $degrees;
     
     /**
      * Heading in radians.
      *
-     * @var float
+     * @var RadiansInterface
      */
     private $radians;
     
     /**
+     * Maximum change in heading per tick.
+     *
+     * @var float
+     */
+    private $delta;
+    
+    /**
      * Heading constructor method.
      *
-     * @param float $degrees
+     * @param DegreesInterface $degrees
      */
-    public function __construct(float $degrees)
+    public function __construct(DegreesInterface $degrees)
     {
         $this->setDegrees($degrees);
         $this->setRadians(VectorsHelper::degreesToRadians($degrees));
     }
     
     /**
-     * Returns heading.
+     * Returns degrees.
      *
-     * @return float
+     * @return DegreesInterface
      */
-    public function getDegrees(): float
+    public function getDegrees(): DegreesInterface
     {
         return $this->degrees;
     }
     
     /**
-     * Sets heading.
+     * Sets degrees.
      *
-     * @param float $degrees
+     * @param DegreesInterface $degrees
      */
-    public function setDegrees(float $degrees): void
+    public function setDegrees(DegreesInterface $degrees): void
     {
         $this->degrees = $degrees;
     }
@@ -62,9 +71,9 @@ class Heading implements HeadingInterface
     /**
      * Returns radians.
      *
-     * @return float
+     * @return RadiansInterface
      */
-    public function getRadians(): float
+    public function getRadians(): RadiansInterface
     {
         return $this->radians;
     }
@@ -72,10 +81,30 @@ class Heading implements HeadingInterface
     /**
      * Sets radians.
      *
-     * @param float $radians
+     * @param RadiansInterface $radians
      */
-    public function setRadians(float $radians): void
+    public function setRadians(RadiansInterface $radians): void
     {
         $this->radians = $radians;
+    }
+    
+    /**
+     * Returns delta.
+     *
+     * @return float
+     */
+    public function getDelta(): float
+    {
+        return $this->delta;
+    }
+    
+    /**
+     * Sets delta.
+     *
+     * @param float $delta
+     */
+    public function setDelta(float $delta): void
+    {
+        $this->delta = $delta;
     }
 }
